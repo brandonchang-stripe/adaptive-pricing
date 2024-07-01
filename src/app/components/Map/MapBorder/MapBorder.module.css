@@ -1,0 +1,13 @@
+.border {
+  background-color: var(--color-100);
+}
+
+.leftBorder {
+  grid-area: left-b;
+  border-right: var(--pixel-size) solid var(--color-500);
+}
+
+.bottomBorder {
+  grid-area: bottom-b;
+  border-top: var(--pixel-size) solid var(--color-500);
+}
