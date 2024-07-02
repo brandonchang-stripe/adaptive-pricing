@@ -1,28 +1,42 @@
 "use client";
 
-import React, { use } from "react";
+import React, { use, useEffect } from "react";
 import PixelContext from "./components/Context";
-import Map from "./components/Map";
 import Panel from "./components/Panel";
 import styles from "./page.module.css";
-import Slider from "./components/Slider";
-import usePriceUpdater from "./usePriceUpdater";
+import { Conversion } from "./components/Conversion";
+import { useAppStore } from "./store";
+import { ItemDisplay } from "./components/ItemDisplay";
+import Budget from "./components/Budget";
+import Decider from "./components/Decider";
+import Score from "./components/Score";
 
 export default function Home() {
-  usePriceUpdater({ purchaseRate: 2000, changeRate: 0.1, tickRate: 1000 });
+  const chooseRandomItem = useAppStore(store => store.chooseRandomItem);
+
+  useEffect(() => {
+    chooseRandomItem();
+  }, [chooseRandomItem])
 
   return (
     <PixelContext>
       <main className={styles.main}>
         <div className={styles.grid}>
-          <Panel gridName="sta" label="Conversion">
-            <Slider />
+          <Panel gridName="covn" label="Conversion">
+            <Conversion />
           </Panel>
-          <Panel gridName="fee" label="Feed"></Panel>
-          <Panel gridName="map" label="World Map">
-            <Map />
+          <Panel gridName="item" label="Item">
+            <ItemDisplay />
           </Panel>
-          <Panel gridName="rev" label="Revenue"></Panel>
+          <Panel gridName="budt" label="Budget">
+            <Budget />
+          </Panel>
+          <Panel gridName="butn" label="Buttons">
+            <Decider />
+          </Panel>
+          <Panel gridName="scor" label="Score">
+            <Score />
+          </Panel>
         </div>
       </main>
     </PixelContext>

@@ -15,8 +15,6 @@
   color: var(--color-100);
   font-size: calc(var(--pixel-size) * 8.3);
   letter-spacing: calc(var(--pixel-size) * -.95);
-  line-height: 0.5;
-  text-indent: calc(var(--pixel-size) * -1.5);
   font-smooth: never;
   -webkit-font-smoothing: none;
   -moz-osx-font-smoothing: none;
@@ -32,6 +30,16 @@ body {
 
 body {
   background-color: var(--color-100);
+}
+
+.price {
+  letter-spacing: calc(var(--pixel-size) * 1.05);
+  font-size: calc(var(--pixel-size) * 10);
+  color: var(--color-600);
+  display: block;
+  border: calc(var(--pixel-size) * 2) solid var(--color-600);
+  padding: calc(var(--pixel-size) * 2);
+  background-color: var(--color-300);
 }
 
 a {

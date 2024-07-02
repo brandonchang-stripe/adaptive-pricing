@@ -2,7 +2,7 @@ import type { DragData } from "@/app/hooks/useDrag";
 import { useCallback, useEffect, useRef } from "react";
 import { useAppStore } from "@/app/store";
 import styles from "./MapMarkers.module.css";
-import { countryData } from "../../data";
+import { countryData } from "../../countryData";
 import MapMarker from "../MapMarker/MapMarker";
 
 export type Props = {

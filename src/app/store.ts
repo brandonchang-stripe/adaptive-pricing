@@ -1,63 +1,82 @@
 import { create } from "zustand";
-import { countryData, CountryData } from "./components/data";
+import { countryData, type CountryData } from "./components/countryData";
+import { itemData, ItemData } from "./components/itemData";
+import { randiRange } from "./util/math";
+import { soundBoard } from "./hooks/useAudio";
 
-const ZOOM_MIN = 1;
-const ZOOM_MAX = 5;
+type ActiveItem = {
+  localPrice: number;
+  usdPrice: number;
+  budget: number;
+} & ItemData;
+
+type Choice = "buy" | "skip";
 
 interface AppState {
-  countries: CountryData[];
-  selectedCountry: number | null;
-  setSelectedCountry: (index: number | null) => void;
-  setSelectedCountryRate: (rate: number) => void;
-  setCountries: (countries: CountryData[]) => void;
-  zoom: number;
-  zoomIn: () => void;
-  zoomOut: () => void;
+  currentItem: ActiveItem | null;
+  score: number;
+  timeLimit: number;
+  priceRange: number;
+  budgetRange: number;
+  chooseRandomItem: () => void;
+  evaluate: (choice: Choice) => void;
 }
 
 export const useAppStore = create<AppState>((set, get) => ({
-  countries: [...countryData],
-  selectedCountry: null,
-  setSelectedCountry: (index) => {
+  currentItem: null,
+  score: 0,
+  timeLimit: 10,
+  priceRange: 0.3,
+  budgetRange: 0.4,
+  chooseRandomItem: () => {
     set((state) => {
-      if (state.selectedCountry === index || index === null) {
-        // Play deselect sound
-        return { selectedCountry: null };
-      } else {
-        // Play select sound
-        return { selectedCountry: index };
-      }
-    });
-  },
-  setSelectedCountryRate: (rate) => {
-    set((state) => {
-      if (state.selectedCountry !== null) {
-        const updatedCountry = {
-          ...state.countries[state.selectedCountry],
-          currentConversionRate: rate,
-        };
+      const item = itemData[randiRange(0, itemData.length - 1)];
+      const country = getItemCountry(item)!;
+      const usdPrice = randiRange(
+        item.usdPrice - item.usdPrice * state.priceRange,
+        item.usdPrice + item.usdPrice * state.priceRange
+      );
+      const localPrice =
+        Math.floor(country.conversionRateDefault * usdPrice * 100) / 100;
+      const budget = randiRange(
+        Math.floor(item.usdPrice - item.usdPrice * state.budgetRange),
+        Math.floor(item.usdPrice + item.usdPrice * state.budgetRange)
+      );
 
-        return {
-          countries: state.countries.map((country, index) => {
-            if (index !== state.selectedCountry) return country;
-            return updatedCountry;
-          }),
-          selectedCountryData: updatedCountry,
-        };
-      } else {
-        return state;
-      }
+      return {
+        currentItem: { ...item, localPrice, budget },
+      };
     });
   },
-  setCountries: (countries) => set({ countries }),
-  selectedCountryData: null,
-  zoom: 1,
-  zoomIn: () => set((state) => ({ zoom: Math.max(state.zoom - 1, ZOOM_MIN) })),
-  zoomOut: () => set((state) => ({ zoom: Math.min(state.zoom + 1, ZOOM_MAX) })),
+  evaluate: (choice: Choice) => {
+    const item = get().currentItem!;
+    let points = 0;
+    if (choice == "buy") {
+      points = item.budget >= item.usdPrice ? 1 : 0;
+    } else {
+      points = item.budget < item.usdPrice ? 1 : 0;
+    }
+
+    if (points > 0) {
+      soundBoard.correct.play();
+    } else {
+      soundBoard.error.play();
+    }
+
+    set((state) => ({
+      score: state.score + points,
+    }));
+  },
 }));
 
-export function useSelectedCountryData() {
-  return useAppStore((state) =>
-    state.selectedCountry ? state.countries[state.selectedCountry] : null
-  );
+export function useCurrentCountry(): CountryData | null {
+  return useAppStore((state) => {
+    const item = state.currentItem;
+    if (!item) return null;
+    return getItemCountry(item);
+  });
+}
+
+function getItemCountry(item: ItemData): CountryData | null {
+  return countryData.find((country) => country.name == item.country) || null;
 }

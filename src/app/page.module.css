@@ -6,15 +6,17 @@
 }
 
 .grid {
-  flex-grow: 1;
+  height: min(700px);
   flex-shrink: 0;
   display: grid;
-  grid-template-columns: calc(var(--pixel-size) * 160) auto ;
-  grid-template-rows: 1fr 3fr;
+  grid-template-columns: 1fr minmax(420px, 2fr) 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
   grid-template-areas:
-    "fee sta"
-    "rev map";
-  height: 100%;
+    ". scor ."
+    ". covn ."
+    ". item ." 
+    ". budt ."
+    ". butn .";
   width: 100%;
   gap: calc(var(--pixel-size) * 2);
 }

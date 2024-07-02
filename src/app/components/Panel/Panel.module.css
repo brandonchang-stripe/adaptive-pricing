@@ -6,6 +6,9 @@
 }
 
 .label {
+  color: var(--color-100);
+  line-height: 0.5;
+  text-indent: calc(var(--pixel-size) * -1.5);
   padding: var(--panel-padding, 
     calc(var(--pixel-size) * 2) /* top */
     calc(var(--pixel-size) * 1) /* right */

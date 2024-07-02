@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "howler": "^2.2.4",
     "next": "14.2.4",
     "react": "^18",
     "react-dom": "^18",
@@ -16,6 +17,7 @@
     "zustand": "^4.5.4"
   },
   "devDependencies": {
+    "@types/howler": "^2.2.11",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

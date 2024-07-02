@@ -6,7 +6,7 @@ export type CountryData = {
   position: { x: number; y: number };
 };
 
-export const countryData: CountryData[] = [
+export const countryData = [
   {
     name: "United States",
     currencySymbol: "$",
@@ -65,6 +65,13 @@ export const countryData: CountryData[] = [
   },
   {
     name: "Spain",
+    currencySymbol: "€",
+    conversionRateDefault: 0.82,
+    currentConversionRate: 0.82,
+    position: { x: 170, y: 180 },
+  },
+  {
+    name: "Finland",
     currencySymbol: "€",
     conversionRateDefault: 0.82,
     currentConversionRate: 0.82,
@@ -190,4 +197,6 @@ export const countryData: CountryData[] = [
     currentConversionRate: 27.9,
     position: { x: 510, y: 520 },
   },
-];
+] as const;
+
+export type CountryName = typeof countryData[number]['name'];

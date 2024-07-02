@@ -1,6 +1,6 @@
 import { MouseEventHandler } from "react";
 import { useAppStore } from "@/app/store";
-import { CountryData } from "../../data";
+import { CountryData } from "../../countryData";
 import styles from "./MapMarker.module.css";
 
 export type Props = {
