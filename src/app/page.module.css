@@ -9,7 +9,7 @@
   height: min(700px);
   flex-shrink: 0;
   display: grid;
-  grid-template-columns: 20px 1fr 1fr 20px;
+  grid-template-columns: auto 380px 380px auto;
   grid-template-rows: 1fr 1fr 1fr 1fr;
   grid-template-areas:
     ". scor scor ."
