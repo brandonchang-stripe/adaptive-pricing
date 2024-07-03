@@ -12,7 +12,7 @@
   --color-500: #69809e;
   --color-600: #94c5ac;
 
-  color: var(--color-100);
+  color: var(--color-600);
   font-size: calc(var(--pixel-size) * 8.3);
   letter-spacing: calc(var(--pixel-size) * -.95);
   font-smooth: never;
