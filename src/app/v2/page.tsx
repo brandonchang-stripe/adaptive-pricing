@@ -1,6 +1,6 @@
 "use client";
 
-import React, { use, useEffect } from "react";
+import React, { useState } from "react";
 import styles from "./page.module.css";
 import { useAppStore } from "../store";
 import PixelContext from "../components/Context";
