@@ -22,7 +22,7 @@ const Timer = forwardRef<TimerHandle, Props>(function Timer(
   const rafRef = useRef<number | null>(null);
   const startTimeRef = useRef<number | null>(null);
   const progressRef = useRef<HTMLProgressElement>(null);
-  const [duration, setDuration] = useState(10000);
+  const [duration, setDuration] = useState(20000);
 
   useEffect(() => {
     function tick() {
@@ -30,16 +30,13 @@ const Timer = forwardRef<TimerHandle, Props>(function Timer(
       rafRef.current = requestAnimationFrame(tick);
       if (startTimeRef.current !== null) {
         const elapsed = now - startTimeRef.current;
-        console.log("elapsed", elapsed);
 
         if (progressRef.current) {
           const value = 100 - (elapsed / duration) * 100;
-          console.log(value);
           progressRef.current.value = value;
         }
 
         if (elapsed >= duration) {
-          console.log("timeup", elapsed, duration);
           startTimeRef.current = null;
           onTimeout();
         }
@@ -59,7 +56,6 @@ const Timer = forwardRef<TimerHandle, Props>(function Timer(
         start(duration: number) {
           setDuration(duration);
           startTimeRef.current = Date.now();
-          console.log("start", startTimeRef.current);
         },
       };
     },

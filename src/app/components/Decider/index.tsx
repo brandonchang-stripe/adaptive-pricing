@@ -7,6 +7,7 @@ import Timer, { TimerHandle } from "../Timer";
 export default function Decider() {
   const evaluate = useAppStore((state) => state.evaluate);
   const losePoint = useAppStore((state) => state.losePoint);
+  const level = useAppStore((state) => state.level);
   const timerRef = useRef<TimerHandle>(null);
   const play = useAudio();
 
@@ -29,7 +30,8 @@ export default function Decider() {
 
   const startTimer = () => {
     if (timerRef.current) {
-      timerRef.current.start(18000);
+      const time = Math.max((30000 - level * 1500), 6000)
+      timerRef.current.start(time);
     }
   };
 

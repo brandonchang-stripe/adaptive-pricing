@@ -15,7 +15,7 @@ type Choice = "buy" | "skip";
 interface AppState {
   currentItem: ActiveItem | null;
   score: number;
-  itemCount: number;
+  level: number;
   timeLimit: number;
   priceRange: number;
   budgetRange: number;
@@ -28,7 +28,7 @@ interface AppState {
 export const useAppStore = create<AppState>((set, get) => ({
   currentItem: null,
   score: 0,
-  itemCount: 1,
+  level: 1,
   timeLimit: 10,
   priceRange: 0.3,
   budgetRange: 0.4,
@@ -72,14 +72,14 @@ export const useAppStore = create<AppState>((set, get) => ({
     soundBoard.correct.play();
     set((state) => ({
       score: state.score + 1,
-      itemCount: state.itemCount + 1,
+      level: state.level + 1,
     }));
     get().chooseRandomItem();
   },
 
   losePoint: () => {
     soundBoard.error.play();
-    set((state) => ({ itemCount: state.itemCount + 1 }));
+    set((state) => ({ level: state.level + 1 }));
     get().chooseRandomItem();
   },
 }));
