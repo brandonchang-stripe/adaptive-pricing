@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { countryData, type CountryData } from "./components/countryData";
 import { itemData, ItemData } from "./components/itemData";
-import { randiRange } from "./util/math";
+import { randiRange, relativeRound } from "./util/math";
 import { soundBoard } from "./hooks/useAudio";
 
 type ActiveItem = {
@@ -36,8 +36,8 @@ export const useAppStore = create<AppState>((set, get) => ({
         item.usdPrice - item.usdPrice * state.priceRange,
         item.usdPrice + item.usdPrice * state.priceRange
       );
-      const localPrice =
-        Math.floor(country.conversionRateDefault * usdPrice * 100) / 100;
+      let localPrice = relativeRound(country.conversionRateDefault * usdPrice);
+
       const budget = randiRange(
         Math.floor(item.usdPrice - item.usdPrice * state.budgetRange),
         Math.floor(item.usdPrice + item.usdPrice * state.budgetRange)
