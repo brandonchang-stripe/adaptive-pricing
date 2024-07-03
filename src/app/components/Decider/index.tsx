@@ -29,7 +29,7 @@ export default function Decider() {
 
   const startTimer = () => {
     if (timerRef.current) {
-      timerRef.current.start(10000);
+      timerRef.current.start(18000);
     }
   };
 
