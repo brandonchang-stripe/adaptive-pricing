@@ -5,7 +5,6 @@ import { randiRange, relativeRound } from "./util/math";
 import { soundBoard } from "./hooks/useAudio";
 
 type ActiveItem = {
-  localPrice: number;
   usdPrice: number;
   budget: number;
 } & ItemData;
@@ -40,7 +39,6 @@ export const useAppStore = create<AppState>((set, get) => ({
         item.usdPrice - item.usdPrice * state.priceRange,
         item.usdPrice + item.usdPrice * state.priceRange
       );
-      let localPrice = relativeRound(country.conversionRateDefault * usdPrice);
 
       const budget = randiRange(
         Math.floor(item.usdPrice - item.usdPrice * state.budgetRange),
@@ -48,7 +46,7 @@ export const useAppStore = create<AppState>((set, get) => ({
       );
 
       return {
-        currentItem: { ...item, localPrice, budget },
+        currentItem: { ...item, budget },
       };
     });
   },

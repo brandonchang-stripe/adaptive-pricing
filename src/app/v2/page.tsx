@@ -10,7 +10,6 @@ import { ItemDisplay } from "../components/ItemDisplay";
 import Budget from "../components/Budget";
 import Decider from "../components/Decider";
 import Score from "../components/Score";
-import Timer from "../components/Timer";
 import StartScreen from "../components/StartScreen";
 
 export default function Home() {

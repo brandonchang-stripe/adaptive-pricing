@@ -13,9 +13,11 @@ type DragOptions = {
   minY?: number;
   maxX?: number;
   maxY?: number;
+  momentum?: number;
 };
 
-export function useDrag<T extends HTMLElement>(options?: DragOptions) {
+export function useDrag<T extends HTMLElement>(options: DragOptions = {}) {
+  const { minX, minY, maxX, maxY, momentum } = options;
   const ref = useRef<T>(null);
   const dragData = useRef<DragData>({
     isDragging: false,
@@ -40,7 +42,7 @@ export function useDrag<T extends HTMLElement>(options?: DragOptions) {
       el.removeEventListener("mouseup", onMouseUp);
       el.removeEventListener("mouseleave", onMouseLeave);
     };
-  }, [ref.current]);
+  }, [ref]);
 
   function onMouseDown(e: MouseEvent) {
     dragData.current.isDragging = true;
@@ -63,8 +65,17 @@ export function useDrag<T extends HTMLElement>(options?: DragOptions) {
     dragData.current.current.x = e.clientX;
     dragData.current.current.y = e.clientY;
 
-    dragData.current.offset.x -= dragData.current.last.x - dragData.current.current.x;
-    dragData.current.offset.y -= dragData.current.last.y - dragData.current.current.y;
+    dragData.current.offset.x -=
+      dragData.current.last.x - dragData.current.current.x;
+    dragData.current.offset.y -=
+      dragData.current.last.y - dragData.current.current.y;
+
+    if (minX !== undefined) {
+      dragData.current.offset.x = Math.max(dragData.current.offset.x, minX);
+    }
+    if (maxX !== undefined) {
+      dragData.current.offset.x = Math.min(dragData.current.offset.x, maxX);
+    }
   }
 
   function onMouseUp() {

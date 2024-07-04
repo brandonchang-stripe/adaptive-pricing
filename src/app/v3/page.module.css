@@ -1,0 +1,106 @@
+.main {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: calc(var(--pixel-size) * 2);
+}
+
+.grid {
+  height: min(700px);
+  flex-shrink: 0;
+  display: grid;
+  grid-template-columns: auto 380px 380px auto;
+  grid-template-rows: 1fr 2fr 2fr 2fr;
+  grid-template-areas:
+    ". scor scor ."
+    ". item budt ."
+    ". covn covn ."
+    ". butn butn .";
+  width: 100%;
+  gap: calc(var(--pixel-size) * 2);
+}
+
+.conversionContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.price {
+  width: 100%;
+  height: auto;
+  text-align: center;
+}
+
+.sliderContainer {
+  position: relative;
+  color: var(--color-600);
+  background: var(--color-100);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.country {
+  display: flex;
+  flex-direction: column;
+  width: calc(var(--pixel-size) * 100);
+  gap: calc(var(--pixel-size) * 2);
+}
+
+.sliderWrapper {
+  position: relative;
+  width: 100%;
+  padding: calc(var(--pixel-size) * 2);
+  background-color: var(--color-200);
+  height: 100%;
+  overflow: hidden;
+  cursor: grab;
+}
+
+.sliderWrapper:active{
+  cursor: grabbing;
+}
+
+.sliderControl {
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  display: flex;
+  gap: calc(var(--pixel-size) * 4);
+  align-items: center;
+}
+
+.sliderIndicator {
+  position: absolute;
+  top: 0;
+  left: calc(50% - var(--pixel-size));
+  height: 100%;
+  width: calc(var(--pixel-size) * 2);
+  background-color: var(--color-600);
+  pointer-events: none;
+}
+
+.sliderNotch {
+  height: calc(var(--pixel-size) * 6);
+  width: calc(var(--pixel-size) * 2);
+  background-color: var(--color-500);
+  flex-shrink: 0;
+  pointer-events: none;
+}
+
+.sliderNotch:nth-of-type(5n) {
+  height: calc(var(--pixel-size) * 12);
+}
+
+.sliderNotch:nth-of-type(20n) {
+  height: calc(var(--pixel-size) * 24);
+}
