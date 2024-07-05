@@ -23,3 +23,11 @@ export function useAudio() {
 
   return playSound;
 }
+
+/*
+ * For use outside of a hook
+ */
+export function playSound(id: SoundName, rate = 1) {
+  const sound = soundBoard[id].play();
+  soundBoard[id].rate(rate, sound);
+}

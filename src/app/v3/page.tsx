@@ -68,10 +68,13 @@ function Conversion() {
   return (
     <div className={styles.conversionContainer}>
       {country && (
-        <div className={`${styles.price} price`}>
-          {country.currencySymbol}{" "}
-          {relativeRound(country.conversionRateDefault * sliderValue)} = $USD{" "}
-          {sliderValue}
+        <div className={`${styles.conversionPrice} price`}>
+          <div className={styles.conversionLeft}>
+            {country.currencySymbol}{" "}
+            {relativeRound(country.conversionRateDefault * sliderValue)}
+          </div>
+          <div className={styles.conversionCenter}>=</div>
+          <div className={styles.conversionRight}>$ USD {sliderValue} </div>
         </div>
       )}
       <ChaseSlider step={1} max={500} />
@@ -173,7 +176,7 @@ function ItemDisplay() {
           <div className={styles.itemDisplayText}>
             {item.name} from {country.name}
           </div>
-          <div className="price">
+          <div className={styles.itemDisplayPrice}>
             {country.currencySymbol}{" "}
             {relativeRound(item.usdPrice * country.conversionRateDefault)}
           </div>

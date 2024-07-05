@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { ItemData, itemData } from "../components/itemData";
 import { randiRange } from "../util/math";
-import { soundBoard } from "../hooks/useAudio";
+import { playSound, soundBoard } from "../hooks/useAudio";
 import { CountryData, countryData } from "../components/countryData";
 import { Vector2, Props as GameTextProps } from "../components/GameText";
 import { nanoid } from "nanoid";
@@ -17,6 +17,7 @@ interface AppState {
   timeLimit: number;
   priceRange: number;
   sliderValue: number;
+  combo: number;
   setSliderValue: (val: number) => void;
   chooseRandomItem: () => void;
   evaluate: () => void;
@@ -82,19 +83,26 @@ export const useAppStore = create<AppState>((set, get) => ({
     }
   },
 
+  combo: 0,
+
   gainPoints: (points: number) => {
-    soundBoard.correct.play();
+    // playSound("correct", get().combo * 0.1 - 0.2);
+    playSound("correct", Math.min(get().combo * 0.1 + 0.8, 2.0));
 
     set((state) => ({
       score: state.score + points,
       level: state.level + 1,
+      combo: state.combo + 1,
     }));
     get().chooseRandomItem();
   },
 
   losePoints: (point: number) => {
-    soundBoard.error.play();
-    set((state) => ({ level: state.level + 1 }));
+    playSound("error");
+    set((state) => ({
+      level: state.level + 1,
+      combo: 0,
+    }));
     get().chooseRandomItem();
   },
 
