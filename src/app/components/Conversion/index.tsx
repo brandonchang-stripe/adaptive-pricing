@@ -25,12 +25,12 @@ export function Conversion({ includeSlider }: Props) {
     <div className={styles.container}>
       {country && (
         <div className={`${styles.price} price`}>
+          <div className={styles.section}>$USD {rate}</div>
+          =
           <div className={styles.section}>
             {country.currencySymbol}{" "}
             {relativeRound(country.conversionRateDefault * rate)}
           </div>
-          =
-          <div className={styles.section}>$USD {rate}</div>
         </div>
       )}
       {includeSlider && <Slider onChange={handleOnChange} value={rate} /> }

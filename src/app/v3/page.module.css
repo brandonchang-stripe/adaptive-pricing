@@ -13,11 +13,31 @@
   grid-template-rows: 1fr 2fr 2fr 2fr;
   grid-template-areas:
     ". scor scor ."
-    ". item budt ."
+    ". item item ."
     ". covn covn ."
     ". butn butn .";
   width: 100%;
   gap: calc(var(--pixel-size) * 2);
+}
+
+.itemDisplay {
+  display: flex;
+  flex-direction: row;
+  gap: calc(var(--pixel-size) * 4);
+}
+
+.itemDisplayImage {
+  border: calc(var(--pixel-size) * 2) solid var(--color-500);
+  background-color: var(--color-300);
+  aspect-ratio: 1/1;
+  height: 120px;
+}
+
+.itemDisplayData {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 360px;
 }
 
 .conversionContainer {
@@ -47,13 +67,6 @@
   height: 100%;
 }
 
-.country {
-  display: flex;
-  flex-direction: column;
-  width: calc(var(--pixel-size) * 100);
-  gap: calc(var(--pixel-size) * 2);
-}
-
 .sliderWrapper {
   position: relative;
   width: 100%;
@@ -64,13 +77,13 @@
   cursor: grab;
 }
 
-.sliderWrapper:active{
+.sliderWrapper:active {
   cursor: grabbing;
 }
 
 .sliderControl {
   top: 0;
-  left: 0;
+  left: 50%;
   height: 100%;
   width: 100%;
   position: absolute;
@@ -81,6 +94,7 @@
 
 .sliderIndicator {
   position: absolute;
+  transform: translateX(50%);
   top: 0;
   left: calc(50% - var(--pixel-size));
   height: 100%;
@@ -97,10 +111,65 @@
   pointer-events: none;
 }
 
-.sliderNotch:nth-of-type(5n) {
+.sliderNotch:nth-of-type(5n + 1) {
   height: calc(var(--pixel-size) * 12);
 }
 
-.sliderNotch:nth-of-type(20n) {
+.sliderNotch:nth-of-type(10n + 1) {
   height: calc(var(--pixel-size) * 24);
+}
+
+.sliderNotch:last-of-type,
+.sliderNotch:first-of-type {
+  height: 100%;
+}
+
+.deciderContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.buy {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  appearance: none;
+  outline: none;
+
+  flex-basis: 40%;
+  height: 80px;
+  width: 100%;
+  max-width: 400px;
+
+  text-transform: uppercase;
+  letter-spacing: calc(var(--pixel-size) * 1.05);
+  font-size: calc(var(--pixel-size) * 10);
+  padding: calc(var(--pixel-size) * 2);
+
+  background-color: var(--color-600);
+  border: calc(var(--pixel-size) * 2) solid var(--color-600);
+  color: var(--color-100);
+}
+
+.timerContainer {
+  width: 100%;
+}
+
+.timerProgress {
+  width: 100%;
+  height: 20px;
+  display: block;
+  appearance: none;
+}
+
+.timerProgress::-webkit-progress-bar {
+  background-color: var(--color-300);
+}
+
+.timerProgress::-webkit-progress-value {
+  background-color: var(--color-600);
 }
