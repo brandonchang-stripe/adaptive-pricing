@@ -153,25 +153,35 @@
   align-items: center;
 }
 
-.buy {
+.buttonContainer {
+  display: flex;
+  gap: calc(var(--pixel-size) * 2);
+  justify-content: space-around;
+  width: 100%;
+}
+
+.button {
   display: flex;
   align-items: center;
   justify-content: center;
   appearance: none;
   outline: none;
 
+  flex-grow: 1;
+
   flex-basis: 40%;
-  height: 80px;
+  height: 100%;
   width: 100%;
   max-width: 400px;
 
+
+  font-family: var(--font-silkscreen);
   text-transform: uppercase;
-  letter-spacing: calc(var(--pixel-size) * 1.05);
-  font-size: calc(var(--pixel-size) * 10);
+  font-size: calc(var(--pixel-size) * 12);
   padding: calc(var(--pixel-size) * 2);
 
   background-color: var(--color-600);
-  border: calc(var(--pixel-size) * 2) solid var(--color-600);
+  border: calc(var(--pixel-size) * 2) solid var(--color-400);
   color: var(--color-100);
 }
 

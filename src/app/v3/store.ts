@@ -1,13 +1,14 @@
 import { create } from "zustand";
 import { ItemData, itemData } from "../components/itemData";
 import { randiRange } from "../util/math";
-import { playSound, soundBoard } from "../hooks/useAudio";
+import { playSound } from "../hooks/useAudio";
 import { CountryData, countryData } from "../components/countryData";
 import { Vector2, Props as GameTextProps } from "../components/GameText";
 import { nanoid } from "nanoid";
 
 type ActiveItem = {
   usdPrice: number;
+  converted: boolean;
 } & ItemData;
 
 interface AppState {
@@ -21,12 +22,16 @@ interface AppState {
   setSliderValue: (val: number) => void;
   chooseRandomItem: () => void;
   evaluate: () => void;
+
+  converts: number;
+  autoConvert: () => void;
+
   losePoints: (points: number) => void;
   gainPoints: (points: number) => void;
   // timer state
   timerDuration: number;
   isTimerRunning: boolean;
-  startTimer: (duration: number) => void;
+  startTimer: () => void;
   // game texts
   createGameText: (text: string, position: Vector2) => void;
   popGameText: (id: string) => void;
@@ -59,7 +64,7 @@ export const useAppStore = create<AppState>((set, get) => ({
       usdPrice = Math.min(usdPrice * 5.0, 500);
 
       return {
-        currentItem: { ...item, usdPrice },
+        currentItem: { ...item, usdPrice, converted: false },
       };
     });
   },
@@ -83,17 +88,46 @@ export const useAppStore = create<AppState>((set, get) => ({
     }
   },
 
+  converts: 0,
+  autoConvert: async () => {
+    const item = get().currentItem;
+    const converts = get().converts;
+    if (item && converts > 0) {
+      set({
+        currentItem: { ...item, converted: true },
+        isTimerRunning: false,
+        converts: converts - 1,
+      });
+      playSound("auto");
+
+      await new Promise((r) => setTimeout(r, 800));
+
+      playSound("correct", Math.min(get().combo * 0.1 + 0.8, 2.0));
+      get().gainPoints(1);
+      get().chooseRandomItem();
+      get().startTimer();
+    }
+  },
+
   combo: 0,
 
   gainPoints: (points: number) => {
     // playSound("correct", get().combo * 0.1 - 0.2);
-    playSound("correct", Math.min(get().combo * 0.1 + 0.8, 2.0));
+    set((state) => {
+      const gainConvert = (state.combo + 1) % 5 === 0 && state.converts < 3;
+      playSound("correct", Math.min(get().combo * 0.1 + 0.8, 2.0));
+      if (gainConvert) {
+        playSound("gain");
+        get().createGameText("+1 ", get().positions["convert"]);
+      }
 
-    set((state) => ({
-      score: state.score + points,
-      level: state.level + 1,
-      combo: state.combo + 1,
-    }));
+      return {
+        score: state.score + points,
+        level: state.level + 1,
+        combo: state.combo + 1,
+        converts: gainConvert ? state.converts + 1 : state.converts,
+      };
+    });
     get().chooseRandomItem();
   },
 
@@ -108,7 +142,8 @@ export const useAppStore = create<AppState>((set, get) => ({
 
   timerDuration: 0,
   isTimerRunning: false,
-  startTimer: (duration: number) => {
+  startTimer: () => {
+    const duration = Math.max(20000 - get().combo * 2000, 4000);
     set({ isTimerRunning: false, timerDuration: 0 });
     setTimeout(() => {
       set({ isTimerRunning: true, timerDuration: duration });
@@ -117,8 +152,9 @@ export const useAppStore = create<AppState>((set, get) => ({
 
   createGameText: (text: string, position: Vector2) => {
     const texts = get().gameTexts;
+    const newText = { text, position, id: nanoid() };
     set({
-      gameTexts: [...texts, { text, position, id: nanoid() }],
+      gameTexts: [...texts, newText],
     });
   },
 

@@ -5,6 +5,7 @@ import "./globals.css";
 const silkScreen = localFont({
   src: "../../public/silkscreen/slkscr.ttf",
   display: "swap",
+  variable: "--font-silkscreen",
 });
 
 export const metadata: Metadata = {

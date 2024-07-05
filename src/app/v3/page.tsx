@@ -31,16 +31,17 @@ export default function App() {
               purchasing products in their local currency.
             </p>
             <p>
-              Use the Conversion tool Slider to find the price of the goods in
-              USD, then decide to BUY if the item is in your budget, or SKIP if
-              the item is over budget.
+              Use the Conversion Slider to convert the price of the item in USD
+              before you hit Buy before time runs out.
             </p>
-            <p>You only have a few seconds to make a choice, choose wisely.</p>
           </>
         </StartScreen>
       ) : (
         <main className={styles.main}>
           <div className={styles.grid}>
+            <div style={{ gridArea: "scor", paddingTop: "20px" }}>
+              <Score />
+            </div>
             <Panel gridName="covn" label="Conversion">
               <Conversion />
             </Panel>
@@ -49,9 +50,6 @@ export default function App() {
             </Panel>
             <Panel gridName="butn" label="Buttons">
               <Decider />
-            </Panel>
-            <Panel gridName="scor" label="Score">
-              <Score />
             </Panel>
           </div>
           <GameTexts />
@@ -177,8 +175,14 @@ function ItemDisplay() {
             {item.name} from {country.name}
           </div>
           <div className={styles.itemDisplayPrice}>
-            {country.currencySymbol}{" "}
-            {relativeRound(item.usdPrice * country.conversionRateDefault)}
+            {item.converted ? (
+              <> $ USD {item.usdPrice} </>
+            ) : (
+              <>
+                {country.currencySymbol}{" "}
+                {relativeRound(item.usdPrice * country.conversionRateDefault)}
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -194,25 +198,47 @@ function Score() {
 function Decider() {
   const evaluate = useAppStore((state) => state.evaluate);
   const losePoint = useAppStore((state) => state.losePoints);
-  const level = useAppStore((state) => state.level);
+  const combo = useAppStore((state) => state.combo);
   const startTimer = useAppStore((state) => state.startTimer);
+  const autoConvert = useAppStore((state) => state.autoConvert);
+  const converts = useAppStore((state) => state.converts);
+  const setPosition = useAppStore((state) => state.setPosition);
+  const convertButtonRef = useRef<HTMLButtonElement>(null);
   const play = useAudio();
-  const duration = Math.max(20000 - level * 1000, 5000);
+
+  useEffect(() => {
+    function handleResize() {
+      if (convertButtonRef.current) {
+        const { width, height, left, top } =
+          convertButtonRef.current.getBoundingClientRect();
+        setPosition("convert", { x: width / 2 + left, y: height / 2 + top });
+      }
+    }
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleBuy = useCallback(() => {
     play("click");
     evaluate();
-    startTimer(duration);
-  }, [duration, level]);
+    startTimer();
+  }, [combo]);
+
+  const handleAutoConvert = useCallback(() => {
+    play("click");
+    autoConvert();
+  }, []);
 
   const handleTimeout = () => {
     losePoint(0);
-    startTimer(duration);
+    startTimer();
   };
 
   useEffect(() => {
     setTimeout(() => {
-      startTimer(duration);
+      startTimer();
     }, 200);
   }, []);
 
@@ -221,17 +247,35 @@ function Decider() {
       if (e.key === "b") {
         handleBuy();
       }
+
+      if (e.key === "a") {
+        handleAutoConvert();
+      }
     }
     document.addEventListener("keydown", handleKey);
     return () => document.removeEventListener("keydown", handleKey);
-  }, [duration]);
+  }, []);
 
   return (
     <div className={styles.deciderContainer}>
       <Timer onTimeout={handleTimeout} />
-      <button className={styles.buy} onClick={handleBuy}>
-        [B] Buy
-      </button>
+      <div className={styles.buttonContainer}>
+        <button className={styles.button} onClick={handleBuy}>
+          Buy
+        </button>
+        <button
+          className={styles.button}
+          onClick={handleAutoConvert}
+          ref={convertButtonRef}
+        >
+          Auto Convert
+          <br />[
+          {Array(3)
+            .fill(0)
+            .map((_, i) => (converts > i ? "+" : "_"))}
+          ]
+        </button>
+      </div>
     </div>
   );
 }
