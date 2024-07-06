@@ -1,10 +1,7 @@
 import { useEffect, useRef } from "react";
 import styles from "./GameText.module.css";
 import { useAppStore } from "@/app/v3/store";
-export type Vector2 = {
-  x: number;
-  y: number;
-};
+import { Vector2 } from "@/types/Vector2";
 
 export type Props = {
   text: string;

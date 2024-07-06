@@ -1,6 +1,6 @@
 "use client";
 
-import React, { use, useEffect } from "react";
+import React, { useEffect } from "react";
 import PixelContext from "./components/Context";
 import Panel from "./components/Panel";
 import styles from "./page.module.css";

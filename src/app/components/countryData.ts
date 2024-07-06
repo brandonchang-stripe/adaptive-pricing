@@ -38,8 +38,8 @@ export const countryData = [
   {
     name: "Japan",
     currencySymbol: "¥",
-    conversionRateDefault: 109.45,
-    currentConversionRate: 109.45,
+    conversionRateDefault: 150,
+    currentConversionRate: 150,
     position: { x: 90, y: 100 },
   },
   {
@@ -94,8 +94,8 @@ export const countryData = [
   {
     name: "India",
     currencySymbol: "₹",
-    conversionRateDefault: 73.02,
-    currentConversionRate: 73.02,
+    conversionRateDefault: 73,
+    currentConversionRate: 73,
     position: { x: 230, y: 240 },
   },
   {
@@ -199,4 +199,4 @@ export const countryData = [
   },
 ] as const;
 
-export type CountryName = typeof countryData[number]['name'];
+export type CountryName = (typeof countryData)[number]["name"];

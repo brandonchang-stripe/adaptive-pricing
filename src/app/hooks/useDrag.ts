@@ -1,25 +1,28 @@
+import { Vector2 } from "@/types/Vector2";
 import { useEffect, useRef } from "react";
 
 export type DragData = {
   isDragging: boolean;
-  current: { x: number; y: number };
-  startMouse: { x: number; y: number };
-  lastMouse: { x: number; y: number };
-  offset: { x: number; y: number };
-  lastOffset: { x: number; y: number };
-  velocity: { x: number; y: number };
+  current: Vector2;
+  startMouse: Vector2;
+  lastMouse: Vector2;
+  offset: Vector2;
+  lastOffset: Vector2;
+  velocity: Vector2;
 };
 
 type DragOptions = {
+  startPosition?: Vector2;
   minX?: number;
   minY?: number;
   maxX?: number;
   maxY?: number;
   damp?: number;
+  draggable?: boolean;
 };
 
 export function useDrag<T extends HTMLElement>(options: DragOptions = {}) {
-  const { minX, minY, maxX, maxY, damp } = options;
+  const { minX, minY, maxX, maxY, damp, draggable, startPosition } = options;
   const ref = useRef<T>(null);
   const rafRef = useRef<number | null>(null);
   const dragData = useRef<DragData>({
@@ -39,50 +42,65 @@ export function useDrag<T extends HTMLElement>(options: DragOptions = {}) {
     el.addEventListener("mousedown", onMouseDown);
     el.addEventListener("mousemove", onMouseMove);
     el.addEventListener("mouseup", onMouseUp);
-    el.addEventListener("mouseleave", onMouseLeave);
 
     return () => {
       el.removeEventListener("mousedown", onMouseDown);
       el.removeEventListener("mousemove", onMouseMove);
       el.removeEventListener("mouseup", onMouseUp);
-      el.removeEventListener("mouseleave", onMouseLeave);
     };
-  }, [ref, minX, minY]);
+  }, [ref]);
 
   useEffect(() => {
     function tick() {
-      if (!damp) return;
-
       const { isDragging, velocity, lastOffset, offset } = dragData.current;
 
-      if (isDragging) {
-        dragData.current.velocity.x = offset.x - lastOffset.x;
-        dragData.current.velocity.y = offset.y - lastOffset.y;
-      } else {
-        dragData.current.velocity.x = velocity.x * damp;
-        dragData.current.velocity.y = velocity.y * damp;
+      if (damp) {
+        if (isDragging) {
+          dragData.current.velocity.x = offset.x - lastOffset.x;
+          dragData.current.velocity.y = offset.y - lastOffset.y;
+        } else {
+          dragData.current.velocity.x = velocity.x * damp;
+          dragData.current.velocity.y = velocity.y * damp;
 
-        if (Math.abs(dragData.current.velocity.x) < 0.01) {
-          dragData.current.velocity.x = 0;
+          if (Math.abs(dragData.current.velocity.x) < 0.01) {
+            dragData.current.velocity.x = 0;
+          }
+          if (Math.abs(dragData.current.velocity.y) < 0.01) {
+            dragData.current.velocity.y = 0;
+          }
+
+          dragData.current.lastOffset.x = dragData.current.offset.x;
+          dragData.current.lastOffset.y = dragData.current.offset.y;
+
+          dragData.current.offset.x += dragData.current.velocity.x;
+          dragData.current.offset.y += dragData.current.velocity.y;
+
+          if (minX !== undefined) {
+            dragData.current.offset.x = Math.max(
+              dragData.current.offset.x,
+              minX
+            );
+          }
+          if (maxX !== undefined) {
+            dragData.current.offset.x = Math.min(
+              dragData.current.offset.x,
+              maxX
+            );
+          }
         }
+      }
 
-        dragData.current.lastOffset.x = dragData.current.offset.x;
-        dragData.current.lastOffset.y = dragData.current.offset.y;
-
-        dragData.current.offset.x += dragData.current.velocity.x;
-        dragData.current.offset.y += dragData.current.velocity.y;
-
-        if (minX !== undefined) {
-          dragData.current.offset.x = Math.max(dragData.current.offset.x, minX);
-        }
-        if (maxX !== undefined) {
-          dragData.current.offset.x = Math.min(dragData.current.offset.x, maxX);
-        }
+      if (draggable && ref.current) {
+        ref.current.style.transform = `translate(${offset.x}px, ${offset.y}px)`;
       }
 
       rafRef.current = requestAnimationFrame(tick);
     }
 
+    if (startPosition) {
+      dragData.current.offset.x = startPosition.x;
+      dragData.current.offset.y = startPosition.y;
+    }
     rafRef.current = requestAnimationFrame(tick);
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
@@ -113,9 +131,6 @@ export function useDrag<T extends HTMLElement>(options: DragOptions = {}) {
     dragData.current.lastOffset.x = dragData.current.offset.x;
     dragData.current.lastOffset.y = dragData.current.offset.y;
 
-    dragData.current.offset.y -=
-      dragData.current.lastMouse.y - dragData.current.current.y;
-
     dragData.current.offset.x -=
       dragData.current.lastMouse.x - dragData.current.current.x;
     dragData.current.offset.y -=
@@ -130,10 +145,6 @@ export function useDrag<T extends HTMLElement>(options: DragOptions = {}) {
   }
 
   function onMouseUp() {
-    dragData.current.isDragging = false;
-  }
-
-  function onMouseLeave() {
     dragData.current.isDragging = false;
   }
 

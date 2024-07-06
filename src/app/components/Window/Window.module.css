@@ -1,0 +1,30 @@
+.container {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-100);
+  top: 0;
+  left: 0;
+  border: calc(var(--pixel-size) * 2) solid var(--color-200);
+  z-index: 1;
+  max-width: calc(100vw - 40px);
+  cursor: grab;
+}
+
+.container:active {
+  cursor: grabbing;
+}
+
+.titlebar {
+  background-color: var(--color-200);
+  text-align: center;
+  font-size: 20px;
+  padding: 0 20px calc(var(--pixel-size) * 2);
+}
+
+.contents {
+  display: block;
+  position: relative;
+  overflow: auto;
+  height: auto;
+}

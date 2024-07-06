@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { DotGothic16 } from "next/font/google";
 import "./globals.css";
 
 const silkScreen = localFont({
@@ -7,6 +8,7 @@ const silkScreen = localFont({
   display: "swap",
   variable: "--font-silkscreen",
 });
+
 
 export const metadata: Metadata = {
   title: "Create Next App",
