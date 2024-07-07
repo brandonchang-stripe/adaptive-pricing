@@ -3,8 +3,9 @@ import { ItemData, itemData } from "../components/itemData";
 import { randiRange } from "../util/math";
 import { playSound } from "../hooks/useAudio";
 import { CountryData, countryData } from "../components/countryData";
-import { Vector2, Props as GameTextProps } from "../components/GameText";
+import { Props as GameTextProps } from "../components/GameText";
 import { nanoid } from "nanoid";
+import { Vector2 } from "@/types/Vector2";
 
 type ActiveItem = {
   usdPrice: number;
