@@ -6,9 +6,10 @@
 
   height: 100vh;
   width: 100vw;
-  font-family: var(--font-dot-gothic);
-  font-size: 24px;
-  letter-spacing: 1px;
+  font-family: var(--font-dogica);
+  font-size: calc(var(--pixel-size) * 8);
+  letter-spacing: 0;
+  line-height: 1;
   user-select: none; /* Standard syntax */
   background-color: var(--color-100);
 }
@@ -17,14 +18,10 @@
   height: min(700px);
   flex-shrink: 0;
   display: grid;
-  grid-template-columns: auto 380px 380px auto;
-  grid-template-rows: 1fr 2fr 2fr 2fr;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(12, 1fr);
   width: 100%;
-  gap: calc(var(--pixel-size) * 2);
-}
-
-.notesContents {
-  padding: 20px;
+  gap: calc(var(--pixel-size) * 4);
 }
 
 .countryList {

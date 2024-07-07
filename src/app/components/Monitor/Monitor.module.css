@@ -1,7 +1,7 @@
 .bezel {
   height: 100%;
   width: 100%;
-  max-width: calc(var(--pixel-size) * 536);
+  max-width: calc(var(--pixel-size) * 537);
   max-height: calc(var(--pixel-size) * 453);
   border-image-source: url('/sprites/monitor-bezel.png');
   border-image-slice: 40 40 58;

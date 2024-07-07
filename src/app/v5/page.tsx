@@ -16,34 +16,92 @@ import { SoundName, useAudio } from "../hooks/useAudio";
 import { throttle } from "throttle-debounce";
 import Frame from "../components/Frame/Frame";
 import Monitor from "../components/Monitor/Monitor";
+import Button from "../components/Button/Button";
+import localFont from "next/font/local";
+import { AnimatePresence, motion } from "framer-motion";
+import { stepEase } from "../util/stepEase";
 
-const dotGothic = DotGothic16({
-  subsets: ["latin", "latin-ext"],
+const dogica = localFont({
+  src: "../../../public/fonts/dogica/dogicapixel.ttf",
   display: "block",
-  weight: "400",
-  variable: "--font-dot-gothic",
+  variable: "--font-dogica",
 });
 
 export default function App() {
   const state = useAppStore((state) => state.state);
+  const setState = useAppStore((state) => state.setState);
   const country = useAppStore((state) => state.currentCountry);
   const currentItems = useAppStore((state) => state.currentItems);
 
+  function handleStart() {
+    setState("IN_GAME");
+  }
+
   return (
     <PixelContext pixelSize={2}>
-      <main className={`${styles.main}`}>
-        <Monitor>
-          <Frame label="Notes">
-            <>
-              <p>NOTES TO SELF!</p>
-              <p>
-                Im going on a trip around the world, but before I go I need to
-                buy everything I need for the trip.
-              </p>
-              <p>PS: Dont leave everything for the last minute again</p>
-            </>
-          </Frame>
-        </Monitor>
+      <main className={`${styles.main} ${dogica.className}`}>
+        <AnimatePresence>
+          <Monitor>
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              transition={{ duration: 0.5 }}
+              variants={{
+                hidden: {
+                  opacity: 0,
+                  scaleY: 0,
+                  transition: {
+                    when: "beforeChildren",
+                  },
+                },
+                visible: {
+                  opacity: 1,
+                  scaleY: 1,
+                  transition: {
+                    staggerChildren: 0.15,
+                    when: "beforeChildren",
+                  },
+                },
+              }}
+              className={styles.grid}
+            >
+              <Frame label="Travel map" position="map"></Frame>
+              <Frame label="Notes" position="starting-notes" type="note">
+                <>
+                  <p>NOTES TO SELF!</p>
+                  <p>
+                    Its finally time for my trip around the world, but before I
+                    go I need to buy everything I need for the trip.
+                  </p>
+                  <p>PS: Dont leave everything for the last minute again</p>
+                </>
+              </Frame>
+
+              <Frame label="List" position="level-select-note" type="note">
+                <>
+                  <p>Buy before trip:</p>
+                  <p>
+                    - thing one
+                    <br />
+                    - thing two
+                    <br />
+                    - other thing
+                    <br />
+                    - listing
+                    <br />
+                    - all the things
+                    <br />
+                    - one more
+                    <br />
+                    - final thing
+                    <br />
+                  </p>
+                  <Button onClick={handleStart}>Start shopping</Button>
+                </>
+              </Frame>
+            </motion.div>
+          </Monitor>
+        </AnimatePresence>
         <GameTexts />
       </main>
     </PixelContext>

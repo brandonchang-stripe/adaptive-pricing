@@ -1,7 +1,7 @@
 import type { Vector2 } from "@/types/Vector2";
 import { create } from "zustand";
 import { nanoid } from "nanoid";
-import { ItemData, ItemType, itemData } from "../components/itemTravelData";
+import { ItemType, itemData } from "../components/itemTravelData";
 import { randiRange } from "../util/math";
 import { playSound } from "../hooks/useAudio";
 import {
@@ -11,7 +11,7 @@ import {
 } from "../components/countryData";
 import { Props as GameTextProps } from "../components/GameText";
 
-type GameState = "MAIN_MENU" | "ITEM_LIST" | "IN_GAME" | "GAME_OVER";
+type GameState = "MAIN_MENU" | "IN_GAME" | "GAME_OVER";
 
 export type ActiveItem = {
   type: ItemType;

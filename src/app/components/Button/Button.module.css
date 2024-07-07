@@ -1,0 +1,22 @@
+.button {
+  width: auto;
+  height: auto;
+
+  border-image-source: url('/sprites/border.png');
+  border-image-slice: 1;
+  border-image-width: calc(var(--pixel-size) * 1);
+  border-image-outset: calc(var(--pixel-size) * 1);
+  border-image-repeat: repeat;
+
+  appearance: none;
+  font-size: calc(var(--pixel-size) * 8);
+  padding: calc(var(--pixel-size) * 6) calc(var(--pixel-size) * 10);
+  font-family: var(--font-dogica);
+  background-color: var(--color-300);
+  color: var(--color-200);
+  cursor: pointer;
+}
+
+.button:active {
+  transform: translateY(var(--pixel-size));
+}
