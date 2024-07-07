@@ -96,7 +96,7 @@ function CountrySelectWindow({ label }: CountrySelectWindowProps) {
   );
 }
 
-export function ItemListWindow() {
+function ItemListWindow() {
   const setState = useAppStore((state) => state.setState);
   const country = useAppStore((state) => state.currentCountry)!;
   const items = itemData[country]!;
@@ -168,7 +168,7 @@ function ConversionWindowSlider({ country }: ConversionWindowProps) {
   );
 }
 
-export type ChaseSliderProps = {
+type ChaseSliderProps = {
   step?: number;
   min?: number;
   max?: number;
@@ -252,7 +252,7 @@ type ItemPurchaseWindowProps = {
   item: ActiveItem;
 };
 
-export function ItemPurchaseWindow({ item }: ItemPurchaseWindowProps) {
+function ItemPurchaseWindow({ item }: ItemPurchaseWindowProps) {
   const currentCountry = useCurrentCountry()!;
   const evaluate = useAppStore((state) => state.evaluate);
 
