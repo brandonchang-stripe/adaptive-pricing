@@ -1,0 +1,14 @@
+:root {
+  --pixel-size: 3px;
+
+  --color-100: #121b1c;
+  --color-200: #e1e9ea;
+  --color-300: #635bff;
+  --color-400: rgba(255, 255, 255, 30);
+
+  color: var(--color-200);
+  font-smooth: never;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: none;
+  image-rendering: pixelated;
+}

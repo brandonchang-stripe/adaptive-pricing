@@ -42,11 +42,13 @@ export function useDrag<T extends HTMLElement>(options: DragOptions = {}) {
     el.addEventListener("mousedown", onMouseDown);
     el.addEventListener("mousemove", onMouseMove);
     el.addEventListener("mouseup", onMouseUp);
+    el.addEventListener("mouseout", onMouseOut);
 
     return () => {
       el.removeEventListener("mousedown", onMouseDown);
       el.removeEventListener("mousemove", onMouseMove);
       el.removeEventListener("mouseup", onMouseUp);
+      el.removeEventListener("mouseout", onMouseOut);
     };
   }, [ref]);
 
@@ -118,6 +120,9 @@ export function useDrag<T extends HTMLElement>(options: DragOptions = {}) {
 
     dragData.current.lastMouse.x = e.clientX;
     dragData.current.lastMouse.y = e.clientY;
+
+    e.preventDefault();
+    e.stopPropagation();
   }
 
   function onMouseMove(e: MouseEvent) {
@@ -142,9 +147,16 @@ export function useDrag<T extends HTMLElement>(options: DragOptions = {}) {
     if (maxX !== undefined) {
       dragData.current.offset.x = Math.min(dragData.current.offset.x, maxX);
     }
+
+    e.preventDefault();
+    e.stopPropagation();
   }
 
   function onMouseUp() {
+    dragData.current.isDragging = false;
+  }
+
+  function onMouseOut() {
     dragData.current.isDragging = false;
   }
 

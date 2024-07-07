@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import "./global.css";
 import styles from "./page.module.css";
 import PixelContext from "../components/Context";
 import Window from "../components/Window/Window";
@@ -13,6 +14,8 @@ import { relativeRound } from "../util/math";
 import { useDrag } from "../hooks/useDrag";
 import { SoundName, useAudio } from "../hooks/useAudio";
 import { throttle } from "throttle-debounce";
+import Frame from "../components/Frame/Frame";
+import Monitor from "../components/Monitor/Monitor";
 
 const dotGothic = DotGothic16({
   subsets: ["latin", "latin-ext"],
@@ -27,34 +30,20 @@ export default function App() {
   const currentItems = useAppStore((state) => state.currentItems);
 
   return (
-    <PixelContext>
-      <main className={`${styles.main} ${dotGothic.className}`}>
-        {(state === "MAIN_MENU" || state === "ITEM_LIST") && (
-          <>
-            <CountrySelectWindow label="Worldtour list" />
-            <NotesWindow label="Notes">
-              <>
-                <p>NOTES TO SELF!</p>
-                <p>
-                  Im going on a trip around the world, but before I go I need to
-                  buy everything I need for the trip.
-                </p>
-                <p>PS: Dont leave everything for the last minute again</p>
-              </>
-            </NotesWindow>
-          </>
-        )}
-
-        {state === "ITEM_LIST" && <ItemListWindow />}
-        {country && <ConversionWindowSlider country={country} />}
-        {state === "IN_GAME" && (
-          <>
-            {currentItems.map((item) => (
-              <ItemPurchaseWindow key={item.merchant} item={item} />
-            ))}
-          </>
-        )}
-
+    <PixelContext pixelSize={2}>
+      <main className={`${styles.main}`}>
+        <Monitor>
+          <Frame label="Notes">
+            <>
+              <p>NOTES TO SELF!</p>
+              <p>
+                Im going on a trip around the world, but before I go I need to
+                buy everything I need for the trip.
+              </p>
+              <p>PS: Dont leave everything for the last minute again</p>
+            </>
+          </Frame>
+        </Monitor>
         <GameTexts />
       </main>
     </PixelContext>
@@ -175,7 +164,12 @@ export type ChaseSliderProps = {
   onChange: (value: number) => void;
 };
 
-function ChaseSlider({ step = 1, min = 0, max = 100, onChange }: ChaseSliderProps) {
+function ChaseSlider({
+  step = 1,
+  min = 0,
+  max = 100,
+  onChange,
+}: ChaseSliderProps) {
   const notchWidth = 18;
   const count = Math.floor((max - min) / step);
   const [dragRef, dragData] = useDrag<HTMLDivElement>({

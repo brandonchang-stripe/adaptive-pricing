@@ -1,0 +1,32 @@
+.frame {
+  display: flex;
+  flex-direction: column;
+  min-width: 100px;
+  min-height: 100px;
+}
+
+.titlebar {
+  height: calc(var(--pixel-size) * 12);
+  border: calc(var(--pixel-size) * 1) calc(var(--pixel-size) * 10) solid;
+  border-image-source: url('/sprites/frame-titlebar.png');
+  border-image-slice: 1 10 fill;
+  border-image-width: calc(var(--pixel-size) * 1) calc(var(--pixel-size) * 10);
+  border-image-repeat: round;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.content {
+  flex-grow: 1;
+  border: calc(var(--pixel-size) * 3) solid;
+  border-image-source: url('/sprites/frame-contents.png');
+  border-image-slice: 3 fill;
+  border-image-width: calc(var(--pixel-size) * 3);
+  border-image-repeat: round;
+
+  position: relative;
+}

@@ -55,8 +55,8 @@ export const itemData: TravelItemData = {
         "Sakura Rail",
         "Japan Commuter Pass",
       ],
-      baseUsdPrice: 500,
-      priceIncrements: [100, 50],
+      baseUsdPrice: 100,
+      priceIncrements: [10, 0],
     },
     {
       type: "Visa",
