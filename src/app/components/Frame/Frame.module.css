@@ -57,3 +57,13 @@
   grid-column: 2 / span 8;
   grid-row: 1 / span 7;
 }
+
+.frame:global(.how-to-play) {
+  grid-column: 7 / span 6;
+  grid-row: 9 / span 4;
+}
+
+.frame:global(.slider) {
+  grid-column: 2 / span 10;
+  grid-row: 6 / span 2;
+}

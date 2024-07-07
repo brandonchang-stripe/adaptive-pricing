@@ -60,22 +60,9 @@ export const useAppStore = create<AppState>((set, get) => ({
   },
 
   // Country state
-  currentCountry: null,
+  currentCountry: "Japan",
 
-  setCurrentCountry: (countryName: CountryName) => {
-    switch (get().state) {
-      case "MAIN_MENU":
-      case "ITEM_LIST":
-        set({
-          currentCountry: countryName,
-          state: "ITEM_LIST",
-          itemIndex: 0,
-        });
-
-        get().chooseRandomMerchants(0);
-        break;
-    }
-  },
+  setCurrentCountry: (countryName: CountryName) => {},
 
   // Game meta state
   score: 0,

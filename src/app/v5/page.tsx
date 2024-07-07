@@ -6,10 +6,8 @@ import styles from "./page.module.css";
 import PixelContext from "../components/Context";
 import Window from "../components/Window/Window";
 import GameTexts from "../components/GameText/GameTexts";
-import { DotGothic16 } from "next/font/google";
 import { ActiveItem, useAppStore, useCurrentCountry } from "./store";
 import { CountryName, countryData } from "../components/countryData";
-import { itemData } from "../components/itemTravelData";
 import { relativeRound } from "../util/math";
 import { useDrag } from "../hooks/useDrag";
 import { SoundName, useAudio } from "../hooks/useAudio";
@@ -18,8 +16,6 @@ import Frame from "../components/Frame/Frame";
 import Monitor from "../components/Monitor/Monitor";
 import Button from "../components/Button/Button";
 import localFont from "next/font/local";
-import { AnimatePresence, motion } from "framer-motion";
-import { stepEase } from "../util/stepEase";
 
 const dogica = localFont({
   src: "../../../public/fonts/dogica/dogicapixel.ttf",
@@ -40,170 +36,97 @@ export default function App() {
   return (
     <PixelContext pixelSize={2}>
       <main className={`${styles.main} ${dogica.className}`}>
-        <AnimatePresence>
-          <Monitor>
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              transition={{ duration: 0.5 }}
-              variants={{
-                hidden: {
-                  opacity: 0,
-                  scaleY: 0,
-                  transition: {
-                    when: "beforeChildren",
-                  },
-                },
-                visible: {
-                  opacity: 1,
-                  scaleY: 1,
-                  transition: {
-                    staggerChildren: 0.15,
-                    when: "beforeChildren",
-                  },
-                },
-              }}
-              className={styles.grid}
-            >
-              <Frame label="Travel map" position="map"></Frame>
-              <Frame label="Notes" position="starting-notes" type="note">
-                <>
-                  <p>NOTES TO SELF!</p>
-                  <p>
-                    Its finally time for my trip around the world, but before I
-                    go I need to buy everything I need for the trip.
-                  </p>
-                  <p>PS: Dont leave everything for the last minute again</p>
-                </>
-              </Frame>
+        <Monitor>
+          <div className={styles.grid}>
+            {state === "MAIN_MENU" && (
+              <>
+                <Frame label="Travel map" position="map" index={1}></Frame>
+                <Frame
+                  label="Notes"
+                  position="starting-notes"
+                  type="note"
+                  index={2}
+                >
+                  <>
+                    <p>NOTES TO SELF!</p>
+                    <p>
+                      Its finally time for my trip around the world, but before
+                      I go I need to buy everything I need for the trip.
+                    </p>
+                    <p>PS: Dont leave everything for the last minute again</p>
+                  </>
+                </Frame>
 
-              <Frame label="List" position="level-select-note" type="note">
-                <>
-                  <p>Buy before trip:</p>
-                  <p>
-                    - thing one
-                    <br />
-                    - thing two
-                    <br />
-                    - other thing
-                    <br />
-                    - listing
-                    <br />
-                    - all the things
-                    <br />
-                    - one more
-                    <br />
-                    - final thing
-                    <br />
-                  </p>
-                  <Button onClick={handleStart}>Start shopping</Button>
-                </>
-              </Frame>
-            </motion.div>
-          </Monitor>
-        </AnimatePresence>
+                <Frame
+                  label="List"
+                  position="level-select-note"
+                  type="note"
+                  index={3}
+                >
+                  <>
+                    <p>Buy before trip:</p>
+                    <p>
+                      - thing one
+                      <br />
+                      - thing two
+                      <br />
+                      - other thing
+                      <br />
+                      - listing
+                      <br />
+                      - all the things
+                      <br />
+                      - one more
+                      <br />
+                      - final thing
+                      <br />
+                    </p>
+                    <Button onClick={handleStart}>Start shopping</Button>
+                  </>
+                </Frame>
+              </>
+            )}
+
+            {state === "IN_GAME" && (
+              <>
+                <Frame
+                  label="How to play"
+                  position="how-to-play"
+                  type="note"
+                  index={1}
+                >
+                  <>
+                    <p>Buying goods</p>
+                    <p>
+                      Buy the cheapest option available. Some merchants only
+                      sell in their local currency, so i&apos;ll need to convert
+                      the price to USD to compare.
+                    </p>
+                  </>
+                </Frame>
+
+                <ConversionSlider country={country!} position="slider" />
+              </>
+            )}
+          </div>
+        </Monitor>
         <GameTexts />
       </main>
     </PixelContext>
   );
 }
 
-type NotesWindowProps = {
-  label: string;
-  children?: JSX.Element;
-};
-function NotesWindow({ label, children }: NotesWindowProps) {
-  return (
-    <Window label={label}>
-      <div className={styles.notesContents}>{children}</div>
-    </Window>
-  );
-}
-
-type CountrySelectWindowProps = {
-  label: string;
-};
-function CountrySelectWindow({ label }: CountrySelectWindowProps) {
-  const setCurrentCountry = useAppStore((state) => state.setCurrentCountry);
-
-  return (
-    <Window label={label} width={600} height={500}>
-      <div className={styles.countryList}>
-        {countryData.map((country) => (
-          <button
-            className={styles.countryItem}
-            key={country.name}
-            onClick={() => setCurrentCountry(country.name)}
-          >
-            {country.name}
-          </button>
-        ))}
-      </div>
-    </Window>
-  );
-}
-
-function ItemListWindow() {
-  const setState = useAppStore((state) => state.setState);
-  const country = useAppStore((state) => state.currentCountry)!;
-  const items = itemData[country]!;
-  if (!items) return null;
-
-  return (
-    <Window label={`${country} travel list`}>
-      <div className={styles.itemListContainer}>
-        {items.map((item) => (
-          <div key={item.type} className={styles.itemListItem}>
-            <div className={styles.itemListType}>{item.type}</div>
-          </div>
-        ))}
-
-        <button className={styles.button} onClick={() => setState("IN_GAME")}>
-          START
-        </button>
-      </div>
-    </Window>
-  );
-}
-
 type ConversionWindowProps = {
   country: CountryName;
+  position: string;
 };
 
-function ConversionWindowButtons({ country }: ConversionWindowProps) {
-  const data = countryData.find((c) => c.name === country)!;
-  const [usd, setUsd] = useState(1);
-
-  function handleButtonClick(amount: number) {
-    setUsd(Math.max(amount, 0));
-  }
-
-  return (
-    <Window label="currencyconvert.com" height={160}>
-      <div className={styles.conversionContainer}>
-        <div className={styles.conversionCountry}>{country}</div>
-        <div className={styles.conversionPrice}>
-          {data.currencySymbol}{" "}
-          {relativeRound(data.conversionRateDefault * usd)} = ${usd}.00 USD
-        </div>
-        <div>
-          <button onClick={() => setUsd(1)}>$1</button>
-          <button onClick={() => handleButtonClick(2)}>$2</button>
-          <button onClick={() => handleButtonClick(10)}>$10</button>
-          <button onClick={() => handleButtonClick(100)}>$100</button>
-          <button onClick={() => handleButtonClick(1000)}>$1000</button>
-        </div>
-      </div>
-    </Window>
-  );
-}
-
-function ConversionWindowSlider({ country }: ConversionWindowProps) {
+function ConversionSlider({ country, position }: ConversionWindowProps) {
   const data = countryData.find((c) => c.name === country)!;
   const [usd, setUsd] = useState(1);
 
   return (
-    <Window label="currencyconvert.com" height={160}>
+    <Frame label="currency-convert.com" position={position}>
       <div className={styles.conversionContainer}>
         <div className={styles.conversionPrice}>
           {data.currencySymbol}{" "}
@@ -211,7 +134,7 @@ function ConversionWindowSlider({ country }: ConversionWindowProps) {
         </div>
         <ChaseSlider onChange={(v) => setUsd(v)} />
       </div>
-    </Window>
+    </Frame>
   );
 }
 

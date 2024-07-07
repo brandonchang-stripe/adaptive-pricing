@@ -91,7 +91,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: var(--color-500);
+  background-color: var(--color-100);
   gap: 6px;
 }
 
@@ -105,8 +105,8 @@
 
 .sliderContainer {
   position: relative;
-  color: var(--color-600);
-  background: var(--color-100);
+  color: var(--color-100);
+  background: var(--color-200);
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -120,7 +120,7 @@
   position: relative;
   width: 100%;
   padding: calc(var(--pixel-size) * 2);
-  background-color: var(--color-200);
+  background-color: var(--color-100);
   height: 100%;
   overflow: hidden;
   cursor: grab;
@@ -148,14 +148,14 @@
   left: calc(50% - var(--pixel-size));
   height: 100%;
   width: calc(var(--pixel-size) * 2);
-  background-color: var(--color-600);
+  background-color: var(--color-300);
   pointer-events: none;
 }
 
 .sliderNotch {
   height: calc(var(--pixel-size) * 6);
   width: calc(var(--pixel-size) * 2);
-  background-color: var(--color-500);
+  background-color: var(--color-200);
   flex-shrink: 0;
   pointer-events: none;
 }
