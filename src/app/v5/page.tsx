@@ -38,7 +38,7 @@ export default function App() {
       <main className={`${styles.main} ${dogica.className}`}>
         <Monitor>
           <div className={styles.grid}>
-            <Frame label="Travel map" position="map" index={1}></Frame>
+            <TravelMap />
             {state === "MAIN_MENU" && (
               <>
                 <Frame
@@ -257,6 +257,22 @@ function ItemDisplayFrame({ item, index }: ItemDisplayFrameProps) {
           </div>
         </div>
         <Button onClick={() => evaluate(item.merchant)}>Buy</Button>
+      </div>
+    </Frame>
+  );
+}
+
+type TravelMapProps = {
+  index?: number;
+};
+
+function TravelMap({ index = 0 }) {
+  return (
+    <Frame label="Travel map" position="map" index={index}>
+      <div className={styles.travelMap}>
+        <div className={styles.travelMapContainer}>
+          <img className={styles.travelMapImage} src="/sprites/map.png" alt="Travel map" />
+        </div>
       </div>
     </Frame>
   );
