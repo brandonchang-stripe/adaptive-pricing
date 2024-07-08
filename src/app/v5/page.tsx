@@ -90,13 +90,13 @@ export default function App() {
             {state === "IN_GAME" && (
               <>
                 {currentItems.map((item, i) => (
-                  <ItemDisplayFrame key={item.merchant} item={item} index={i} />
+                  <ItemDisplayFrame key={item.merchant} item={item} index={i + 1} />
                 ))}
                 <Frame
                   label="How to play"
                   position="how-to-play"
                   type="note"
-                  index={1}
+                  index={4}
                 >
                   <>
                     <p>Buying goods</p>
@@ -108,7 +108,7 @@ export default function App() {
                   </>
                 </Frame>
 
-                <ConversionSlider country={country!} position="slider" />
+                <ConversionSlider country={country!} position="slider" index={3} />
               </>
             )}
           </div>
@@ -122,14 +122,15 @@ export default function App() {
 type ConversionWindowProps = {
   country: CountryName;
   position: string;
+  index?: number;
 };
 
-function ConversionSlider({ country, position }: ConversionWindowProps) {
+function ConversionSlider({ country, position, index= 0 }: ConversionWindowProps) {
   const data = countryData.find((c) => c.name === country)!;
   const [usd, setUsd] = useState(1);
 
   return (
-    <Frame label="currency-slider.com" position={position}>
+    <Frame label="currency-slider.com" position={position} index={index}>
       <div className={styles.conversionContainer}>
         <div className={styles.conversionPrice}>
           {data.currencySymbol}{" "}

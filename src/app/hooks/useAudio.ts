@@ -10,6 +10,7 @@ export const soundBoard = {
   tick: new Howl({ src: "./audio/click_003.ogg", volume: 0.3 }),
   tock: new Howl({ src: "./audio/tick_004.ogg", volume: 0.3 }),
   error: new Howl({ src: "./audio/error_005.ogg" }),
+  open: new Howl({ src: "./audio/maximize_008.ogg", volume: 0.3 }),
 } as const;
 
 export type SoundName = keyof typeof soundBoard;
