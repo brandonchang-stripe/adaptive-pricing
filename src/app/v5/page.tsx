@@ -38,9 +38,9 @@ export default function App() {
       <main className={`${styles.main} ${dogica.className}`}>
         <Monitor>
           <div className={styles.grid}>
+            <Frame label="Travel map" position="map" index={1}></Frame>
             {state === "MAIN_MENU" && (
               <>
-                <Frame label="Travel map" position="map" index={1}></Frame>
                 <Frame
                   label="Notes"
                   position="starting-notes"
@@ -89,6 +89,9 @@ export default function App() {
 
             {state === "IN_GAME" && (
               <>
+                {currentItems.map((item, i) => (
+                  <ItemDisplayFrame key={item.merchant} item={item} index={i} />
+                ))}
                 <Frame
                   label="How to play"
                   position="how-to-play"
@@ -126,7 +129,7 @@ function ConversionSlider({ country, position }: ConversionWindowProps) {
   const [usd, setUsd] = useState(1);
 
   return (
-    <Frame label="currency-convert.com" position={position}>
+    <Frame label="currency-slider.com" position={position}>
       <div className={styles.conversionContainer}>
         <div className={styles.conversionPrice}>
           {data.currencySymbol}{" "}
@@ -151,12 +154,12 @@ function ChaseSlider({
   max = 100,
   onChange,
 }: ChaseSliderProps) {
-  const notchWidth = 18;
+  const notchWidth = 10;
   const count = Math.floor((max - min) / step);
   const [dragRef, dragData] = useDrag<HTMLDivElement>({
     minX: count * -notchWidth,
     maxX: 0,
-    damp: 0.99,
+    damp: 0.98,
   });
   const rafRef = useRef<number | null>(null);
   const sliderRef = useRef<HTMLDivElement>(null);
@@ -223,34 +226,37 @@ function ChaseSlider({
   );
 }
 
-type ItemPurchaseWindowProps = {
+type ItemDisplayFrameProps = {
   item: ActiveItem;
+  index: number;
 };
 
-function ItemPurchaseWindow({ item }: ItemPurchaseWindowProps) {
+function ItemDisplayFrame({ item, index }: ItemDisplayFrameProps) {
   const currentCountry = useCurrentCountry()!;
   const evaluate = useAppStore((state) => state.evaluate);
 
   return (
-    <Window key={item.type} label={item.merchant}>
-      <div className={styles.itemPurchaseContainer}>
-        <div>{item.type}</div>
-        <div className={styles.itemPrice}>
-          {item.converted
-            ? `$${item.usdPrice.toFixed(2)} USD`
-            : `${currentCountry!.currencySymbol} ${relativeRound(
-                item.usdPrice * currentCountry.conversionRateDefault
-              )}`}
+    <Frame
+      key={item.type}
+      label={item.merchant}
+      position={`item-${index}`}
+      index={index}
+    >
+      <div className={styles.itemDisplay}>
+        <div className={styles.itemDisplayImage}></div>
+        <div className={styles.itemDisplayData}>
+          <div>{item.type}</div>
+          <div className={styles.itemDisplayPrice}>
+            {item.converted
+              ? `$${item.usdPrice.toFixed(2)}`
+              : `${currentCountry!.currencySymbol} ${relativeRound(
+                  item.usdPrice * currentCountry.conversionRateDefault
+                )}`}
+          </div>
+          <Button onClick={() => evaluate(item.merchant)}>Buy</Button>
         </div>
-        <br />
-        <button
-          className={styles.button}
-          onClick={() => evaluate(item.merchant)}
-        >
-          Buy
-        </button>
       </div>
-    </Window>
+    </Frame>
   );
 }
 

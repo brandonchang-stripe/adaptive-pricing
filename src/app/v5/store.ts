@@ -56,13 +56,31 @@ export const useAppStore = create<AppState>((set, get) => ({
   // Game state machine
   state: "MAIN_MENU",
   setState: (newState: GameState) => {
-    set({ state: newState });
+    switch (get().state) {
+      case "MAIN_MENU":
+        if (newState === "IN_GAME") {
+          set({
+            state: newState,
+            itemIndex: 0,
+          });
+
+          get().chooseRandomMerchants(0);
+        }
+
+        break;
+    }
   },
 
   // Country state
   currentCountry: "Japan",
 
-  setCurrentCountry: (countryName: CountryName) => {},
+  setCurrentCountry: (countryName: CountryName) => {
+    switch (get().state) {
+      case "MAIN_MENU":
+        set({ currentCountry: countryName });
+        break;
+    }
+  },
 
   // Game meta state
   score: 0,
