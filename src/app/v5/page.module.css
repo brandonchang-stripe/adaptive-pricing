@@ -26,9 +26,15 @@
 
 .itemDisplay {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: calc(var(--pixel-size) * 4);
   padding: calc(var(--pixel-size) * 6) calc(var(--pixel-size) * 8);
+}
+
+.itemDisplayContainer {
+  display: flex;
+  flex-direction: row;
+  gap: calc(var(--pixel-size) * 4);
 }
 
 .itemDisplayImage {
@@ -38,7 +44,7 @@
   border-image-repeat: round;
   background-color: var(--color-100);
   aspect-ratio: 1/1;
-  height: calc(var(--pixel-size) * 44);
+  height: calc(var(--pixel-size) * 36);
 }
 
 .itemDisplayData {

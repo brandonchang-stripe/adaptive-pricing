@@ -243,18 +243,20 @@ function ItemDisplayFrame({ item, index }: ItemDisplayFrameProps) {
       index={index}
     >
       <div className={styles.itemDisplay}>
-        <div className={styles.itemDisplayImage}></div>
-        <div className={styles.itemDisplayData}>
-          <div>{item.type}</div>
-          <div className={styles.itemDisplayPrice}>
-            {item.converted
-              ? `$${item.usdPrice.toFixed(2)}`
-              : `${currentCountry!.currencySymbol} ${relativeRound(
-                  item.usdPrice * currentCountry.conversionRateDefault
-                )}`}
+        <div className={styles.itemDisplayContainer}>
+          <div className={styles.itemDisplayImage} />
+          <div className={styles.itemDisplayData}>
+            <div>{item.type}</div>
+            <div className={styles.itemDisplayPrice}>
+              {item.converted
+                ? `$${item.usdPrice.toFixed(2)}`
+                : `${currentCountry!.currencySymbol} ${relativeRound(
+                    item.usdPrice * currentCountry.conversionRateDefault
+                  )}`}
+            </div>
           </div>
-          <Button onClick={() => evaluate(item.merchant)}>Buy</Button>
         </div>
+        <Button onClick={() => evaluate(item.merchant)}>Buy</Button>
       </div>
     </Frame>
   );
