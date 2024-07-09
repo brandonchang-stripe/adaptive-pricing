@@ -31,7 +31,6 @@ interface AppState {
 
   score: number;
   level: number;
-  timeLimit: number;
   combo: number;
   chooseRandomMerchants: (itemIndex: number, count?: number) => void;
   evaluate: (merchant: string) => void;
@@ -88,7 +87,6 @@ export const useAppStore = create<AppState>((set, get) => ({
   score: 0,
   level: 1,
   combo: 0,
-  timeLimit: 10,
 
   // Item State
   currentItems: [],
@@ -142,19 +140,30 @@ export const useAppStore = create<AppState>((set, get) => ({
     set({ currentItems: items });
   },
 
-  evaluate: async (merchant) => {
-    const currentItems = get().currentItems;
-    const item = currentItems.find((i) => i.merchant === merchant);
-    if (!item) return;
+  evaluate: async (merchant: string | boolean = false) => {
+    // Evaluate a selection by the merchant name
+    if (typeof merchant === "string") {
+      const currentItems = get().currentItems;
+      const item = currentItems.find((i) => i.merchant === merchant);
+      if (!item) return;
 
-    const lowest = currentItems
-      .map((i) => i.usdPrice)
-      .reduce((a, b) => Math.min(a, b));
+      const lowest = currentItems
+        .map((i) => i.usdPrice)
+        .reduce((a, b) => Math.min(a, b));
 
-    if (item.usdPrice === lowest) {
-      get().gainPoints(1);
+      if (item.usdPrice === lowest) {
+        get().gainPoints(1);
+      } else {
+        get().losePoints(1);
+      }
     } else {
-      get().losePoints(1);
+      // If the merchant is a boolean, the game has forced a decision,
+      // either by timeout or some other means
+      if (merchant) {
+        get().gainPoints(1);
+      } else {
+        get().losePoints(1);
+      }
     }
 
     const currentCountry = get().currentCountry;
@@ -175,7 +184,7 @@ export const useAppStore = create<AppState>((set, get) => ({
 
   gainPoints: (points: number) => {
     set((state) => {
-      playSound("correct", Math.min(get().combo * 0.1 + 0.8, 2.0));
+      playSound("correct", Math.min(get().combo * 0.1 + 0.8, 1.8));
 
       return {
         score: state.score + points,
@@ -185,7 +194,7 @@ export const useAppStore = create<AppState>((set, get) => ({
     });
   },
 
-  losePoints: (point: number) => {
+  losePoints: () => {
     playSound("error");
     set((state) => ({
       level: state.level + 1,
@@ -197,9 +206,10 @@ export const useAppStore = create<AppState>((set, get) => ({
   isTimerRunning: false,
 
   startTimer: () => {
+    const duration = Math.max(15000 - get().combo * 1000, 5000);
     set({ isTimerRunning: false, timerDuration: 0 });
     setTimeout(() => {
-      set({ isTimerRunning: true, timerDuration: 10000 });
+      set({ isTimerRunning: true, timerDuration: duration });
     }, 1);
   },
 

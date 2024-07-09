@@ -27,6 +27,7 @@ export default function App() {
   const setState = useAppStore((state) => state.setState);
   const country = useAppStore((state) => state.currentCountry);
   const currentItems = useAppStore((state) => state.currentItems);
+  const evaluate = useAppStore((state) => state.evaluate);
 
   function handleStart() {
     setState("IN_GAME");
@@ -116,7 +117,7 @@ export default function App() {
                   index={3}
                 />
 
-                <TimerFrame onTimeout={() => {}} index={5} />
+                <TimerFrame onTimeout={() => evaluate(false)} index={5} />
               </>
             )}
           </div>
@@ -346,7 +347,7 @@ function TimerFrame({ onTimeout, index }: TimerProps) {
   }, [running]);
 
   return (
-    <Frame label="Time until flight" position="timer" index={index}>
+    <Frame label="Time left to purchase" position="timer" index={index}>
       <div className={styles.timerContainer}>
         {/* <progress
           className={styles.timerProgress}
