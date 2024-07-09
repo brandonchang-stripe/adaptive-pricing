@@ -23,6 +23,17 @@ export function convertRoundedToUSD(priceUSD: number, conversion: number) {
   }
 }
 
+export function pad(num: number, size: number) {
+  var s = "000000000" + num;
+  return s.substring(s.length - size);
+}
+
+export function toMMSS(num: number) {
+  var date = new Date(0);
+  date.setSeconds(num); // specify value for SECONDS here
+  return date.toISOString().substring(14, 19);
+}
+
 export function remap(
   value: number,
   low1: number,

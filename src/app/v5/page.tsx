@@ -8,7 +8,7 @@ import Window from "../components/Window/Window";
 import GameTexts from "../components/GameText/GameTexts";
 import { ActiveItem, useAppStore, useCurrentCountry } from "./store";
 import { CountryName, countryData } from "../components/countryData";
-import { relativeRound } from "../util/math";
+import { pad, relativeRound, toMMSS } from "../util/math";
 import { useDrag } from "../hooks/useDrag";
 import { SoundName, useAudio } from "../hooks/useAudio";
 import { throttle } from "throttle-debounce";
@@ -90,7 +90,11 @@ export default function App() {
             {state === "IN_GAME" && (
               <>
                 {currentItems.map((item, i) => (
-                  <ItemDisplayFrame key={item.merchant} item={item} index={i + 1} />
+                  <ItemDisplayFrame
+                    key={item.merchant}
+                    item={item}
+                    index={i + 1}
+                  />
                 ))}
                 <Frame
                   label="How to play"
@@ -99,7 +103,6 @@ export default function App() {
                   index={4}
                 >
                   <>
-                    <p>Buying goods</p>
                     <p>
                       Buy the cheapest option available. Some merchants only
                       sell in their local currency, so i&apos;ll need to convert
@@ -108,7 +111,13 @@ export default function App() {
                   </>
                 </Frame>
 
-                <ConversionSlider country={country!} position="slider" index={3} />
+                <ConversionSlider
+                  country={country!}
+                  position="slider"
+                  index={3}
+                />
+
+                <TimerFrame onTimeout={() => {}} index={5} />
               </>
             )}
           </div>
@@ -125,7 +134,11 @@ type ConversionWindowProps = {
   index?: number;
 };
 
-function ConversionSlider({ country, position, index= 0 }: ConversionWindowProps) {
+function ConversionSlider({
+  country,
+  position,
+  index = 0,
+}: ConversionWindowProps) {
   const data = countryData.find((c) => c.name === country)!;
   const [usd, setUsd] = useState(1);
 
@@ -267,12 +280,84 @@ type TravelMapProps = {
   index?: number;
 };
 
-function TravelMap({ index = 0 }) {
+function TravelMap({ index = 0 }: TravelMapProps) {
   return (
     <Frame label="Travel map" position="map" index={index}>
       <div className={styles.travelMap}>
         <div className={styles.travelMapContainer}>
-          <img className={styles.travelMapImage} src="/sprites/map.png" alt="Travel map" />
+          <img
+            className={styles.travelMapImage}
+            src="/sprites/map.png"
+            alt="Travel map"
+          />
+        </div>
+      </div>
+    </Frame>
+  );
+}
+
+type TimerProps = {
+  onTimeout: () => void;
+  index?: number;
+};
+
+function TimerFrame({ onTimeout, index }: TimerProps) {
+  const [seconds, setSeconds] = useState(0);
+  const rafRef = useRef<number | null>(null);
+  const startTimeRef = useRef<number | null>(null);
+  const progressRef = useRef<HTMLDivElement>(null);
+  const running = useAppStore((state) => state.isTimerRunning);
+  const duration = useAppStore((state) => state.timerDuration);
+
+  useEffect(() => {
+    function tick() {
+      const now = Date.now();
+      rafRef.current = requestAnimationFrame(tick);
+      if (startTimeRef.current !== null && duration > 0) {
+        const elapsed = now - startTimeRef.current;
+
+        if (progressRef.current) {
+          const value = 100 - (elapsed / duration) * 100;
+          const timeInSeconds = Math.ceil((duration - elapsed) / 1000);
+          if (seconds !== timeInSeconds) {
+            progressRef.current.style.width = `${value}%`;
+            setSeconds(timeInSeconds)
+          }
+        }
+
+        if (elapsed >= duration) {
+          startTimeRef.current = null;
+          if (progressRef.current) {
+            progressRef.current.style.width = `0%`;
+          }
+          setSeconds(0)
+          onTimeout();
+        }
+      }
+    }
+
+    rafRef.current = requestAnimationFrame(tick);
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, [duration, onTimeout, seconds]);
+
+  useEffect(() => {
+    startTimeRef.current = running ? Date.now() : null;
+  }, [running]);
+
+  return (
+    <Frame label="Time until flight" position="timer" index={index}>
+      <div className={styles.timerContainer}>
+        {/* <progress
+          className={styles.timerProgress}
+          max={100}
+          ref={progressRef}
+          value={10}
+        /> */}
+        <div className={styles.timerNumberTop}>{toMMSS(seconds)}</div>
+        <div className={styles.timerProgress} ref={progressRef}>
+          <div className={styles.timerNumber}>{toMMSS(seconds)}</div>
         </div>
       </div>
     </Frame>
@@ -394,52 +479,6 @@ function TravelMap({ index = 0 }) {
 //           ]
 //         </button>
 //       </div>
-//     </div>
-//   );
-// }
-
-// type TimerProps = {
-//   onTimeout: () => void;
-// };
-// function Timer({ onTimeout }: TimerProps) {
-//   const rafRef = useRef<number | null>(null);
-//   const startTimeRef = useRef<number | null>(null);
-//   const progressRef = useRef<HTMLProgressElement>(null);
-//   const running = useAppStore((state) => state.isTimerRunning);
-//   const duration = useAppStore((state) => state.timerDuration);
-
-//   useEffect(() => {
-//     function tick() {
-//       const now = Date.now();
-//       rafRef.current = requestAnimationFrame(tick);
-//       if (startTimeRef.current !== null && duration > 0) {
-//         const elapsed = now - startTimeRef.current;
-
-//         if (progressRef.current) {
-//           const value = 100 - (elapsed / duration) * 100;
-//           progressRef.current.value = value;
-//         }
-
-//         if (elapsed >= duration) {
-//           startTimeRef.current = null;
-//           onTimeout();
-//         }
-//       }
-//     }
-
-//     rafRef.current = requestAnimationFrame(tick);
-//     return () => {
-//       if (rafRef.current) cancelAnimationFrame(rafRef.current);
-//     };
-//   }, [duration, onTimeout]);
-
-//   useEffect(() => {
-//     startTimeRef.current = running ? Date.now() : null;
-//   }, [running]);
-
-//   return (
-//     <div className={styles.timerContainer}>
-//       <progress className={styles.timerProgress} max={100} ref={progressRef} />
 //     </div>
 //   );
 // }

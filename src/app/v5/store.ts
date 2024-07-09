@@ -65,6 +65,7 @@ export const useAppStore = create<AppState>((set, get) => ({
           });
 
           get().chooseRandomMerchants(0);
+          get().startTimer();
         }
 
         break;
@@ -155,9 +156,14 @@ export const useAppStore = create<AppState>((set, get) => ({
       get().losePoints(1);
     }
 
-    const nextItemIndex = get().itemIndex + 1;
-    set({ itemIndex: nextItemIndex });
-    get().chooseRandomMerchants(nextItemIndex);
+    const itemIndex = get().itemIndex;
+    if (itemIndex < items.length) {
+      const nextItemIndex = itemIndex + 1;
+      set({ itemIndex: nextItemIndex });
+      get().chooseRandomMerchants(nextItemIndex);
+    } else {
+      // TODO Set state to game over
+    }
   },
 
   gainPoints: (points: number) => {
@@ -184,7 +190,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   isTimerRunning: false,
 
   startTimer: () => {
-    const duration = Math.max(20000 - get().combo * 2000, 4000);
+    const duration = Math.max(20000 - get().combo * 1000, 5000);
     set({ isTimerRunning: false, timerDuration: 0 });
     setTimeout(() => {
       set({ isTimerRunning: true, timerDuration: duration });

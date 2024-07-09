@@ -12,3 +12,7 @@
   -moz-osx-font-smoothing: none;
   image-rendering: pixelated;
 }
+
+p {
+  line-height: 1.2;
+}
