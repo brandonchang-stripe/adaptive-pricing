@@ -99,7 +99,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: calc(var(--pixel-size) * 26);
+  height: calc(var(--pixel-size) * 36);
   padding: calc(var(--pixel-size) * 2);
 
   border-image-source: url("/sprites/simple-frame.png");

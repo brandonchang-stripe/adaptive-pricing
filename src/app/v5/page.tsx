@@ -1,17 +1,16 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
 import "./global.css";
+import React, { useEffect, useRef, useState } from "react";
+import { throttle } from "throttle-debounce";
 import styles from "./page.module.css";
 import PixelContext from "../components/Context";
-import Window from "../components/Window/Window";
 import GameTexts from "../components/GameText/GameTexts";
 import { ActiveItem, useAppStore, useCurrentCountry } from "./store";
 import { CountryName, countryData } from "../components/countryData";
-import { pad, relativeRound, toMMSS } from "../util/math";
+import { relativeRound, toMMSS } from "../util/math";
 import { useDrag } from "../hooks/useDrag";
 import { SoundName, useAudio } from "../hooks/useAudio";
-import { throttle } from "throttle-debounce";
 import Frame from "../components/Frame/Frame";
 import Monitor from "../components/Monitor/Monitor";
 import Button from "../components/Button/Button";
@@ -321,7 +320,7 @@ function TimerFrame({ onTimeout, index }: TimerProps) {
           const timeInSeconds = Math.ceil((duration - elapsed) / 1000);
           if (seconds !== timeInSeconds) {
             progressRef.current.style.width = `${value}%`;
-            setSeconds(timeInSeconds)
+            setSeconds(timeInSeconds);
           }
         }
 
@@ -330,7 +329,7 @@ function TimerFrame({ onTimeout, index }: TimerProps) {
           if (progressRef.current) {
             progressRef.current.style.width = `0%`;
           }
-          setSeconds(0)
+          setSeconds(0);
           onTimeout();
         }
       }

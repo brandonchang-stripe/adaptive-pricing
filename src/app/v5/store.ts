@@ -55,16 +55,17 @@ interface AppState {
 export const useAppStore = create<AppState>((set, get) => ({
   // Game state machine
   state: "MAIN_MENU",
-  setState: (newState: GameState) => {
+  setState: async (newState: GameState) => {
     switch (get().state) {
       case "MAIN_MENU":
         if (newState === "IN_GAME") {
+          get().chooseRandomMerchants(0);
           set({
             state: newState,
             itemIndex: 0,
           });
 
-          get().chooseRandomMerchants(0);
+          await new Promise((r) => setTimeout(r, 2000));
           get().startTimer();
         }
 
@@ -141,12 +142,12 @@ export const useAppStore = create<AppState>((set, get) => ({
     set({ currentItems: items });
   },
 
-  evaluate: (merchant) => {
-    const items = get().currentItems;
-    const item = items.find((i) => i.merchant === merchant);
+  evaluate: async (merchant) => {
+    const currentItems = get().currentItems;
+    const item = currentItems.find((i) => i.merchant === merchant);
     if (!item) return;
 
-    const lowest = items
+    const lowest = currentItems
       .map((i) => i.usdPrice)
       .reduce((a, b) => Math.min(a, b));
 
@@ -156,13 +157,19 @@ export const useAppStore = create<AppState>((set, get) => ({
       get().losePoints(1);
     }
 
+    const currentCountry = get().currentCountry;
+    const allItems = itemData[currentCountry!]!;
+
     const itemIndex = get().itemIndex;
-    if (itemIndex < items.length) {
+    if (itemIndex < allItems.length - 1) {
       const nextItemIndex = itemIndex + 1;
-      set({ itemIndex: nextItemIndex });
+      set({ itemIndex: nextItemIndex, isTimerRunning: false });
       get().chooseRandomMerchants(nextItemIndex);
+
+      await new Promise((r) => setTimeout(r, 1000));
+      get().startTimer();
     } else {
-      // TODO Set state to game over
+      set({ state: "GAME_OVER" });
     }
   },
 
@@ -190,10 +197,9 @@ export const useAppStore = create<AppState>((set, get) => ({
   isTimerRunning: false,
 
   startTimer: () => {
-    const duration = Math.max(20000 - get().combo * 1000, 5000);
     set({ isTimerRunning: false, timerDuration: 0 });
     setTimeout(() => {
-      set({ isTimerRunning: true, timerDuration: duration });
+      set({ isTimerRunning: true, timerDuration: 10000 });
     }, 1);
   },
 
