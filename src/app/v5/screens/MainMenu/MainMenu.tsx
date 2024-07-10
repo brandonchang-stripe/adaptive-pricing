@@ -3,6 +3,7 @@ import styles from "./MainMenu.module.css";
 import Button from "@/app/components/Button/Button";
 import Frame from "@/app/components/Frame/Frame";
 import { useAppStore, useCountryItems } from "../../store";
+import TravelMap from "@/app/components/TravelMap/TravelMap";
 
 export default function MainMenu() {
   const setState = useAppStore((state) => state.setState);
@@ -14,6 +15,7 @@ export default function MainMenu() {
 
   return (
     <>
+      <TravelMap key="travel-map" />
       <Frame
         allowDrag
         label="Notes"
@@ -22,7 +24,7 @@ export default function MainMenu() {
         index={2}
       >
         <>
-          <p>NOTES TO SELF!</p>
+          <p><b>NOTES TO SELF!</b></p>
           <p>
             Its finally time for my trip around the world, but before I go I
             need to buy everything I need for the trip.
@@ -39,7 +41,7 @@ export default function MainMenu() {
         index={3}
       >
         <div className={styles.tripListContainer}>
-          <p>Buy before trip:</p>
+          <p><b>Buy before trip:</b></p>
           <ul className={styles.tripList}>
             {countryItems.map((item) => (
               <li className={styles.tripListItem} key={item.type}>

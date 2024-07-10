@@ -102,7 +102,7 @@ function ScoreList({ index = 1 }: ScoreListProps) {
             subject="Your travel total"
             from="Travel Budgeter"
             imageSrc=""
-          ></EmailListItem>
+          />
         </motion.div>
       </div>
     </Frame>

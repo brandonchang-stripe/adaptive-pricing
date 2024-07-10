@@ -48,7 +48,6 @@ interface AppState {
   purchasedItems: PurchasedItem[];
   purchaseItem: (item: ActiveItem, score: number, saved: number) => void;
 
-  // paused: boolean;
   score: number;
   level: number;
   combo: number;
@@ -89,6 +88,12 @@ export const useAppStore = create<AppState>((set, get) => ({
           get().startTimer();
         }
 
+        break;
+
+      case "IN_GAME":
+        if (newState === "SCORE_SCREEN") {
+          set({ state: newState, isTimerRunning: false });
+        }
         break;
     }
   },
@@ -221,7 +226,7 @@ export const useAppStore = create<AppState>((set, get) => ({
       await new Promise((r) => setTimeout(r, 1000));
       get().startTimer();
     } else {
-      set({ state: "SCORE_SCREEN" });
+      get().setState("SCORE_SCREEN");
     }
   },
 

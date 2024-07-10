@@ -9,6 +9,7 @@ import { useEffect, useRef, useState } from "react";
 import { useDrag } from "@/app/hooks/useDrag";
 import { SoundName, useAudio } from "@/app/hooks/useAudio";
 import { throttle } from "throttle-debounce";
+import TravelMap from "@/app/components/TravelMap/TravelMap";
 
 export default function InGame() {
   const currentItems = useAppStore((state) => state.currentItems);
@@ -17,9 +18,12 @@ export default function InGame() {
 
   return (
     <>
+      <TravelMap key="travel-map" />
+
       {currentItems.map((item, i) => (
         <ItemDisplayFrame key={item.merchant} item={item} index={i + 1} />
       ))}
+
       <Frame
         allowDrag
         label="How to play"

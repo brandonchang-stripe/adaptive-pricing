@@ -38,8 +38,8 @@ export const countryData = [
   {
     name: "Japan",
     currencySymbol: "¥",
-    conversionRateDefault: 150,
-    currentConversionRate: 150,
+    conversionRateDefault: 161,
+    currentConversionRate: 161,
     position: { x: 90, y: 100 },
   },
   {

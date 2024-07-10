@@ -27,9 +27,9 @@ export const itemData: TravelItemData = {
   Japan: [
     {
       type: "Luggage tag",
-      merchants: ["congo.com", "Well Traveled", "luggagetags.com"],
-      baseUsdPrice: 1.0,
-      priceIncrements: [0],
+      merchants: ["congo.com", "well-traveled.com", "luggagetags.com"],
+      baseUsdPrice: 10.0,
+      priceIncrements: [1.0],
       quantity: "1x",
     },
     {
@@ -42,10 +42,10 @@ export const itemData: TravelItemData = {
     {
       type: "Plane ticket",
       merchants: [
-        "Japan Airways",
-        "Japan Aviation",
-        "Sakura Skyways",
-        "Edo Express",
+        "japanairways.jp",
+        "japan-aviation.jp",
+        "sakura-skyways.jp",
+        "edo-express.jp",
       ],
       baseUsdPrice: 1000,
       priceIncrements: [100, 200],
@@ -54,25 +54,30 @@ export const itemData: TravelItemData = {
     {
       type: "Train ticket",
       merchants: [
-        "Zen Express Pass",
-        "Fuji Rail",
-        "Sakura Rail",
-        "Japan Commuter Pass",
+        "zen-expresspass.jp",
+        "fujirail.jp",
+        "sakurarail.com",
+        "japan-commute.jp",
       ],
       baseUsdPrice: 100,
-      priceIncrements: [10, 0],
+      priceIncrements: [10, 15],
       quantity: "1x",
     },
     {
       type: "Visa",
-      merchants: ["eVisa", "quickvisa.com"],
+      merchants: ["evisa.jp", "quickvisa.com"],
       baseUsdPrice: 10.0,
       priceIncrements: [2, 5],
       quantity: "1x",
     },
     {
       type: "Hotel",
-      merchants: ["Sakura Inn", "Shogun Suites", "besthotels.com", "CapsuleCo"],
+      merchants: [
+        "sakurainn.jp",
+        "shogun-suites.jp",
+        "besthotels.com",
+        "capsule-co.jp",
+      ],
       baseUsdPrice: 100.0,
       priceIncrements: [25, 10],
       quantity: "3 nights",
@@ -80,10 +85,10 @@ export const itemData: TravelItemData = {
     {
       type: "Guidebook",
       merchants: [
-        "Infinite Japan",
-        "Discover Japan",
+        "infinitejapan.jp",
+        "discoverjapan.com",
         "japanguidebooks.com",
-        "Lovely Planet",
+        "lovely-planet.com",
       ],
       baseUsdPrice: 20.0,
       priceIncrements: [5, 10],
@@ -93,7 +98,7 @@ export const itemData: TravelItemData = {
       type: "Taxi",
       baseUsdPrice: 100.0,
       priceIncrements: [25, 10, 15, 5],
-      merchants: ["Uber", "FAST", "getthere.com"],
+      merchants: ["hitch-a-ride.com", "taxi.com", "online-taxi-pass.com"],
       quantity: "10x",
     },
   ],

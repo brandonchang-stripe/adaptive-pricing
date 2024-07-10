@@ -43,7 +43,7 @@ export default function EmailListItem({
       <div className={styles.image}>{/* todo image */}</div>
       <div className={styles.copy}>
         <div>{subject}</div>
-        <div>{from}</div>
+        <div><b>{from}</b></div>
         {children}
       </div>
     </motion.div>

@@ -14,7 +14,33 @@ import ScoreScreen from "./screens/ScoreScreen/ScoreScreen";
 import InGame from "./screens/InGame/InGame";
 
 const dogica = localFont({
-  src: "../../../public/fonts/dogica/dogicapixel.ttf",
+  src: [
+    {
+      path: "../../../public/fonts/dogica/dogicapixel.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../../public/fonts/dogica/dogicapixel.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../../public/fonts/dogica/dogicapixelbold.woff2",
+      weight: "800",
+      style: "bold",
+    },
+    {
+      path: "../../../public/fonts/dogica/dogicapixelbold.ttf",
+      weight: "800",
+      style: "bold",
+    },
+    {
+      path: "../../../public/fonts/dogica/dogicapixelbold.otf",
+      weight: "800",
+      style: "bold",
+    },
+  ],
   display: "block",
   variable: "--font-dogica",
 });
@@ -28,7 +54,6 @@ export default function App() {
         <main className={`${styles.main} ${dogica.className}`}>
           <Monitor>
             <div className={styles.grid}>
-              <TravelMap key="travel-map" />
               {state === "MAIN_MENU" && <MainMenu />}
               {state === "IN_GAME" && <InGame />}
               {state === "SCORE_SCREEN" && <ScoreScreen />}
@@ -38,26 +63,5 @@ export default function App() {
         </main>
       </PixelContext>
     </ScreenRefContext>
-  );
-}
-
-type TravelMapProps = {
-  index?: number;
-};
-
-function TravelMap({ index = 0 }: TravelMapProps) {
-  return (
-    <Frame allowDrag label="Travel map" position="map" index={index}>
-      <div className={styles.travelMap}>
-        <div className={styles.travelMapContainer}>
-          <img
-            draggable={false}
-            className={styles.travelMapImage}
-            src="/sprites/map.png"
-            alt="Travel map"
-          />
-        </div>
-      </div>
-    </Frame>
   );
 }
