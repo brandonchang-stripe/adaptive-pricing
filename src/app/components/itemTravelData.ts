@@ -18,6 +18,7 @@ export type ItemData = {
   merchants: string[];
   baseUsdPrice: number;
   priceIncrements: number[];
+  quantity: string;
 };
 
 export type TravelItemData = Partial<Record<CountryName, ItemData[]>>;
@@ -29,12 +30,14 @@ export const itemData: TravelItemData = {
       merchants: ["congo.com", "Well Traveled", "luggagetags.com"],
       baseUsdPrice: 1.0,
       priceIncrements: [0],
+      quantity: "1x",
     },
     {
       type: "Plug adaptor",
       merchants: ["congo.com", "sockets.com", "Home Reserves"],
       baseUsdPrice: 10,
       priceIncrements: [5],
+      quantity: "1x",
     },
     {
       type: "Plane ticket",
@@ -46,6 +49,7 @@ export const itemData: TravelItemData = {
       ],
       baseUsdPrice: 1000,
       priceIncrements: [100, 200],
+      quantity: "1x",
     },
     {
       type: "Train ticket",
@@ -57,18 +61,21 @@ export const itemData: TravelItemData = {
       ],
       baseUsdPrice: 100,
       priceIncrements: [10, 0],
+      quantity: "1x",
     },
     {
       type: "Visa",
       merchants: ["eVisa", "quickvisa.com"],
       baseUsdPrice: 10.0,
       priceIncrements: [2, 5],
+      quantity: "1x",
     },
     {
       type: "Hotel",
       merchants: ["Sakura Inn", "Shogun Suites", "besthotels.com", "CapsuleCo"],
       baseUsdPrice: 100.0,
       priceIncrements: [25, 10],
+      quantity: "3 nights",
     },
     {
       type: "Guidebook",
@@ -80,12 +87,14 @@ export const itemData: TravelItemData = {
       ],
       baseUsdPrice: 20.0,
       priceIncrements: [5, 10],
+      quantity: "1x",
     },
     {
       type: "Taxi",
       baseUsdPrice: 100.0,
       priceIncrements: [25, 10, 15, 5],
       merchants: ["Uber", "FAST", "getthere.com"],
+      quantity: "10x",
     },
   ],
 };

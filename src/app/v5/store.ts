@@ -280,3 +280,9 @@ export function useCurrentCountry(): CountryData {
   const country = useAppStore((state) => state.currentCountry);
   return countryData.find((c) => c.name === country)!;
 }
+
+export function useCountryItems() {
+  const country = useAppStore((state) => state.currentCountry);
+  if (!country) return [];
+  return itemData[country] || [];
+}

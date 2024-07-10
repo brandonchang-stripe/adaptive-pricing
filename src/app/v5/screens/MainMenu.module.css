@@ -1,0 +1,26 @@
+.tripListContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding-bottom: calc(var(--pixel-size) * 4);
+}
+
+.tripList {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--pixel-size) * 2);
+}
+
+.tripListItem {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  gap: var(--pixel-size);
+}
+
+.tripListItemLine {
+  flex-grow: 1;
+  border-bottom: var(--pixel-size) dotted var(--color-100);
+}

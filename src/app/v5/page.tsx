@@ -24,6 +24,7 @@ import {
 } from "framer-motion";
 import EmailListItem from "../components/EmailListItem/EmailListItem";
 import PurchaseEmailListItem from "../components/PurchaseEmailListItem/PurchaseEmailListItem";
+import MainMenu from "./screens/MainMenu";
 
 const dogica = localFont({
   src: "../../../public/fonts/dogica/dogicapixel.ttf",
@@ -38,66 +39,13 @@ export default function App() {
   const currentItems = useAppStore((state) => state.currentItems);
   const evaluate = useAppStore((state) => state.evaluate);
 
-  function handleStart() {
-    setState("IN_GAME");
-  }
-
   return (
     <PixelContext pixelSize={2}>
       <main className={`${styles.main} ${dogica.className}`}>
         <Monitor>
           <div className={styles.grid}>
-            <TravelMap />
-            {state === "MAIN_MENU" && (
-              <>
-                <Frame
-                  allowDrag
-                  label="Notes"
-                  position="starting-notes"
-                  type="note"
-                  index={2}
-                >
-                  <>
-                    <p>NOTES TO SELF!</p>
-                    <p>
-                      Its finally time for my trip around the world, but before
-                      I go I need to buy everything I need for the trip.
-                    </p>
-                    <p>PS: Dont leave everything for the last minute again</p>
-                  </>
-                </Frame>
-
-                <Frame
-                  allowDrag
-                  label="List"
-                  position="level-select-note"
-                  type="note"
-                  index={3}
-                >
-                  <>
-                    <p>Buy before trip:</p>
-                    <p>
-                      - thing one
-                      <br />
-                      - thing two
-                      <br />
-                      - other thing
-                      <br />
-                      - listing
-                      <br />
-                      - all the things
-                      <br />
-                      - one more
-                      <br />
-                      - final thing
-                      <br />
-                    </p>
-                    <Button onClick={handleStart}>Start shopping</Button>
-                  </>
-                </Frame>
-              </>
-            )}
-
+            <TravelMap key="travel-map" />
+            {state === "MAIN_MENU" && <MainMenu />}
             {state === "IN_GAME" && (
               <>
                 {currentItems.map((item, i) => (
