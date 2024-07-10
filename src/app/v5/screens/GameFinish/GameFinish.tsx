@@ -28,7 +28,15 @@ export default function GameFinish({ delay = 3000 }: Props) {
       <Frame index={0} label="Done purchasing" position="game-finish" allowDrag>
         <div className={styles.finishContainer}>
           <div className={styles.finishText}>
-            <b>FINISHED!</b>
+            <pre>
+              {`
+    ____   ____   _   __ ______ __
+   / __ \\ / __ \\ / | / // ____// /
+  / / / // / / //  |/ // __/  / / 
+ / /_/ // /_/ // /|  // /___ /_/  
+/_____/ \\____//_/ |_//_____/(_)   
+`}
+            </pre>
           </div>
         </div>
       </Frame>

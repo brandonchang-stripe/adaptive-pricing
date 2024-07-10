@@ -6,5 +6,5 @@
 }
 
 .finishText {
-  font-size: calc(var(--pixel-size) * 16);
+  font-size: calc(var(--pixel-size) * 8);
 }
