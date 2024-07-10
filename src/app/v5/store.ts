@@ -47,6 +47,7 @@ interface AppState {
   purchasedItems: PurchasedItem[];
   purchaseItem: (item: ActiveItem, score: number) => void;
 
+  // paused: boolean;
   score: number;
   level: number;
   combo: number;

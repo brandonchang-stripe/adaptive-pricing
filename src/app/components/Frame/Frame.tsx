@@ -12,6 +12,8 @@ type FrameProps = {
   type?: "regular" | "note";
   index?: number;
   allowDrag?: boolean;
+  dismissible?: boolean;
+  onDismiss?: () => void;
 };
 
 export default function Frame({
@@ -21,10 +23,20 @@ export default function Frame({
   type = "regular",
   index = 0,
   allowDrag = false,
+  dismissible = false,
+  onDismiss,
 }: FrameProps) {
   const audio = useAudio();
   const [opened, setOpened] = useState(false);
+  const [dismissed, setDismissed] = useState(false);
   const screenRef = useScreenRef();
+
+  function handleDismiss(e: React.MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (onDismiss) onDismiss();
+    setDismissed(true);
+  }
 
   return (
     <motion.div
@@ -44,7 +56,7 @@ export default function Frame({
       }}
       key={label}
       initial="hidden"
-      animate="visible"
+      animate={dismissed ? "hidden" : "visible"}
       exit="hidden"
       variants={{
         hidden: { scale: 0 },
@@ -54,7 +66,14 @@ export default function Frame({
       className={`${styles.frame} ${position} ${type}`}
       data-type={type}
     >
-      <div className={styles.titlebar}>{label}</div>
+      <div className={styles.titlebar}>
+        {label}
+        {dismissible && (
+          <button onClick={handleDismiss} className={styles.dismiss}>
+            x
+          </button>
+        )}
+      </div>
       <div className={styles.content}>{children}</div>
     </motion.div>
   );

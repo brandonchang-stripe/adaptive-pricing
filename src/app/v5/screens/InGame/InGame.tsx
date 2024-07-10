@@ -26,6 +26,7 @@ export default function InGame() {
         position="how-to-play"
         type="note"
         index={4}
+        dismissible
       >
         <p>
           Buy the cheapest option available. Some merchants only sell in their
