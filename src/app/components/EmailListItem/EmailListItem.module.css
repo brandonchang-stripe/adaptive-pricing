@@ -1,0 +1,24 @@
+.item {
+  padding: calc(var(--pixel-size) * 4) 0;
+  border-bottom: var(--pixel-size) dotted var(--color-100);
+  display: flex;
+  flex-direction: row;
+  gap: calc(var(--pixel-size) * 4);
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: calc(var(--pixel-size) * 4);
+}
+
+.image {
+  aspect-ratio: 1;
+  border-image-source: url("/sprites/simple-frame.png");
+  border-image-slice: 1;
+  border-image-width: calc(var(--pixel-size) * 1);
+  border-image-repeat: round;
+  height: calc(var(--pixel-size) * 36);
+  background-color: var(--color-100);
+}

@@ -15,6 +15,15 @@ import Frame from "../components/Frame/Frame";
 import Monitor from "../components/Monitor/Monitor";
 import Button from "../components/Button/Button";
 import localFont from "next/font/local";
+import {
+  cancelFrame,
+  frame,
+  motion,
+  useAnimate,
+  useAnimationFrame,
+} from "framer-motion";
+import EmailListItem from "../components/EmailListItem/EmailListItem";
+import PurchaseEmailListItem from "../components/PurchaseEmailListItem/PurchaseEmailListItem";
 
 const dogica = localFont({
   src: "../../../public/fonts/dogica/dogicapixel.ttf",
@@ -42,6 +51,7 @@ export default function App() {
             {state === "MAIN_MENU" && (
               <>
                 <Frame
+                  allowDrag
                   label="Notes"
                   position="starting-notes"
                   type="note"
@@ -58,6 +68,7 @@ export default function App() {
                 </Frame>
 
                 <Frame
+                  allowDrag
                   label="List"
                   position="level-select-note"
                   type="note"
@@ -97,6 +108,7 @@ export default function App() {
                   />
                 ))}
                 <Frame
+                  allowDrag
                   label="How to play"
                   position="how-to-play"
                   type="note"
@@ -116,10 +128,11 @@ export default function App() {
                   position="slider"
                   index={3}
                 />
-
                 <TimerFrame onTimeout={() => evaluate(false)} index={5} />
               </>
             )}
+
+            {state === "GAME_OVER" && <ScoreList />}
           </div>
         </Monitor>
         <GameTexts />
@@ -251,6 +264,7 @@ function ItemDisplayFrame({ item, index }: ItemDisplayFrameProps) {
 
   return (
     <Frame
+      allowDrag
       key={item.type}
       label={item.merchant}
       position={`item-${index}`}
@@ -282,10 +296,11 @@ type TravelMapProps = {
 
 function TravelMap({ index = 0 }: TravelMapProps) {
   return (
-    <Frame label="Travel map" position="map" index={index}>
+    <Frame allowDrag label="Travel map" position="map" index={index}>
       <div className={styles.travelMap}>
         <div className={styles.travelMapContainer}>
           <img
+            draggable={false}
             className={styles.travelMapImage}
             src="/sprites/map.png"
             alt="Travel map"
@@ -347,14 +362,13 @@ function TimerFrame({ onTimeout, index }: TimerProps) {
   }, [running]);
 
   return (
-    <Frame label="Time left to purchase" position="timer" index={index}>
+    <Frame
+      allowDrag
+      label="Time left to purchase"
+      position="timer"
+      index={index}
+    >
       <div className={styles.timerContainer}>
-        {/* <progress
-          className={styles.timerProgress}
-          max={100}
-          ref={progressRef}
-          value={10}
-        /> */}
         <div className={styles.timerNumberTop}>{toMMSS(seconds)}</div>
         <div className={styles.timerProgress} ref={progressRef}>
           <div className={styles.timerNumber}>{toMMSS(seconds)}</div>
@@ -364,121 +378,94 @@ function TimerFrame({ onTimeout, index }: TimerProps) {
   );
 }
 
-// function ItemDisplay() {
-//   const item = useAppStore((state) => state.currentItem);
-//   const country = useCurrentCountry();
-//   const isValid = item && country;
+type ScoreListProps = {
+  index?: number;
+};
+function ScoreList({ index = 1 }: ScoreListProps) {
+  const audio = useAudio();
+  const purchasedItems = useAppStore((state) => state.purchasedItems);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
-//   return (
-//     isValid && (
-//       <div className={styles.itemDisplay}>
-//         <div className={styles.itemDisplayImage}></div>
-//         <div className={styles.itemDisplayData}>
-//           <div className={styles.itemDisplayText}>
-//             {item.name} from {country.name}
-//           </div>
-//           <div className={styles.itemDisplayPrice}>
-//             {item.converted ? (
-//               <> $ USD {item.usdPrice} </>
-//             ) : (
-//               <>
-//                 {country.currencySymbol}{" "}
-//                 {relativeRound(item.usdPrice * country.conversionRateDefault)}
-//               </>
-//             )}
-//           </div>
-//         </div>
-//       </div>
-//     )
-//   );
-// }
+  const tick = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  };
 
-// function Score() {
-//   const score = useAppStore((state) => state.score);
-//   return <div>score : {score}</div>;
-// }
+  // after all items have animated in, stop scrolling to the bottom
+  useEffect(() => {
+    frame.render(tick, true);
 
-// function Decider() {
-//   const evaluate = useAppStore((state) => state.evaluate);
-//   const losePoint = useAppStore((state) => state.losePoints);
-//   const combo = useAppStore((state) => state.combo);
-//   const startTimer = useAppStore((state) => state.startTimer);
-//   const autoConvert = useAppStore((state) => state.autoConvert);
-//   const converts = useAppStore((state) => state.converts);
-//   const setPosition = useAppStore((state) => state.setPosition);
-//   const convertButtonRef = useRef<HTMLButtonElement>(null);
-//   const play = useAudio();
+    return () => {
+      cancelFrame(tick);
+    };
+  }, [tick]);
 
-//   useEffect(() => {
-//     function handleResize() {
-//       if (convertButtonRef.current) {
-//         const { width, height, left, top } =
-//           convertButtonRef.current.getBoundingClientRect();
-//         setPosition("convert", { x: width / 2 + left, y: height / 2 + top });
-//       }
-//     }
-
-//     window.addEventListener("resize", handleResize);
-//     handleResize();
-//     return () => window.removeEventListener("resize", handleResize);
-//   }, []);
-
-//   const handleBuy = useCallback(() => {
-//     play("click");
-//     evaluate();
-//     startTimer();
-//   }, [combo]);
-
-//   const handleAutoConvert = useCallback(() => {
-//     play("click");
-//     autoConvert();
-//   }, []);
-
-//   const handleTimeout = () => {
-//     losePoint(0);
-//     startTimer();
-//   };
-
-//   useEffect(() => {
-//     setTimeout(() => {
-//       startTimer();
-//     }, 200);
-//   }, []);
-
-//   useEffect(() => {
-//     function handleKey(e: globalThis.KeyboardEvent) {
-//       if (e.key === "b") {
-//         handleBuy();
-//       }
-
-//       if (e.key === "a") {
-//         handleAutoConvert();
-//       }
-//     }
-//     document.addEventListener("keydown", handleKey);
-//     return () => document.removeEventListener("keydown", handleKey);
-//   }, []);
-
-//   return (
-//     <div className={styles.deciderContainer}>
-//       <Timer onTimeout={handleTimeout} />
-//       <div className={styles.buttonContainer}>
-//         <button className={styles.button} onClick={handleBuy}>
-//           Buy
-//         </button>
-//         <button
-//           className={styles.button}
-//           onClick={handleAutoConvert}
-//           ref={convertButtonRef}
-//         >
-//           Auto Convert
-//           <br />[
-//           {Array(3)
-//             .fill(0)
-//             .map((_, i) => (converts > i ? "+" : "_"))}
-//           ]
-//         </button>
-//       </div>
-//     </div>
-//   );
-// }
+  return (
+    <Frame allowDrag label="s-mail.com" index={index} position="score-list">
+      <div className={styles.scoreListContainer}>
+        <div className={styles.scoreListToolbar}>
+          {Array(5)
+            .fill(0)
+            .map((_, i) => (
+              <img
+                key={i}
+                className={styles.scoreListButton}
+                src={`/sprites/email-icon-${i + 1}.png`}
+                alt=""
+                draggable={false}
+                onClick={() => audio("clickShort")}
+              />
+            ))}
+          <img
+            className={styles.scoreListDivider}
+            src="/sprites/email-icon-divider.png"
+            alt=""
+            draggable={false}
+          />
+          {Array(4)
+            .fill(0)
+            .map((_, i) => (
+              <img
+                key={i}
+                className={styles.scoreListButton}
+                src={`/sprites/email-icon-${i + 4}.png`}
+                alt=""
+                draggable={false}
+                onClick={() => audio("clickShort")}
+              />
+            ))}
+        </div>
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: {},
+            visible: {
+              transition: {
+                staggerChildren: 0.4,
+                delayChildren: 0.4,
+              },
+            },
+          }}
+          onAnimationComplete={() => {
+            cancelFrame(tick);
+          }}
+          className={styles.scoreListContents}
+          ref={scrollRef}
+        >
+          {purchasedItems.map((item, i) => (
+            <PurchaseEmailListItem key={i} item={item} index={i} />
+          ))}
+          <EmailListItem
+            index={purchasedItems.length}
+            openSounds={["open"]}
+            subject="Your travel total"
+            from="Travel Budgeter"
+            imageSrc=""
+          ></EmailListItem>
+        </motion.div>
+      </div>
+    </Frame>
+  );
+}

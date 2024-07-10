@@ -1,7 +1,11 @@
 import type { Vector2 } from "@/types/Vector2";
 import { create } from "zustand";
 import { nanoid } from "nanoid";
-import { ItemType, itemData } from "../components/itemTravelData";
+import {
+  ItemType,
+  emailSubjects,
+  itemData,
+} from "../components/itemTravelData";
 import { randiRange } from "../util/math";
 import { playSound } from "../hooks/useAudio";
 import {
@@ -11,7 +15,19 @@ import {
 } from "../components/countryData";
 import { Props as GameTextProps } from "../components/GameText";
 
-type GameState = "MAIN_MENU" | "IN_GAME" | "GAME_OVER";
+type GameState =
+  | "SPLASH"
+  | "BOOT"
+  | "MAIN_MENU"
+  | "IN_GAME"
+  | "GAME_PAUSED"
+  | "GAME_FINISH"
+  | "GAME_OVER";
+
+export type PurchasedItem = {
+  score: number;
+  title: string;
+} & ActiveItem;
 
 export type ActiveItem = {
   type: ItemType;
@@ -28,12 +44,14 @@ interface AppState {
   setCurrentCountry: (countryName: CountryName) => void;
   currentItems: ActiveItem[];
   itemIndex: number;
+  purchasedItems: PurchasedItem[];
+  purchaseItem: (item: ActiveItem, score: number) => void;
 
   score: number;
   level: number;
   combo: number;
   chooseRandomMerchants: (itemIndex: number, count?: number) => void;
-  evaluate: (merchant: string) => void;
+  evaluate: (merchant: string | boolean) => void;
 
   losePoints: (points: number) => void;
   gainPoints: (points: number) => void;
@@ -60,6 +78,7 @@ export const useAppStore = create<AppState>((set, get) => ({
         if (newState === "IN_GAME") {
           get().chooseRandomMerchants(0);
           set({
+            purchasedItems: [],
             state: newState,
             itemIndex: 0,
           });
@@ -140,6 +159,21 @@ export const useAppStore = create<AppState>((set, get) => ({
     set({ currentItems: items });
   },
 
+  purchasedItems: [],
+
+  purchaseItem(item: ActiveItem, score: number) {
+    set({
+      purchasedItems: [
+        ...get().purchasedItems,
+        {
+          ...item,
+          score,
+          title: emailSubjects[randiRange(0, emailSubjects.length - 1)],
+        },
+      ],
+    });
+  },
+
   evaluate: async (merchant: string | boolean = false) => {
     // Evaluate a selection by the merchant name
     if (typeof merchant === "string") {
@@ -153,8 +187,10 @@ export const useAppStore = create<AppState>((set, get) => ({
 
       if (item.usdPrice === lowest) {
         get().gainPoints(1);
+        get().purchaseItem(item, 1);
       } else {
         get().losePoints(1);
+        get().purchaseItem(item, -1);
       }
     } else {
       // If the merchant is a boolean, the game has forced a decision,

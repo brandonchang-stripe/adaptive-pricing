@@ -3,6 +3,7 @@
   flex-direction: column;
   min-width: 100px;
   min-height: 100px;
+  height: auto;
   z-index: 1;
 }
 
@@ -31,6 +32,7 @@
   border-image-repeat: round;
 
   position: relative;
+  overflow: hidden;
 }
 
 .frame[data-type="note"] .content {
@@ -86,4 +88,14 @@
 
   min-height: calc(var(--pixel-size) * 40);
   height: calc(var(--pixel-size) * 40);
+}
+
+.frame:global(.score-list) {
+  grid-column: 2 / span 5;
+  grid-row: 2 / span 10;
+}
+
+.frame:global(.logo) {
+  grid-column: 2 / span 6;
+  grid-row: 2 / span 6;
 }

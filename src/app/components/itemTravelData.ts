@@ -89,3 +89,19 @@ export const itemData: TravelItemData = {
     },
   ],
 };
+
+export const emailSubjects = [
+  "Thank you!",
+  "Your order confirmation",
+  "Your purchase details",
+  "Order confirmed!",
+  "Your receipt",
+  "Order summary",
+  "Thanks for shopping!",
+  "Order details",
+  "Your order is confirmed",
+  "Order receipt",
+  "Purchase confirmation",
+  "Order received",
+  "Order confirmation",
+];

@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import styles from "./Frame.module.css";
 import { stepEase } from "@/app/util/stepEase";
 import { useAudio } from "@/app/hooks/useAudio";
+import { useEffect, useState } from "react";
 
 type FrameProps = {
   children?: React.ReactNode;
@@ -9,6 +10,7 @@ type FrameProps = {
   position: string;
   type?: "regular" | "note";
   index?: number;
+  allowDrag?: boolean;
 };
 
 export default function Frame({
@@ -17,11 +19,25 @@ export default function Frame({
   position,
   type = "regular",
   index = 0,
+  allowDrag = false,
 }: FrameProps) {
   const audio = useAudio();
+  const [opened, setOpened] = useState(false);
+
   return (
     <motion.div
-      onAnimationStart={() => setTimeout(() => audio("open"), 300 * index)}
+      drag={allowDrag}
+      dragSnapToOrigin
+      dragTransition={{
+        bounceStiffness: 500,
+        bounceDamping: 30,
+      }}
+      onAnimationStart={(animation) => {
+        if (animation === "visible" && opened === false) {
+          setOpened(true);
+          setTimeout(() => audio("open"), 300 * index);
+        }
+      }}
       key={label}
       initial="hidden"
       animate="visible"

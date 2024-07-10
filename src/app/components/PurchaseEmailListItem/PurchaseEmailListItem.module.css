@@ -1,0 +1,10 @@
+.prices {
+  margin-top: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.discount {
+  color: var(--color-300);
+}

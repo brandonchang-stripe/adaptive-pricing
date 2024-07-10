@@ -1,5 +1,5 @@
 .main {
-  --pixel-size: 2px;
+  --pixel-size: 1.5px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -8,18 +8,18 @@
   width: 100vw;
   font-family: var(--font-dogica);
   font-size: calc(var(--pixel-size) * 8);
-  letter-spacing: 0;
+  letter-spacing: calc(var(--pixel-size) * -1);
   line-height: 1;
   user-select: none; /* Standard syntax */
   background-color: var(--color-100);
 }
 
 .grid {
-  height: min(700px);
   flex-shrink: 0;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: repeat(12, 1fr);
+  height: 100%;
   width: 100%;
   gap: calc(var(--pixel-size) * 4);
 }
@@ -184,7 +184,8 @@
 }
 
 .timerContainer {
-  padding: var(--pixel-size) calc(var(--pixel-size) * 3) calc(var(--pixel-size) * 3);
+  padding: var(--pixel-size) calc(var(--pixel-size) * 3)
+    calc(var(--pixel-size) * 3);
   width: 100%;
 }
 
@@ -210,4 +211,40 @@
   transform-origin: left center;
   overflow: hidden;
   position: relative;
+}
+
+.scoreListContainer {
+  padding: var(--pixel-size) calc(var(--pixel-size) * 3)
+    calc(var(--pixel-size) * 3);
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+}
+
+.scoreListToolbar {
+  border-bottom: var(--pixel-size) solid var(--color-100);
+  padding: calc(var(--pixel-size) * 2);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.scoreListButton {
+  user-select: none;
+  aspect-ratio: 1;
+  height: calc(var(--pixel-size) * 16);
+}
+
+.scoreListButton:active {
+  transform: translateY(var(--pixel-size));
+}
+
+.scoreListDivider {
+  height: calc(var(--pixel-size) * 14);
+}
+
+.scoreListContents {
+  padding: 0 calc(var(--pixel-size) * 2);
+  overflow-y: scroll;
 }
