@@ -1,14 +1,20 @@
 import styles from "./ScoreScreen.module.css";
-import { useAudio } from "@/app/hooks/useAudio";
-import { useAppStore } from "../../store";
+
 import { useEffect, useRef } from "react";
 import { cancelFrame, frame, motion } from "framer-motion";
+import { useAppStore } from "../../store";
+import { useAudio } from "@/app/hooks/useAudio";
 import PurchaseEmailListItem from "@/app/components/PurchaseEmailListItem/PurchaseEmailListItem";
 import EmailListItem from "@/app/components/EmailListItem/EmailListItem";
 import Frame from "@/app/components/Frame/Frame";
 
 export default function ScoreScreen() {
-  return <ScoreList />;
+  return (
+    <>
+      <ScoreList />;
+      <ScoreFrame />;
+    </>
+  );
 }
 
 type ScoreListProps = {
@@ -98,6 +104,63 @@ function ScoreList({ index = 1 }: ScoreListProps) {
             imageSrc=""
           ></EmailListItem>
         </motion.div>
+      </div>
+    </Frame>
+  );
+}
+
+function ScoreFrame() {
+  const country = useAppStore((state) => state.currentCountry);
+  const score = useAppStore((state) => state.score);
+  const scoreDigits = (score * 100).toString().split("");
+
+  return (
+    <Frame allowDrag label="Your travel total" position="score-frame" index={1}>
+      <div className={styles.scoreFrame}>
+        <div className={styles.scoreFrameContainer}>
+          <table className={styles.scoreFrameMeta}>
+            <tr>
+              <td>from:</td>
+              <td>Travel Budgeter</td>
+            </tr>
+            <tr>
+              <td>sent:</td>
+              <td>today</td>
+            </tr>
+            <tr>
+              <td>subject:</td>
+              <td>Your travel total</td>
+            </tr>
+          </table>
+
+          <table className={styles.scoreFrameSpending}>
+            <tr>
+              <td>Your {country} trip spend:</td>
+              <td>$99999</td>
+            </tr>
+            <tr>
+              <td>Total savings:</td>
+              <td>$99999</td>
+            </tr>
+          </table>
+
+          <div className={styles.scoreFrameMilesContainer}>
+            <div>Total miles earned:</div>
+            <div className={styles.scoreFrameMilesSquares}>
+              {scoreDigits.map((digit, i) => (
+                <div className={styles.scoreFrameMilesSquare}>
+                  <div className={styles.scoreFrameMilesDigit}>{digit}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        <img
+          className={styles.scoreFrameImage}
+          src="/sprites/plane-image.png"
+          draggable={false}
+          alt=""
+        />
       </div>
     </Frame>
   );
