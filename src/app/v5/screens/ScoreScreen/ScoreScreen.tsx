@@ -1,6 +1,6 @@
 import styles from "./ScoreScreen.module.css";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { cancelFrame, frame, motion } from "framer-motion";
 import { useAppStore } from "../../store";
 import { useAudio } from "@/app/hooks/useAudio";
@@ -11,16 +11,17 @@ import Frame from "@/app/components/Frame/Frame";
 export default function ScoreScreen() {
   return (
     <>
-      <ScoreList />;
-      <ScoreFrame />;
+      <ScoreList />
+      <ScoreFrame />
     </>
   );
 }
 
 type ScoreListProps = {
   index?: number;
+  onListAnimationComplete?: () => void;
 };
-function ScoreList({ index = 1 }: ScoreListProps) {
+function ScoreList({ index = 1, onListAnimationComplete }: ScoreListProps) {
   const audio = useAudio();
   const purchasedItems = useAppStore((state) => state.purchasedItems);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -29,6 +30,10 @@ function ScoreList({ index = 1 }: ScoreListProps) {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
+  };
+
+  const handleListAnimationComplete = () => {
+    cancelFrame(tick);
   };
 
   // after all items have animated in, stop scrolling to the bottom
@@ -87,15 +92,14 @@ function ScoreList({ index = 1 }: ScoreListProps) {
               },
             },
           }}
-          onAnimationComplete={() => {
-            cancelFrame(tick);
-          }}
+          onAnimationComplete={handleListAnimationComplete}
           className={styles.scoreListContents}
           ref={scrollRef}
         >
           {purchasedItems.map((item, i) => (
             <PurchaseEmailListItem key={i} item={item} index={i} />
           ))}
+
           <EmailListItem
             index={purchasedItems.length}
             openSounds={["open"]}
@@ -116,9 +120,23 @@ function ScoreFrame() {
   const totalSpend = items.reduce((acc, item) => acc + item.usdPrice, 0);
   const totalSaved = items.reduce((acc, item) => acc + item.saved, 0);
   const scoreDigits = (score * 100).toString().split("");
+  const audio = useAudio();
+
+  useEffect(() => {
+    const play = setTimeout(() => {
+      audio("finishSmall");
+    }, (items.length + 5) * 300);
+
+    return () => clearTimeout(play);
+  }, []);
 
   return (
-    <Frame allowDrag label="Your travel total" position="score-frame" index={1}>
+    <Frame
+      allowDrag
+      label="Your travel total"
+      position="score-frame"
+      index={items.length + 4}
+    >
       <div className={styles.scoreFrame}>
         <div className={styles.scoreFrameContainer}>
           <table className={styles.scoreFrameTable}>

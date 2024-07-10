@@ -12,6 +12,7 @@ import localFont from "next/font/local";
 import MainMenu from "./screens/MainMenu/MainMenu";
 import ScoreScreen from "./screens/ScoreScreen/ScoreScreen";
 import InGame from "./screens/InGame/InGame";
+import GameFinish from "./screens/GameFinish/GameFinish";
 
 const dogica = localFont({
   src: [
@@ -55,7 +56,8 @@ export default function App() {
           <Monitor>
             <div className={styles.grid}>
               {state === "MAIN_MENU" && <MainMenu />}
-              {state === "IN_GAME" && <InGame />}
+              {(state === "IN_GAME" || state === "GAME_FINISH") && <InGame />}
+              {state === "GAME_FINISH" && <GameFinish />}
               {state === "SCORE_SCREEN" && <ScoreScreen />}
             </div>
           </Monitor>

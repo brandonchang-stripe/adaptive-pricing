@@ -91,8 +91,14 @@ export const useAppStore = create<AppState>((set, get) => ({
         break;
 
       case "IN_GAME":
-        if (newState === "SCORE_SCREEN") {
+        if (newState === "GAME_FINISH") {
           set({ state: newState, isTimerRunning: false });
+        }
+        break;
+
+      case "GAME_FINISH":
+        if (newState === "SCORE_SCREEN") {
+          set({ state: newState });
         }
         break;
     }
@@ -183,6 +189,8 @@ export const useAppStore = create<AppState>((set, get) => ({
   },
 
   evaluate: async (merchant: string | boolean = false) => {
+    if (get().state !== "IN_GAME") return;
+
     // Evaluate a selection by the merchant name
     if (typeof merchant === "string") {
       const currentItems = get().currentItems;
@@ -226,7 +234,7 @@ export const useAppStore = create<AppState>((set, get) => ({
       await new Promise((r) => setTimeout(r, 1000));
       get().startTimer();
     } else {
-      get().setState("SCORE_SCREEN");
+      get().setState("GAME_FINISH");
     }
   },
 
