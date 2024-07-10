@@ -8,7 +8,7 @@ type Props = {
 };
 
 export default function PurchaseEmailListItem({ item, index }: Props) {
-  const { merchant, title, usdPrice, score } = item;
+  const { merchant, title, usdPrice, score, saved } = item;
 
   return (
     <EmailListItem
@@ -21,7 +21,7 @@ export default function PurchaseEmailListItem({ item, index }: Props) {
       <div className={styles.prices}>
         <div className={styles.paid}>${usdPrice.toFixed(2)}</div>
         {score > 0 && (
-          <div className={styles.discount}>[${usdPrice.toFixed(2)} saved]</div>
+          <div className={styles.discount}>[${saved.toFixed(2)} saved]</div>
         )}
       </div>
     </EmailListItem>

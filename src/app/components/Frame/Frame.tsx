@@ -53,16 +53,22 @@ export default function Frame({
           setOpened(true);
           setTimeout(() => audio("open"), 300 * index);
         }
+        if (animation === "hidden" && dismissed === true) {
+          audio("close");
+        }
       }}
       key={label}
       initial="hidden"
       animate={dismissed ? "hidden" : "visible"}
       exit="hidden"
       variants={{
-        hidden: { scale: 0 },
-        visible: { scale: 1 },
+        hidden: { scale: 0, transition: { ease: stepEase(4), duration: 0.2 } },
+        visible: {
+          scale: 1,
+          transition: { ease: stepEase(4), duration: 0.4, delay: index * 0.3 },
+        },
       }}
-      transition={{ ease: stepEase(4), duration: 0.4, delay: index * 0.3 }}
+      // transition={{ ease: stepEase(4), duration: 0.4, delay: index * 0.3 }}
       className={`${styles.frame} ${position} ${type}`}
       data-type={type}
     >

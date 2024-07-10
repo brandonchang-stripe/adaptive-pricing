@@ -35,7 +35,7 @@
 }
 
 .scoreFrameContainer {
-  padding: calc(var(--pixel-size) * 6);
+  padding: 0 calc(var(--pixel-size) * 6) calc(var(--pixel-size) * 6);
 }
 
 .scoreFrame {
@@ -46,16 +46,23 @@
   padding-bottom: calc(var(--pixel-size) * 3);
 }
 
-.scoreFrameMeta {
+.scoreFrameTable {
   border-collapse: separate;
   border-spacing: 0 var(--pixel-size);
   width: 100%;
-  padding-bottom: calc(var(--pixel-size) * 6);
+  padding: calc(var(--pixel-size) * 6) 0;
   border-bottom: var(--pixel-size) dotted var(--color-100);
 }
 
-.scoreFrameMeta :global(td) {
+.scoreFrameTable :global(td) {
   padding: 0 calc(var(--pixel-size) * 6) calc(var(--pixel-size) * 1) 0;
+}
+
+.scoreFrameMilesContainer {
+  padding-top: calc(var(--pixel-size) * 18);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--pixel-size) * 6);
 }
 
 .scoreFrameMilesSquares {
@@ -68,9 +75,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  color: var(--color-300);
   height: calc(var(--pixel-size) * 24);
-  width: calc(var(--pixel-size) * 24);
-  border: calc(var(--pixel-size) * 1) solid var(--color-100);
+  width: calc(var(--pixel-size) * 20);
+  border: calc(var(--pixel-size) * 1) solid var(--color-300);
 }
 
 .scoreFrameMilesDigit {

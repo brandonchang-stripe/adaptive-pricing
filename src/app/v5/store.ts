@@ -27,6 +27,7 @@ type GameState =
 export type PurchasedItem = {
   score: number;
   title: string;
+  saved: number;
 } & ActiveItem;
 
 export type ActiveItem = {
@@ -45,7 +46,7 @@ interface AppState {
   currentItems: ActiveItem[];
   itemIndex: number;
   purchasedItems: PurchasedItem[];
-  purchaseItem: (item: ActiveItem, score: number) => void;
+  purchaseItem: (item: ActiveItem, score: number, saved: number) => void;
 
   // paused: boolean;
   score: number;
@@ -162,13 +163,14 @@ export const useAppStore = create<AppState>((set, get) => ({
 
   purchasedItems: [],
 
-  purchaseItem(item: ActiveItem, score: number) {
+  purchaseItem(item: ActiveItem, score: number, saved: number) {
     set({
       purchasedItems: [
         ...get().purchasedItems,
         {
           ...item,
           score,
+          saved,
           title: emailSubjects[randiRange(0, emailSubjects.length - 1)],
         },
       ],
@@ -186,12 +188,16 @@ export const useAppStore = create<AppState>((set, get) => ({
         .map((i) => i.usdPrice)
         .reduce((a, b) => Math.min(a, b));
 
+      const highest = currentItems
+        .map((i) => i.usdPrice)
+        .reduce((a, b) => Math.max(a, b));
+
       if (item.usdPrice === lowest) {
         get().gainPoints(1);
-        get().purchaseItem(item, 1);
+        get().purchaseItem(item, 1, highest - item.usdPrice);
       } else {
         get().losePoints(1);
-        get().purchaseItem(item, -1);
+        get().purchaseItem(item, -1, 0);
       }
     } else {
       // If the merchant is a boolean, the game has forced a decision,

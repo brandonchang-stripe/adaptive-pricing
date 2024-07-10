@@ -82,8 +82,8 @@ function ScoreList({ index = 1 }: ScoreListProps) {
             hidden: {},
             visible: {
               transition: {
-                staggerChildren: 0.4,
-                delayChildren: 0.4,
+                staggerChildren: 0.3,
+                delayChildren: 0.6,
               },
             },
           }}
@@ -112,43 +112,53 @@ function ScoreList({ index = 1 }: ScoreListProps) {
 function ScoreFrame() {
   const country = useAppStore((state) => state.currentCountry);
   const score = useAppStore((state) => state.score);
+  const items = useAppStore((state) => state.purchasedItems);
+  const totalSpend = items.reduce((acc, item) => acc + item.usdPrice, 0);
+  const totalSaved = items.reduce((acc, item) => acc + item.saved, 0);
   const scoreDigits = (score * 100).toString().split("");
 
   return (
     <Frame allowDrag label="Your travel total" position="score-frame" index={1}>
       <div className={styles.scoreFrame}>
         <div className={styles.scoreFrameContainer}>
-          <table className={styles.scoreFrameMeta}>
-            <tr>
-              <td>from:</td>
-              <td>Travel Budgeter</td>
-            </tr>
-            <tr>
-              <td>sent:</td>
-              <td>today</td>
-            </tr>
-            <tr>
-              <td>subject:</td>
-              <td>Your travel total</td>
-            </tr>
+          <table className={styles.scoreFrameTable}>
+            <tbody>
+              <tr>
+                <td>from:</td>
+                <td>Travel Budgeter</td>
+              </tr>
+              <tr>
+                <td>sent:</td>
+                <td>today</td>
+              </tr>
+              <tr>
+                <td>subject:</td>
+                <td>Your travel total</td>
+              </tr>
+            </tbody>
           </table>
 
-          <table className={styles.scoreFrameSpending}>
-            <tr>
-              <td>Your {country} trip spend:</td>
-              <td>$99999</td>
-            </tr>
-            <tr>
-              <td>Total savings:</td>
-              <td>$99999</td>
-            </tr>
+          <table className={styles.scoreFrameTable}>
+            <tbody>
+              <tr>
+                <td>Your {country} trip spend:</td>
+                <td>[${totalSpend}]</td>
+              </tr>
+              <tr>
+                <td></td> <td></td>
+              </tr>
+              <tr>
+                <td>Total savings:</td>
+                <td>[${totalSaved}]</td>
+              </tr>
+            </tbody>
           </table>
 
           <div className={styles.scoreFrameMilesContainer}>
             <div>Total miles earned:</div>
             <div className={styles.scoreFrameMilesSquares}>
               {scoreDigits.map((digit, i) => (
-                <div className={styles.scoreFrameMilesSquare}>
+                <div key={i} className={styles.scoreFrameMilesSquare}>
                   <div className={styles.scoreFrameMilesDigit}>{digit}</div>
                 </div>
               ))}

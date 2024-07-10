@@ -24,9 +24,12 @@ export default function EmailListItem({
   const audio = useAudio();
   useEffect(() => {
     for (let i = 0; i < openSounds.length; i++) {
-      setTimeout(() => audio(openSounds[i]), 400 * (index + 1) + 100);
+      setTimeout(
+        () => audio(openSounds[i], 0.8 + (index * 0.05)),
+        300 * (index + 2) + 100
+      );
     }
-  }, [openSounds]);
+  }, [openSounds, index]);
 
   return (
     <motion.div
