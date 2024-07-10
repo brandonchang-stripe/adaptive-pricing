@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./page.module.css";
-import PixelContext from "../components/Context";
+import { PixelContext } from "../components/Context";
 import Window from "../components/Window/Window";
 import GameTexts from "../components/GameText/GameTexts";
 import { DotGothic16 } from "next/font/google";

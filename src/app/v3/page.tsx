@@ -3,7 +3,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import styles from "./page.module.css";
 import { useAppStore, useCurrentCountry } from "./store";
-import PixelContext from "../components/Context";
+import { PixelContext } from "../components/Context";
 import Panel from "../components/Panel";
 import StartScreen from "../components/StartScreen";
 import { relativeRound } from "../util/math";

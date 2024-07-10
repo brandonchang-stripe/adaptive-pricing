@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
-import PixelContext from "./components/Context";
+import { PixelContext } from "./components/Context";
 import Panel from "./components/Panel";
 import styles from "./page.module.css";
 import { Conversion } from "./components/Conversion";
@@ -12,11 +12,11 @@ import Decider from "./components/Decider";
 import Score from "./components/Score";
 
 export default function Home() {
-  const chooseRandomItem = useAppStore(store => store.chooseRandomItem);
+  const chooseRandomItem = useAppStore((store) => store.chooseRandomItem);
 
   useEffect(() => {
     chooseRandomItem();
-  }, [chooseRandomItem])
+  }, [chooseRandomItem]);
 
   return (
     <PixelContext>

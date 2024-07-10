@@ -1,9 +1,9 @@
 "use client";
 
-import React, { use, useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./page.module.css";
 import { useAppStore } from "../store";
-import PixelContext from "../components/Context";
+import { PixelContext } from "../components/Context";
 import Panel from "../components/Panel";
 import { Conversion } from "../components/Conversion";
 import { ItemDisplay } from "../components/ItemDisplay";
