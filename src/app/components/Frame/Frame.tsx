@@ -3,6 +3,7 @@ import styles from "./Frame.module.css";
 import { stepEase } from "@/app/util/stepEase";
 import { useAudio } from "@/app/hooks/useAudio";
 import { useEffect, useState } from "react";
+import { useScreenRef } from "../Context";
 
 type FrameProps = {
   children?: React.ReactNode;
@@ -23,11 +24,14 @@ export default function Frame({
 }: FrameProps) {
   const audio = useAudio();
   const [opened, setOpened] = useState(false);
+  const screenRef = useScreenRef();
 
   return (
     <motion.div
       drag={allowDrag}
       dragSnapToOrigin
+      dragConstraints={screenRef}
+      dragElastic={0.1}
       dragTransition={{
         bounceStiffness: 500,
         bounceDamping: 30,

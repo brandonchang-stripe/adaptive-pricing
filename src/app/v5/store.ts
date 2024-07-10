@@ -22,7 +22,7 @@ type GameState =
   | "IN_GAME"
   | "GAME_PAUSED"
   | "GAME_FINISH"
-  | "GAME_OVER";
+  | "SCORE_SCREEN";
 
 export type PurchasedItem = {
   score: number;
@@ -214,7 +214,7 @@ export const useAppStore = create<AppState>((set, get) => ({
       await new Promise((r) => setTimeout(r, 1000));
       get().startTimer();
     } else {
-      set({ state: "GAME_OVER" });
+      set({ state: "SCORE_SCREEN" });
     }
   },
 

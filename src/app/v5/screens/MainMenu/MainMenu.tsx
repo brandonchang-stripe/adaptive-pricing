@@ -2,7 +2,7 @@ import styles from "./MainMenu.module.css";
 
 import Button from "@/app/components/Button/Button";
 import Frame from "@/app/components/Frame/Frame";
-import { useAppStore, useCountryItems } from "../store";
+import { useAppStore, useCountryItems } from "../../store";
 
 export default function MainMenu() {
   const setState = useAppStore((state) => state.setState);

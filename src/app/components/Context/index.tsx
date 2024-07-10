@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { RefObject, createContext, createRef, useContext, useRef } from "react";
 
 type Props = {
   children?: React.ReactNode;
@@ -7,8 +7,23 @@ type Props = {
 
 export type PixelContextType = { pixelSize: number };
 
-export const Context = createContext<PixelContextType>({ pixelSize: 3 });
+export const Pixel = createContext<PixelContextType>({ pixelSize: 3 });
 
-export default function PixelContext({ children, pixelSize = 3 }: Props) {
-  return <Context.Provider value={{ pixelSize }}>{children}</Context.Provider>;
+export function PixelContext({ children, pixelSize = 3 }: Props) {
+  return <Pixel.Provider value={{ pixelSize }}>{children}</Pixel.Provider>;
 }
+
+export const usePixel = () => {
+  return useContext(Pixel);
+};
+
+const screenRef = createRef<HTMLDivElement>();
+export const ScreenRef = createContext(screenRef);
+
+export function ScreenRefContext({ children }: { children: React.ReactNode }) {
+  return <ScreenRef.Provider value={screenRef}>{children}</ScreenRef.Provider>;
+}
+
+export const useScreenRef = () => {
+  return useContext(ScreenRef);
+};
