@@ -1,14 +1,38 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { DotGothic16 } from "next/font/google";
 import "./globals.css";
 
-const silkScreen = localFont({
-  src: "../../public/silkscreen/slkscr.ttf",
-  display: "swap",
-  variable: "--font-silkscreen",
+const dogica = localFont({
+  src: [
+    {
+      path: "../../public/fonts/dogica/dogicapixel.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/dogica/dogicapixel.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/dogica/dogicapixelbold.woff2",
+      weight: "800",
+      style: "bold",
+    },
+    {
+      path: "../../public/fonts/dogica/dogicapixelbold.ttf",
+      weight: "800",
+      style: "bold",
+    },
+    {
+      path: "../../public/fonts/dogica/dogicapixelbold.otf",
+      weight: "800",
+      style: "bold",
+    },
+  ],
+  display: "block",
+  variable: "--font-dogica",
 });
-
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -21,8 +45,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={silkScreen.className}>{children}</body>
+    <html className={dogica.className} lang="en">
+      <body>{children}</body>
     </html>
   );
 }

@@ -1,0 +1,74 @@
+.sliderContainer {
+  position: relative;
+  color: var(--color-100);
+  background: var(--color-200);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: calc(var(--pixel-size) * 36);
+  padding: calc(var(--pixel-size) * 2);
+
+  border-image-source: url("/sprites/simple-frame.png");
+  border-image-slice: 3;
+  border-image-width: calc(var(--pixel-size) * 3);
+  border-image-repeat: round;
+}
+
+.sliderWrapper {
+  position: relative;
+  width: 100%;
+  background-color: var(--color-100);
+  height: 100%;
+  overflow: hidden;
+  cursor: grab;
+}
+
+.sliderWrapper:active {
+  cursor: grabbing;
+}
+
+.sliderControl {
+  top: 0;
+  left: 50%;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  display: flex;
+  gap: calc(var(--pixel-size) * 4);
+  align-items: center;
+}
+
+.sliderIndicator {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  left: calc(50% - var(--pixel-size));
+  width: calc(var(--pixel-size) * 7);
+  border-right: calc(var(--pixel-size) * 2) solid var(--color-300);
+  border-left: calc(var(--pixel-size) * 2) solid var(--color-300);
+  transform: translateX(calc(var(--pixel-size) * -2));
+  pointer-events: none;
+}
+
+.sliderNotch {
+  height: calc(var(--pixel-size) * 6);
+  width: var(--pixel-size);
+  background-color: var(--color-200);
+  flex-shrink: 0;
+  pointer-events: none;
+}
+
+.sliderNotch:nth-of-type(5n + 1) {
+  height: calc(var(--pixel-size) * 12);
+}
+
+.sliderNotch:nth-of-type(10n + 1) {
+  height: calc(var(--pixel-size) * 24);
+}
+
+.sliderNotch:last-of-type,
+.sliderNotch:first-of-type {
+  height: 100%;
+}

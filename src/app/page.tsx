@@ -1,44 +1,35 @@
 "use client";
 
-import React, { useEffect } from "react";
-import { PixelContext } from "./components/Context";
-import Panel from "./components/Panel";
+import React from "react";
 import styles from "./page.module.css";
-import { Conversion } from "./components/Conversion";
+import { PixelContext, ScreenRefContext } from "./components/Context";
+import GameTexts from "./components/GameText/GameTexts";
 import { useAppStore } from "./store";
-import { ItemDisplay } from "./components/ItemDisplay";
-import Budget from "./components/Budget";
-import Decider from "./components/Decider";
-import Score from "./components/Score";
+import Monitor from "./components/Monitor/Monitor";
+import localFont from "next/font/local";
+import MainMenu from "./screens/MainMenu";
+import ScoreScreen from "./screens/ScoreScreen";
+import InGame from "./screens/InGame";
+import GameFinish from "./screens/GameFinish";
 
-export default function Home() {
-  const chooseRandomItem = useAppStore((store) => store.chooseRandomItem);
-
-  useEffect(() => {
-    chooseRandomItem();
-  }, [chooseRandomItem]);
+export default function App() {
+  const state = useAppStore((state) => state.state);
 
   return (
-    <PixelContext>
-      <main className={styles.main}>
-        <div className={styles.grid}>
-          <Panel gridName="covn" label="Conversion">
-            <Conversion />
-          </Panel>
-          <Panel gridName="item" label="Item">
-            <ItemDisplay />
-          </Panel>
-          <Panel gridName="budt" label="Budget">
-            <Budget />
-          </Panel>
-          <Panel gridName="butn" label="Buttons">
-            <Decider />
-          </Panel>
-          <Panel gridName="scor" label="Score">
-            <Score />
-          </Panel>
-        </div>
-      </main>
-    </PixelContext>
+    <ScreenRefContext>
+      <PixelContext pixelSize={2}>
+        <main className={styles.main}>
+          <Monitor>
+            <div className={styles.grid}>
+              {state === "MAIN_MENU" && <MainMenu />}
+              {(state === "IN_GAME" || state === "GAME_FINISH") && <InGame />}
+              {state === "GAME_FINISH" && <GameFinish />}
+              {state === "SCORE_SCREEN" && <ScoreScreen />}
+            </div>
+          </Monitor>
+          <GameTexts />
+        </main>
+      </PixelContext>
+    </ScreenRefContext>
   );
 }

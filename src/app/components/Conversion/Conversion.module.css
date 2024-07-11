@@ -1,22 +1,21 @@
-.container {
+.conversionContainer {
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  flex-grow: 1;
+  justify-content: space-between;
+  padding: 0 calc(var(--pixel-size) * 8) calc(var(--pixel-size) * 8);
 }
 
-.price {
-  width: 100%;
-  text-align: center;
+.conversionCountry {
+  color: var(--color-100);
+}
+
+.conversionPrice {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.section {
-  width: 40%;
-  white-space: no-wrap;
-  text-align: center;
+  height: calc(var(--pixel-size) * 24);
+  font-size: calc(var(--pixel-size) * 16);
 }

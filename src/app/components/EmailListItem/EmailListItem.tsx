@@ -1,4 +1,4 @@
-import { motion, useAnimationFrame } from "framer-motion";
+import { motion } from "framer-motion";
 import styles from "./EmailListItem.module.css";
 import { stepEase } from "@/app/util/stepEase";
 import { SoundName, useAudio } from "@/app/hooks/useAudio";

@@ -1,5 +1,5 @@
 import styles from "./PurchaseEmailListItem.module.css";
-import { PurchasedItem } from "@/app/v5/store";
+import { PurchasedItem } from "@/app/store";
 import EmailListItem from "../EmailListItem/EmailListItem";
 
 type Props = {

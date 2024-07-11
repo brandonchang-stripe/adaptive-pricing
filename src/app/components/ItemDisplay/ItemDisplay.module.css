@@ -1,3 +1,43 @@
-.text {
-  color: var(--color-500);
+.itemDisplay {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--pixel-size) * 4);
+  padding: calc(var(--pixel-size) * 6) calc(var(--pixel-size) * 8);
+}
+
+.itemDisplayContainer {
+  display: flex;
+  flex-direction: row;
+  gap: calc(var(--pixel-size) * 4);
+}
+
+.itemDisplayImage {
+  border-image-source: url("/sprites/simple-frame.png");
+  border-image-slice: 1;
+  border-image-width: calc(var(--pixel-size) * 1);
+  border-image-repeat: round;
+  background-color: var(--color-100);
+  aspect-ratio: 1/1;
+  height: calc(var(--pixel-size) * 36);
+}
+
+.itemDisplayData {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: stretch;
+  flex-grow: 1;
+  gap: calc(var(--pixel-size) * 6);
+}
+
+.itemDisplayData:global(.button) {
+  margin-top: 100px;
+}
+
+.itemDisplayPrice {
+  font-size: calc(var(--pixel-size) * 16);
+}
+
+.itemDisplayButton {
+  flex-grow: 1;
 }

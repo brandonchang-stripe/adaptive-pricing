@@ -1,21 +1,21 @@
 .main {
-  min-height: 100vh;
   display: flex;
-  flex-direction: column;
-  padding: calc(var(--pixel-size) * 2);
+  justify-content: center;
+  align-items: center;
+
+  height: 100vh;
+  width: 100vw;
 }
 
 .grid {
-  height: min(700px);
   flex-shrink: 0;
   display: grid;
-  grid-template-columns: auto 380px 380px auto;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
-  grid-template-areas:
-    ". scor scor ."
-    ". item budt ."
-    ". covn covn ."
-    ". butn butn .";
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(12, 1fr);
+  height: 100%;
   width: 100%;
-  gap: calc(var(--pixel-size) * 2);
+  gap: calc(var(--pixel-size) * 4);
 }
+
+
+

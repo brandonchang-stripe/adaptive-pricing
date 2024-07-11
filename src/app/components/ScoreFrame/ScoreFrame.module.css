@@ -1,0 +1,57 @@
+.scoreFrameContainer {
+  padding: 0 calc(var(--pixel-size) * 6) calc(var(--pixel-size) * 6);
+}
+
+.scoreFrame {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: calc(var(--pixel-size) * 3);
+}
+
+.scoreFrameTable {
+  border-collapse: separate;
+  border-spacing: 0 var(--pixel-size);
+  width: 100%;
+  padding: calc(var(--pixel-size) * 6) 0;
+  border-bottom: var(--pixel-size) dotted var(--color-100);
+}
+
+.scoreFrameTable :global(td) {
+  padding: 0 calc(var(--pixel-size) * 6) calc(var(--pixel-size) * 1) 0;
+}
+
+.scoreFrameMilesContainer {
+  padding-top: calc(var(--pixel-size) * 18);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--pixel-size) * 6);
+}
+
+.scoreFrameMilesSquares {
+  display: flex;
+  flex-direction: row;
+  gap: calc(var(--pixel-size) * 3);
+}
+
+.scoreFrameMilesSquare {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-300);
+  height: calc(var(--pixel-size) * 24);
+  width: calc(var(--pixel-size) * 20);
+  border: calc(var(--pixel-size) * 1) solid var(--color-300);
+}
+
+.scoreFrameMilesDigit {
+  font-size: calc(var(--pixel-size) * 16);
+}
+
+.scoreFrameImage {
+  width: calc(var(--pixel-size) * 180);
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
