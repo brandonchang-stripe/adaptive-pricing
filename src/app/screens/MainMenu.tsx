@@ -1,17 +1,15 @@
 import Frame from "@/app/components/Frame/Frame";
 import { useAppStore } from "../store";
-import TravelMap from "@/app/components/TravelMap/TravelMap";
-import LevelSelectList from "@/app/components/LevelSelectList/LevelSelectList";
+import Button from "../components/Button/Button";
 
 export default function MainMenu() {
-  const setState = useAppStore((state) => state.setState);
+  const setState = useAppStore((state) => state.transitionState);
   function handleStart() {
-    setState("IN_GAME");
+    setState("GAME_PAUSED");
   }
 
   return (
     <>
-      <TravelMap key="travel-map" />
       <Frame allowDrag label="Notes" position="starting-notes" type="note" index={2}>
         <>
           <p>
@@ -22,9 +20,9 @@ export default function MainMenu() {
           </p>
           <p>PS: Dont leave everything for the last minute again</p>
         </>
-      </Frame>
 
-      <LevelSelectList onLevelStart={handleStart} />
+        <Button onClick={handleStart}>Start shopping</Button>
+      </Frame>
     </>
   );
 }

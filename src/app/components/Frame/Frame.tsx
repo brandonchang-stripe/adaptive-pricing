@@ -1,8 +1,8 @@
-import { motion } from "framer-motion";
 import styles from "./Frame.module.css";
+import { motion } from "framer-motion";
 import { stepEase } from "@/app/util/stepEase";
 import { useAudio } from "@/app/hooks/useAudio";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useScreenRef } from "../Context";
 
 type FrameProps = {
@@ -11,9 +11,8 @@ type FrameProps = {
   position: string;
   type?: "regular" | "note";
   index?: number;
+  visible?: boolean;
   allowDrag?: boolean;
-  dismissible?: boolean;
-  onDismiss?: () => void;
 };
 
 export default function Frame({
@@ -22,21 +21,14 @@ export default function Frame({
   position,
   type = "regular",
   index = 0,
+  visible = true,
   allowDrag = false,
-  dismissible = false,
-  onDismiss,
 }: FrameProps) {
   const audio = useAudio();
+  // Used to track if this frame has already been opened,
+  // to prevent multiple open sounds from playing on drag
   const [opened, setOpened] = useState(false);
-  const [dismissed, setDismissed] = useState(false);
   const screenRef = useScreenRef();
-
-  function handleDismiss(e: React.MouseEvent<HTMLButtonElement>) {
-    e.preventDefault();
-    e.stopPropagation();
-    if (onDismiss) onDismiss();
-    setDismissed(true);
-  }
 
   return (
     <motion.div
@@ -53,13 +45,13 @@ export default function Frame({
           setOpened(true);
           setTimeout(() => audio("open"), 300 * index);
         }
-        if (animation === "hidden" && dismissed === true) {
+        if (animation === "hidden") {
           audio("close");
         }
       }}
       key={label}
       initial="hidden"
-      animate={dismissed ? "hidden" : "visible"}
+      animate={visible ? "visible" : "hidden"}
       exit="hidden"
       variants={{
         hidden: { scale: 0, transition: { ease: stepEase(4), duration: 0.2 } },
@@ -68,18 +60,10 @@ export default function Frame({
           transition: { ease: stepEase(4), duration: 0.4, delay: index * 0.3 },
         },
       }}
-      // transition={{ ease: stepEase(4), duration: 0.4, delay: index * 0.3 }}
       className={`${styles.frame} ${position} ${type}`}
       data-type={type}
     >
-      <div className={styles.titlebar}>
-        {label}
-        {dismissible && (
-          <button onClick={handleDismiss} className={styles.dismiss}>
-            x
-          </button>
-        )}
-      </div>
+      <div className={styles.titlebar}>{label}</div>
       <div className={styles.content}>{children}</div>
     </motion.div>
   );

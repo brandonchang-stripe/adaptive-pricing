@@ -49,8 +49,8 @@
 }
 
 .frame:global(.starting-notes) {
-  grid-column: 2 / span 5;
-  grid-row: 2 / span 5;
+  grid-column: 5 / span 5;
+  grid-row: 3 / span 5;
 }
 
 .frame:global(.level-select-note) {
@@ -64,28 +64,28 @@
 }
 
 .frame:global(.how-to-play) {
-  grid-column: 7 / span 6;
-  grid-row: 10 / span 3;
+  grid-column: 4 / span 6;
+  grid-row: 2 / span 9;
 }
 
 .frame:global(.slider) {
   grid-column: 2 / span 10;
-  grid-row: 5 / span 3;
+  grid-row: 6 / span 3;
 }
 
 .frame:global(.item-1) {
   grid-column: 2 / span 5;
-  grid-row: 2 / span 3;
+  grid-row: 3 / span 3;
 }
 
 .frame:global(.item-2) {
   grid-column: 7 / span 5;
-  grid-row: 2 / span 3;
+  grid-row: 3 / span 3;
 }
 
 .frame:global(.timer) {
-  grid-column: 4 / span 6;
-  grid-row: 8 / span 2;
+  grid-column: 2 / span 10;
+  grid-row: 9 / span 2;
 
   min-height: calc(var(--pixel-size) * 40);
   height: calc(var(--pixel-size) * 40);
@@ -109,4 +109,19 @@
 .frame:global(.logo) {
   grid-column: 2 / span 6;
   grid-row: 2 / span 6;
+}
+
+.frame:global(.tutorial-0) {
+  grid-column: 5 / span 4;
+  grid-row: 6 / span 4;
+}
+
+.frame:global(.tutorial-1) {
+  grid-column: 4 / span 5;
+  grid-row: 9 / span 4;
+}
+
+.frame:global(.tutorial-2) {
+  grid-column: 4 / span 6;
+  grid-row: 5 / span 4;
 }

@@ -1,6 +1,6 @@
 import styles from "./ScoreList.module.css";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { cancelFrame, frame, motion } from "framer-motion";
 import { useAppStore } from "../../store";
 import { useAudio } from "@/app/hooks/useAudio";

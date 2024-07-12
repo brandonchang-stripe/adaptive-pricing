@@ -4,21 +4,10 @@ import { nanoid } from "nanoid";
 import { ItemType, emailSubjects, itemData } from "./components/itemTravelData";
 import { randiRange } from "./util/math";
 import { playSound } from "./hooks/useAudio";
-import {
-  CountryData,
-  CountryName,
-  countryData,
-} from "./components/countryData";
+import { CountryData, CountryName, countryData } from "./components/countryData";
 import { Props as GameTextProps } from "./components/GameText";
 
-type GameState =
-  | "SPLASH"
-  | "BOOT"
-  | "MAIN_MENU"
-  | "IN_GAME"
-  | "GAME_PAUSED"
-  | "GAME_FINISH"
-  | "SCORE_SCREEN";
+type GameState = "SPLASH" | "BOOT" | "MAIN_MENU" | "GAME_PLAY" | "GAME_PAUSED" | "GAME_FINISH" | "SCORE_SCREEN";
 
 export type PurchasedItem = {
   score: number;
@@ -35,7 +24,7 @@ export type ActiveItem = {
 
 interface AppState {
   state: GameState;
-  setState: (newState: GameState) => void;
+  transitionState: (newState: GameState) => void;
 
   currentCountry: CountryName | null;
   setCurrentCountry: (countryName: CountryName) => void;
@@ -44,9 +33,14 @@ interface AppState {
   purchasedItems: PurchasedItem[];
   purchaseItem: (item: ActiveItem, score: number, saved: number) => void;
 
+  tutorialStep: number;
+  nextTutorialStep: () => void;
+
   score: number;
   level: number;
   combo: number;
+  startGame: () => void;
+  initGame: () => void;
   chooseRandomMerchants: (itemIndex: number, count?: number) => void;
   evaluate: (merchant: string | boolean) => void;
 
@@ -55,7 +49,7 @@ interface AppState {
   // timer state
   timerDuration: number;
   isTimerRunning: boolean;
-  startTimer: () => void;
+  initTimerDuration: () => void;
   // game texts
   createGameText: (text: string, position: Vector2) => void;
   popGameText: (id: string) => void;
@@ -69,35 +63,77 @@ interface AppState {
 export const useAppStore = create<AppState>((set, get) => ({
   // Game state machine
   state: "MAIN_MENU",
-  setState: async (newState: GameState) => {
-    switch (get().state) {
+  transitionState: async (newState: GameState) => {
+    const currentState = get().state;
+    switch (currentState) {
       case "MAIN_MENU":
-        if (newState === "IN_GAME") {
-          get().chooseRandomMerchants(0);
-          set({
-            purchasedItems: [],
-            state: newState,
-            itemIndex: 0,
-          });
+        switch (newState) {
+          case "GAME_PAUSED":
+            get().initGame();
+            set({ state: "GAME_PAUSED" });
+            break;
 
-          await new Promise((r) => setTimeout(r, 2000));
-          get().startTimer();
+          // Right now, only transition to game paused state
+          // case "GAME_PLAY":
+          //   get().initGame();
+          //   get().startGame();
+          //   set({ state: "GAME_PLAY" });
+          //   break;
+
+          default:
+            console.error(`Invalid state transition from ${currentState} to ${newState}`);
         }
-
         break;
 
-      case "IN_GAME":
-        if (newState === "GAME_FINISH") {
-          set({ state: newState, isTimerRunning: false });
+      case "GAME_PAUSED":
+        switch (newState) {
+          case "GAME_PLAY":
+            get().startGame();
+            set({ state: "GAME_PLAY", tutorialStep: -1 });
+            break;
+        }
+        break;
+
+      case "GAME_PLAY":
+        switch (newState) {
+          case "GAME_PAUSED":
+            set({ state: "GAME_PAUSED", isTimerRunning: false });
+            break;
+
+          case "GAME_FINISH":
+            set({ state: "GAME_FINISH", isTimerRunning: false });
+
+            await new Promise((r) => setTimeout(r, 3000));
+            get().transitionState("SCORE_SCREEN");
+            break;
+
+          default:
+            console.error(`Invalid state transition from ${currentState} to ${newState}`);
         }
         break;
 
       case "GAME_FINISH":
-        if (newState === "SCORE_SCREEN") {
-          set({ state: newState });
+        switch (newState) {
+          case "SCORE_SCREEN":
+            set({ state: newState });
+            break;
+
+          default:
+            console.error(`Invalid state transition from ${currentState} to ${newState}`);
         }
         break;
     }
+  },
+
+  initGame: async () => {
+    get().chooseRandomMerchants(0);
+    get().initTimerDuration();
+    set({ purchasedItems: [], itemIndex: 0 });
+  },
+
+  startGame: async () => {
+    await new Promise((r) => setTimeout(r, 1000));
+    set({ isTimerRunning: true });
   },
 
   // Country state
@@ -109,6 +145,15 @@ export const useAppStore = create<AppState>((set, get) => ({
         set({ currentCountry: countryName });
         break;
     }
+  },
+
+  // Tutorial state
+  tutorialStep: 0, // -1 for no tutorial
+  nextTutorialStep: () => {
+    set((state) => {
+      if (state.tutorialStep === -1) return state;
+      return { tutorialStep: state.tutorialStep + 1 };
+    });
   },
 
   // Game meta state
@@ -145,10 +190,7 @@ export const useAppStore = create<AppState>((set, get) => ({
       // Only change the price of the conversion item
       if (converted) {
         // Pick an increment at random
-        const increment =
-          currentItemData.priceIncrements[
-            randiRange(0, currentItemData.priceIncrements.length - 1)
-          ];
+        const increment = currentItemData.priceIncrements[randiRange(0, currentItemData.priceIncrements.length - 1)];
         // 50/50 chance the increment subtracts instead of adds
         const negative = Math.round(Math.random()) * 2 - 1;
 
@@ -185,7 +227,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   },
 
   evaluate: async (merchant: string | boolean = false) => {
-    if (get().state !== "IN_GAME") return;
+    if (get().state !== "GAME_PLAY") return;
 
     // Evaluate a selection by the merchant name
     if (typeof merchant === "string") {
@@ -193,13 +235,9 @@ export const useAppStore = create<AppState>((set, get) => ({
       const item = currentItems.find((i) => i.merchant === merchant);
       if (!item) return;
 
-      const lowest = currentItems
-        .map((i) => i.usdPrice)
-        .reduce((a, b) => Math.min(a, b));
+      const lowest = currentItems.map((i) => i.usdPrice).reduce((a, b) => Math.min(a, b));
 
-      const highest = currentItems
-        .map((i) => i.usdPrice)
-        .reduce((a, b) => Math.max(a, b));
+      const highest = currentItems.map((i) => i.usdPrice).reduce((a, b) => Math.max(a, b));
 
       if (item.usdPrice === lowest) {
         get().gainPoints(1);
@@ -228,9 +266,10 @@ export const useAppStore = create<AppState>((set, get) => ({
       get().chooseRandomMerchants(nextItemIndex);
 
       await new Promise((r) => setTimeout(r, 1000));
-      get().startTimer();
+      get().initTimerDuration();
+      set({ isTimerRunning: true });
     } else {
-      get().setState("GAME_FINISH");
+      get().transitionState("GAME_FINISH");
     }
   },
 
@@ -257,12 +296,9 @@ export const useAppStore = create<AppState>((set, get) => ({
   timerDuration: 0,
   isTimerRunning: false,
 
-  startTimer: () => {
+  initTimerDuration: () => {
     const duration = Math.max(15000 - get().combo * 1000, 5000);
-    set({ isTimerRunning: false, timerDuration: 0 });
-    setTimeout(() => {
-      set({ isTimerRunning: true, timerDuration: duration });
-    }, 1);
+    set({ timerDuration: duration });
   },
 
   createGameText: (text: string, position: Vector2) => {
