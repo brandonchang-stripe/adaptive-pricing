@@ -6,5 +6,7 @@
 }
 
 .finishText {
+  font-family: var(--font-dogica);
   font-size: calc(var(--pixel-size) * 8);
+  font-weight: 800;
 }

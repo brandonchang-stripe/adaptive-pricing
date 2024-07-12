@@ -43,6 +43,7 @@ interface AppState {
   initGame: () => void;
   chooseRandomMerchants: (itemIndex: number, count?: number) => void;
   evaluate: (merchant: string | boolean) => void;
+  skipItem: () => void;
 
   losePoints: (points: number) => void;
   gainPoints: (points: number) => void;
@@ -269,8 +270,14 @@ export const useAppStore = create<AppState>((set, get) => ({
       get().initTimerDuration();
       set({ isTimerRunning: true });
     } else {
+      set({ itemIndex: itemIndex + 1, isTimerRunning: false });
       get().transitionState("GAME_FINISH");
     }
+  },
+  skipItem: () => {
+    set((state) => ({
+      itemIndex: state.itemIndex + 1,
+    }));
   },
 
   gainPoints: (points: number) => {

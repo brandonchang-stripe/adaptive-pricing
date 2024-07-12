@@ -1,7 +1,16 @@
 .timerContainer {
-  padding: var(--pixel-size) calc(var(--pixel-size) * 3)
-    calc(var(--pixel-size) * 3);
+  padding: var(--pixel-size) calc(var(--pixel-size) * 3) calc(var(--pixel-size) * 3);
   width: 100%;
+  background-repeat: repeat;
+  position: relative;
+}
+
+.timerBackground {
+  position: absolute;
+  inset: calc(var(--pixel-size) * 1) calc(var(--pixel-size) * 3) calc(var(--pixel-size) * 4);
+  background-image: url('/sprites/textures/texture-3.png');
+  background-size: calc(var(--pixel-size) * 2);
+  z-index: 0;
 }
 
 .timerNumber {

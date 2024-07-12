@@ -4,6 +4,7 @@ import ItemDisplay from "@/app/components/ItemDisplay/ItemDisplay";
 import Conversion from "@/app/components/Conversion/Conversion";
 import Timer from "@/app/components/Timer/Timer";
 import Button from "../components/Button/Button";
+import ProgressBar from "../components/ProgressBar/ProgressBar";
 
 export default function InGame() {
   const currentItems = useAppStore((state) => state.currentItems);
@@ -55,6 +56,9 @@ export default function InGame() {
           </>
         </Frame>
       )}
+
+      {/* {!tutorialActive && <ProgressBar />} */}
+      <ProgressBar />
     </>
   );
 }

@@ -11,7 +11,6 @@ import GameFinish from "./screens/GameFinish";
 import GameTexts from "./components/GameText/GameTexts";
 import Monitor from "./components/Monitor/Monitor";
 import { AnimatePresence, MotionConfig } from "framer-motion";
-import LevelSelectList from "./components/LevelSelectList/LevelSelectList";
 import TravelMap from "./components/TravelMap/TravelMap";
 
 type AppProps = {

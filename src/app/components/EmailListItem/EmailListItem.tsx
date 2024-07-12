@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import styles from "./EmailListItem.module.css";
 import { stepEase } from "@/app/util/stepEase";
 import { SoundName, useAudio } from "@/app/hooks/useAudio";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 
 type Props = {
   subject: string;

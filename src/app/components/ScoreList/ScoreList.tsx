@@ -63,7 +63,7 @@ export default function ScoreList({ index = 1, onListAnimationComplete }: Props)
               <img
                 key={i}
                 className={styles.scoreListButton}
-                src={`/sprites/email-icon-${i + 4}.png`}
+                src={`/sprites/email-icon-${i + 6}.png`}
                 alt=""
                 draggable={false}
                 onClick={() => audio("clickShort")}

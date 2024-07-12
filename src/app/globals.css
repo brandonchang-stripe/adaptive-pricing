@@ -21,6 +21,18 @@
   background-color: var(--color-100);
 }
 
+@media (max-height: 920px) or (max-width: 1100px) {
+  :root {
+    --pixel-size: 1.5px;
+  }
+}
+
+@media (max-height: 720px) or (max-width: 810px) {
+  :root {
+    --pixel-size: 1px;
+  }
+}
+
 html,
 body {
   font-family: var(--font-dogica);
