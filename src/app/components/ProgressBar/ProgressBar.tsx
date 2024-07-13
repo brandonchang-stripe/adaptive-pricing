@@ -3,7 +3,6 @@ import { useAppStore, useCountryItems } from "@/app/store";
 import Frame from "../Frame/Frame";
 import { AnimatePresence, motion } from "framer-motion";
 import { stepEase } from "@/app/util/stepEase";
-import { randRange } from "@/app/util/math";
 
 export default function ProgressBar() {
   const currentItems = useCountryItems();
@@ -16,28 +15,21 @@ export default function ProgressBar() {
           <b>Items left:</b>
         </div>
         <div className={styles.progressContainer}>
-          <AnimatePresence mode="popLayout">
+          <AnimatePresence initial={false} mode="popLayout">
             {currentItems
               .filter((_, index) => index >= itemIndex)
-              .map((item, index) => (
+              .map((item) => (
                 <motion.div
                   key={item.type}
-                  animate={{ opacity: 1, transition: { duration: 0.3, ease: stepEase(4) } }}
+                  animate={{ scale: 1, transition: { duration: 0.3, ease: stepEase(4) } }}
                   exit={{
-                    opacity: 1,
-                    y: 100,
-                    rotate: randRange(-10, 10),
-                    transition: {
-                      type: "spring",
-                      velocity: 3,
-                      mass: 0.5,
-                      duration: 1.0,
-                    },
+                    scale: 0,
+                    transition: { duration: 0.3, ease: stepEase(3) },
                   }}
                   layout
-                  className={`${styles.item} ${index === itemIndex ? styles.isCurrent : ""}`}
+                  className={styles.item}
                 >
-                  {index === itemIndex ? " " : "X"}
+                  +
                 </motion.div>
               ))}
           </AnimatePresence>

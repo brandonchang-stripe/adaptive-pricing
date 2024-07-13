@@ -28,11 +28,13 @@ export default function App({ nonce }: AppProps) {
             <Monitor>
               <div className={styles.grid}>
                 <AnimatePresence>
-                  <TravelMap />
-                  {state === "MAIN_MENU" && <MainMenu />}
-                  {(state === "GAME_PLAY" || state === "GAME_FINISH" || state === "GAME_PAUSED") && <InGame />}
-                  {state === "GAME_FINISH" && <GameFinish />}
-                  {state === "SCORE_SCREEN" && <ScoreScreen />}
+                  <TravelMap key="travel-map" />
+                  {state === "MAIN_MENU" && <MainMenu key="main-menu" />}
+                  {(state === "GAME_PLAY" || state === "GAME_FINISH" || state === "GAME_PAUSED") && (
+                    <InGame key="in-game" />
+                  )}
+                  {state === "GAME_FINISH" && <GameFinish key="game-finish" />}
+                  {state === "SCORE_SCREEN" && <ScoreScreen key="score-screen" />}
                 </AnimatePresence>
               </div>
             </Monitor>

@@ -42,5 +42,4 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(var(--pixel-size) * 16);
 }

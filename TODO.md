@@ -1,5 +1,5 @@
 # Required
-- [ ] Progress bar
+- [x] Progress bar
 - [ ] Multiple levels
 - [ ] OG Share
 - [ ] Flash sale mechanic
