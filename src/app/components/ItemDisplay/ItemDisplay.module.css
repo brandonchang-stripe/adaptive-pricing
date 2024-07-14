@@ -1,8 +1,19 @@
+.itemDisplayOuter {
+  padding: calc(var(--pixel-size) * 1) calc(var(--pixel-size) * 3) calc(var(--pixel-size) * 3);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: stretch;
+}
+
 .itemDisplay {
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   gap: calc(var(--pixel-size) * 4);
-  padding: calc(var(--pixel-size) * 6) calc(var(--pixel-size) * 8);
+  padding: calc(var(--pixel-size) * 4);
 }
 
 .itemDisplayContainer {

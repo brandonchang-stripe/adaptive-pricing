@@ -12,6 +12,8 @@ import GameTexts from "./components/GameText/GameTexts";
 import Monitor from "./components/Monitor/Monitor";
 import { AnimatePresence, MotionConfig } from "framer-motion";
 import TravelMap from "./components/TravelMap/TravelMap";
+import Background from "./components/Background/Background";
+import Keyboard from "./components/Keyboard/Keyboard";
 
 type AppProps = {
   nonce: string;
@@ -25,6 +27,7 @@ export default function App({ nonce }: AppProps) {
       <ScreenRefContext>
         <PixelContext pixelSize={2}>
           <main className={styles.main}>
+            <Background />
             <Monitor>
               <div className={styles.grid}>
                 <AnimatePresence>
@@ -38,6 +41,7 @@ export default function App({ nonce }: AppProps) {
                 </AnimatePresence>
               </div>
             </Monitor>
+            <Keyboard />
             <GameTexts />
           </main>
         </PixelContext>

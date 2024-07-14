@@ -1,5 +1,7 @@
 # Required
 - [x] Progress bar
+- [ ] Adaptive pricing visual
+- [ ] Buy animations
 - [ ] Multiple levels
 - [ ] OG Share
 - [ ] Flash sale mechanic

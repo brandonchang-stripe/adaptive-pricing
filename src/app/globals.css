@@ -3,7 +3,7 @@
 }
 
 :root {
-  --pixel-size: 2px;
+  --pixel-size: 5px;
 
   --color-100: #121b1c;
   --color-200: #e1e9ea;
@@ -21,7 +21,31 @@
   background-color: var(--color-100);
 }
 
-@media (max-height: 920px) or (max-width: 1100px) {
+@media (max-height: 2600px) or (max-width: 4000px) {
+  :root {
+    --pixel-size: 4px;
+  }
+}
+
+@media (max-height: 2150px) or (max-width: 2800px) {
+  :root {
+    --pixel-size: 3px;
+  }
+}
+
+@media (max-height: 1700px) or (max-width: 2400px) {
+  :root {
+    --pixel-size: 2.5px;
+  }
+}
+
+@media (max-height: 1400px) or (max-width: 2200px) {
+  :root {
+    --pixel-size: 2px;
+  }
+}
+
+@media (max-height: 940px) or (max-width: 1300px) {
   :root {
     --pixel-size: 1.5px;
   }
