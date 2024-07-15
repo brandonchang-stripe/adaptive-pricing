@@ -1,10 +1,9 @@
 import type { Vector2 } from "@/types/Vector2";
 import { create } from "zustand";
 import { nanoid } from "nanoid";
-import { ItemType, emailSubjects, itemData } from "./components/itemTravelData";
+import { CountryData, ItemType, emailSubjects, countryData } from "./components/gameData";
 import { randiRange } from "./util/math";
 import { playSound } from "./hooks/useAudio";
-import { CountryData, CountryName, countryData } from "./components/countryData";
 import { Props as GameTextProps } from "./components/GameText";
 
 type GameState = "SPLASH" | "BOOT" | "MAIN_MENU" | "GAME_PLAY" | "GAME_PAUSED" | "GAME_FINISH" | "SCORE_SCREEN";
@@ -26,8 +25,9 @@ interface AppState {
   state: GameState;
   transitionState: (newState: GameState) => void;
 
-  currentCountry: CountryName | null;
-  setCurrentCountry: (countryName: CountryName) => void;
+  countryIndex: number;
+  nextCountry: () => void;
+
   currentItems: ActiveItem[];
   itemIndex: number;
   purchasedItems: PurchasedItem[];
@@ -35,6 +35,7 @@ interface AppState {
 
   tutorialStep: number;
   nextTutorialStep: () => void;
+  endTutorial: () => void;
 
   score: number;
   level: number;
@@ -75,11 +76,11 @@ export const useAppStore = create<AppState>((set, get) => ({
             break;
 
           // Right now, only transition to game paused state
-          // case "GAME_PLAY":
-          //   get().initGame();
-          //   get().startGame();
-          //   set({ state: "GAME_PLAY" });
-          //   break;
+          case "GAME_PLAY":
+            get().initGame();
+            get().startGame();
+            set({ state: "GAME_PLAY" });
+            break;
 
           default:
             console.error(`Invalid state transition from ${currentState} to ${newState}`);
@@ -123,6 +124,17 @@ export const useAppStore = create<AppState>((set, get) => ({
             console.error(`Invalid state transition from ${currentState} to ${newState}`);
         }
         break;
+
+      case "SCORE_SCREEN":
+        switch (newState) {
+          case "MAIN_MENU":
+            set({ state: newState });
+            break;
+
+          default:
+            console.error(`Invalid state transition from ${currentState} to ${newState}`);
+        }
+        break;
     }
   },
 
@@ -138,14 +150,16 @@ export const useAppStore = create<AppState>((set, get) => ({
   },
 
   // Country state
-  currentCountry: "Japan",
-
-  setCurrentCountry: (countryName: CountryName) => {
-    switch (get().state) {
-      case "MAIN_MENU":
-        set({ currentCountry: countryName });
-        break;
-    }
+  countryIndex: 0,
+  nextCountry: () => {
+    get().transitionState("MAIN_MENU");
+    set((state) => {
+      const nextIndex = state.countryIndex + 1;
+      if (nextIndex >= countryData.length) {
+        return state;
+      }
+      return { countryIndex: nextIndex };
+    });
   },
 
   // Tutorial state
@@ -155,6 +169,9 @@ export const useAppStore = create<AppState>((set, get) => ({
       if (state.tutorialStep === -1) return state;
       return { tutorialStep: state.tutorialStep + 1 };
     });
+  },
+  endTutorial: () => {
+    set({ tutorialStep: -1 });
   },
 
   // Game meta state
@@ -166,12 +183,8 @@ export const useAppStore = create<AppState>((set, get) => ({
   currentItems: [],
   itemIndex: 0,
   chooseRandomMerchants: (itemIndex, count = 2) => {
-    const country = get().currentCountry;
-    if (!country) return;
-    const itemCountry = itemData[country];
-    if (!itemCountry) return;
-    const currentItemData = itemCountry[itemIndex];
-
+    const country = countryData[get().countryIndex];
+    const currentItemData = country.items[itemIndex];
     const items: ActiveItem[] = [];
 
     // Pick count random merchants
@@ -257,9 +270,7 @@ export const useAppStore = create<AppState>((set, get) => ({
       }
     }
 
-    const currentCountry = get().currentCountry;
-    const allItems = itemData[currentCountry!]!;
-
+    const allItems = countryData[get().countryIndex].items;
     const itemIndex = get().itemIndex;
     if (itemIndex < allItems.length - 1) {
       const nextItemIndex = itemIndex + 1;
@@ -336,12 +347,6 @@ export const useAppStore = create<AppState>((set, get) => ({
 }));
 
 export function useCurrentCountry(): CountryData {
-  const country = useAppStore((state) => state.currentCountry);
-  return countryData.find((c) => c.name === country)!;
-}
-
-export function useCountryItems() {
-  const country = useAppStore((state) => state.currentCountry);
-  if (!country) return [];
-  return itemData[country] || [];
+  const countryIndex = useAppStore((state) => state.countryIndex);
+  return countryData[countryIndex];
 }

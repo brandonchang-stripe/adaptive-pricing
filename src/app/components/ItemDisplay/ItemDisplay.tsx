@@ -14,17 +14,17 @@ type ItemDisplayFrameProps = {
 export default function ItemDisplayFrame({ item, index }: ItemDisplayFrameProps) {
   const currentCountry = useCurrentCountry()!;
   const evaluate = useAppStore((state) => state.evaluate);
-  const usd = useMotionValue("ADAPTIVE");
-  useEffect(() => {
-    const controls = animate([
-      [usd, "ADAPTIVE", { delay: 0, duration: 1.3 }],
-      [usd, "PRICING", { duration: 0.2 }],
-      [usd, "ENABLED", { duration: 0.2 }],
-      [usd, `$${item.usdPrice.toFixed(2)}`, { duration: 1.0 }],
-    ]);
+  const usd = useMotionValue(`$${item.usdPrice.toFixed(2)}`);
+  // useEffect(() => {
+  //   const controls = animate([
+  //     [usd, "ADAPTIVE", { delay: 0, duration: 1.3 }],
+  //     [usd, "PRICING", { duration: 0.2 }],
+  //     [usd, "ENABLED", { duration: 0.2 }],
+  //     [usd, `$${item.usdPrice.toFixed(2)}`, { duration: 1.0 }],
+  //   ]);
 
-    return () => controls.stop();
-  }, [usd, item.usdPrice]);
+  //   return () => controls.stop();
+  // }, [usd, item.usdPrice]);
 
   return (
     <Frame allowDrag key={item.type} label={item.merchant} position={`item-${index}`} index={index}>

@@ -3,11 +3,13 @@ import { useEffect } from "react";
 import { useAudio } from "@/app/hooks/useAudio";
 import { useAppStore } from "@/app/store";
 import Frame from "../Frame/Frame";
+import Button from "../Button/Button";
 
 export default function ScoreFrame() {
-  const country = useAppStore((state) => state.currentCountry);
+  const country = useAppStore((state) => state.countryIndex);
   const score = useAppStore((state) => state.score);
   const items = useAppStore((state) => state.purchasedItems);
+  const nextCountry = useAppStore((state) => state.nextCountry);
   const totalSpend = items.reduce((acc, item) => acc + item.usdPrice, 0);
   const totalSaved = items.reduce((acc, item) => acc + item.saved, 0);
   const scoreDigits = (score * 100).toString().split("");
@@ -19,7 +21,11 @@ export default function ScoreFrame() {
     }, (items.length + 5) * 300);
 
     return () => clearTimeout(play);
-  }, []);
+  }, [audio, items.length]);
+
+  function handleNextStop() {
+    nextCountry();
+  }
 
   return (
     <Frame allowDrag label="Your travel total" position="score-frame" index={items.length + 4}>
@@ -70,6 +76,7 @@ export default function ScoreFrame() {
           </div>
         </div>
         <img className={styles.scoreFrameImage} src="/sprites/plane-image.png" draggable={false} alt="" />
+        <Button onClick={handleNextStop}>NEXT STOP</Button>
       </div>
     </Frame>
   );

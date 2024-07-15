@@ -8,14 +8,16 @@ import ProgressBar from "../components/ProgressBar/ProgressBar";
 
 export default function InGame() {
   const currentItems = useAppStore((state) => state.currentItems);
-  const country = useAppStore((state) => state.currentCountry);
+  const country = useAppStore((state) => state.countryIndex);
   const evaluate = useAppStore((state) => state.evaluate);
   const setState = useAppStore((state) => state.transitionState);
   const tutorialStep = useAppStore((state) => state.tutorialStep);
   const nextTutorialStep = useAppStore((state) => state.nextTutorialStep);
+  const endTutorial = useAppStore((state) => state.endTutorial);
   const tutorialActive = tutorialStep !== -1;
 
   const handleStart = () => {
+    endTutorial();
     setState("GAME_PLAY");
   };
 

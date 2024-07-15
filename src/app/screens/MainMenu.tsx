@@ -4,8 +4,13 @@ import Button from "../components/Button/Button";
 
 export default function MainMenu() {
   const setState = useAppStore((state) => state.transitionState);
+  const tutorialStep = useAppStore((state) => state.tutorialStep);
   function handleStart() {
-    setState("GAME_PAUSED");
+    if (tutorialStep === -1) {
+      setState("GAME_PLAY");
+    } else {
+      setState("GAME_PAUSED");
+    }
   }
 
   return (

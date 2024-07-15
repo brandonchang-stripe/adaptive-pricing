@@ -1,11 +1,11 @@
 import styles from "./ProgressBar.module.css";
-import { useAppStore, useCountryItems } from "@/app/store";
+import { useAppStore, useCurrentCountry } from "@/app/store";
 import Frame from "../Frame/Frame";
 import { AnimatePresence, motion } from "framer-motion";
 import { stepEase } from "@/app/util/stepEase";
 
 export default function ProgressBar() {
-  const currentItems = useCountryItems();
+  const currentItems = useCurrentCountry()?.items || [];
   const itemIndex = useAppStore((state) => state.itemIndex);
 
   return (
