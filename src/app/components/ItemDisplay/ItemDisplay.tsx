@@ -12,6 +12,7 @@ type ItemDisplayFrameProps = {
 };
 
 export default function ItemDisplayFrame({ item, index }: ItemDisplayFrameProps) {
+  const tutorialStep = useAppStore((state) => state.tutorialStep);
   const currentCountry = useCurrentCountry()!;
   const evaluate = useAppStore((state) => state.evaluate);
   const usd = useMotionValue(`$${item.usdPrice.toFixed(2)}`);
@@ -55,7 +56,7 @@ export default function ItemDisplayFrame({ item, index }: ItemDisplayFrameProps)
               </motion.div>
             </div>
           </div>
-          <Button onClick={() => evaluate(item.merchant)}>Buy</Button>
+          <Button onClick={() => evaluate(item.merchant)} disabled={tutorialStep >= 0}>Buy</Button>
         </motion.div>
       </div>
     </Frame>

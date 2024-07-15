@@ -23,3 +23,7 @@
 .button:active {
   transform: translateY(var(--pixel-size));
 }
+
+.button:disabled {
+  background-color: var(--color-100);
+}
