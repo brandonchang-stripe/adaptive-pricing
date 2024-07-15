@@ -1,15 +1,27 @@
-import { RefObject, createContext, createRef, useContext, useRef } from "react";
+import { createContext, createRef, useContext, useEffect, useState } from "react";
 
 type Props = {
   children?: React.ReactNode;
-  pixelSize?: number;
 };
 
 export type PixelContextType = { pixelSize: number };
 
 export const Pixel = createContext<PixelContextType>({ pixelSize: 3 });
 
-export function PixelContext({ children, pixelSize = 3 }: Props) {
+export function PixelContext({ children }: Props) {
+  const [pixelSize, setPixelSize] = useState(2);
+
+  useEffect(() => {
+    function handleResize() {
+      const size = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--pixel-size"));
+      setPixelSize(size);
+    }
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return <Pixel.Provider value={{ pixelSize }}>{children}</Pixel.Provider>;
 }
 

@@ -25,7 +25,7 @@ export default function App({ nonce }: AppProps) {
   return (
     <MotionConfig nonce={nonce}>
       <ScreenRefContext>
-        <PixelContext pixelSize={2}>
+        <PixelContext>
           <main className={styles.main}>
             <Background />
             <Monitor>

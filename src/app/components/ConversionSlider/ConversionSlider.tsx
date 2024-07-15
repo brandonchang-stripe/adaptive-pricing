@@ -2,8 +2,9 @@ import styles from "./ConversionSlider.module.css";
 import { SoundName, useAudio } from "@/app/hooks/useAudio";
 import { useDrag } from "@/app/hooks/useDrag";
 import { useAppStore } from "@/app/store";
+import { stepEase } from "@/app/util/stepEase";
 import { PanInfo, ResolvedValues, motion, useDragControls } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { throttle } from "throttle-debounce";
 
 type ConversionSliderProps = {
@@ -14,13 +15,12 @@ type ConversionSliderProps = {
 };
 
 export default function ConversionSlider({ step = 1, min = 0, max = 100, onChange }: ConversionSliderProps) {
+  const [notchWidth, setNotchWidth] = useState(2);
   const dragControls = useDragControls();
 
-  const notchWidth = 10;
   const count = Math.floor((max - min) / step);
-  const indicatorRef = useRef<HTMLDivElement>(null);
+  const slideRef = useRef<HTMLDivElement>(null);
   const lastVal = useRef(0);
-  const arr = Array(count + 1).fill(0);
   const play = useAudio();
   const throttleFunc = useRef(
     throttle(60, (sound: SoundName, rate: number) => {
@@ -36,40 +36,29 @@ export default function ConversionSlider({ step = 1, min = 0, max = 100, onChang
     const val = Math.round(-latest.x / notchWidth);
     if (val !== lastVal.current) {
       // const rate = Math.abs(latest.x - latest.) * 0.005 + 0.9;
-      if (val < 0 || val > 100) {
+      if (val < min || val > count) {
         throttleFunc("tick", 0.4);
       } else {
         throttleFunc("tick", 0.8 + val * 0.006);
       }
-      onChange(Math.max(Math.min(val, 100), 0));
+      onChange(Math.max(Math.min(val, count), 0));
     }
 
     lastVal.current = val;
   }
 
-  // useEffect(() => {
-  //   function tick() {
-  //     const { offset, lastOffset } = dragData;
-  //     if (sliderRef.current) {
-  //       sliderRef.current.style.transform = `translateX(${offset.x}px)`;
-  //     }
+  useEffect(() => {
+    function handleResize() {
+      if (slideRef.current) {
+        const width = slideRef.current.scrollWidth;
+        setNotchWidth(width / count);
+      }
+    }
 
-  //     const val = Math.round(-offset.x / notchWidth);
-  //     if (val !== lastVal.current) {
-  //       const rate = Math.abs(offset.x - lastOffset.x) * 0.005 + 0.9;
-  //       throttleFunc("tick", rate);
-  //       onChange(val);
-  //     }
-  //     lastVal.current = val;
-
-  //     rafRef.current = requestAnimationFrame(tick);
-  //   }
-
-  //   rafRef.current = requestAnimationFrame(tick);
-  //   return () => {
-  //     if (rafRef.current) cancelAnimationFrame(rafRef.current);
-  //   };
-  // }, [sliderRef, rafRef, dragData]);
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => window.removeEventListener("resize", handleResize);
+  }, [count]);
 
   return (
     <div className={styles.sliderContainer}>
@@ -77,18 +66,22 @@ export default function ConversionSlider({ step = 1, min = 0, max = 100, onChang
         <motion.div
           className={styles.sliderControl}
           drag="x"
-          dragConstraints={{ left: -notchWidth * 100, right: 0 }}
+          // whileDrag={{ opacity: 0.2, transition: { duration: 0.2, ease: stepEase(2) } }}
+          dragConstraints={{ left: -notchWidth * count, right: 0 }}
           dragTransition={{ bounceStiffness: 1000, bounceDamping: 100 }}
           dragElastic={0.05}
           dragListener={false}
           dragControls={dragControls}
           onUpdate={handleUpdate}
+          ref={slideRef}
         >
-          {arr.map((_, i) => {
-            return <div className={styles.sliderNotch} key={i} />;
-          })}
+          {Array(count + 1)
+            .fill(0)
+            .map((_, i) => {
+              return <div className={styles.sliderNotch} key={i} />;
+            })}
         </motion.div>
-        <div className={styles.sliderIndicator} ref={indicatorRef}></div>
+        <div className={styles.sliderIndicator}></div>
       </div>
     </div>
   );

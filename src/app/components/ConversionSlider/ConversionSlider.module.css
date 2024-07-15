@@ -23,6 +23,10 @@
   height: 100%;
   overflow: hidden;
   cursor: grab;
+
+
+  background-image: url('/sprites/textures/texture-3.png');
+  background-size: calc(var(--pixel-size) * 2);
 }
 
 .sliderWrapper:active {
@@ -38,6 +42,8 @@
   display: flex;
   gap: calc(var(--pixel-size) * 4);
   align-items: center;
+  background-color: var(--color-100);
+  overflow: visible;
 }
 
 .sliderIndicator {
