@@ -4,7 +4,6 @@ import { useAudio } from "@/app/hooks/useAudio";
 import { useAppStore } from "@/app/store";
 import Frame from "../Frame/Frame";
 import Button from "../Button/Button";
-import ScoreMileCounter from "./ScoreMileCounter";
 
 export default function ScoreFrame() {
   const country = useAppStore((state) => state.countryIndex);
@@ -69,7 +68,9 @@ export default function ScoreFrame() {
             <div>Total miles earned:</div>
             <div className={styles.scoreFrameMilesSquares}>
               {scoreDigits.map((digit, i) => (
-                <ScoreMileCounter key={i} digit={parseInt(digit)} spinning={false} />
+                <div key={i} className={styles.scoreFrameMilesSquare}>
+                  <div className={styles.scoreFrameMilesDigit}>{digit}</div>
+                </div>
               ))}
             </div>
           </div>
