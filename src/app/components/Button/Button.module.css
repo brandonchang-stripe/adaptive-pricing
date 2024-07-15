@@ -14,6 +14,7 @@
   font-family: var(--font-dogica);
   background-color: var(--color-300);
   color: var(--color-200);
+  font-weight: 600;
   cursor: pointer;
 }
 

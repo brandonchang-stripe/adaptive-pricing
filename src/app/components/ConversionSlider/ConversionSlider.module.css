@@ -37,7 +37,6 @@
   top: 0;
   left: 50%;
   height: 100%;
-  width: 100%;
   position: absolute;
   display: flex;
   gap: calc(var(--pixel-size) * 4);

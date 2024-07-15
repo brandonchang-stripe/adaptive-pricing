@@ -1,9 +1,6 @@
 import styles from "./ConversionSlider.module.css";
 import { SoundName, useAudio } from "@/app/hooks/useAudio";
-import { useDrag } from "@/app/hooks/useDrag";
-import { useAppStore } from "@/app/store";
-import { stepEase } from "@/app/util/stepEase";
-import { PanInfo, ResolvedValues, motion, useDragControls } from "framer-motion";
+import { ResolvedValues, motion, useDragControls } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { throttle } from "throttle-debounce";
 

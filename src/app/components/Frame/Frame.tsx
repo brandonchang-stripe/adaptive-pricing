@@ -24,35 +24,46 @@ export default function Frame({
   visible = true,
   allowDrag = false,
 }: FrameProps) {
-  const audio = useAudio();
+  const play = useAudio();
   // Used to track if this frame has already been opened,
   // to prevent multiple open sounds from playing on drag
   const [opened, setOpened] = useState(false);
   const screenRef = useScreenRef();
+
+  function handleDragStart() {
+    play("dragStart");
+  }
+
+  function handleDragEnd() {
+    play("dragEnd");
+  }
 
   return (
     <motion.div
       drag={allowDrag}
       dragSnapToOrigin
       dragConstraints={screenRef}
-      dragElastic={0.1}
+      dragElastic={0.01}
       dragTransition={{
-        bounceStiffness: 500,
-        bounceDamping: 30,
+        bounceStiffness: 900,
+        bounceDamping: 60,
       }}
       onAnimationStart={(animation) => {
         if (animation === "visible" && opened === false) {
           setOpened(true);
-          setTimeout(() => audio("open"), 300 * index);
+          setTimeout(() => play("open"), 300 * index);
         }
         if (animation === "hidden") {
-          audio("close");
+          play("close");
         }
       }}
       key={label}
       initial="hidden"
       animate={visible ? "visible" : "hidden"}
       exit="hidden"
+      // style={{zIndex: z}}
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
       variants={{
         hidden: { scale: 0, transition: { ease: stepEase(4), duration: 0.2 } },
         visible: {

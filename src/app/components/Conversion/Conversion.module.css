@@ -4,8 +4,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  padding: 0 calc(var(--pixel-size) * 8) calc(var(--pixel-size) * 8);
+  justify-content: space-around;
+  padding: calc(var(--pixel-size) * 4) calc(var(--pixel-size) * 5);
 }
 
 .conversionCountry {
