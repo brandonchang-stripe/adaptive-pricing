@@ -16,7 +16,7 @@ export default function Conversion({ position, index = 0 }: ConversionWindowProp
   const [usd, setUsd] = useState(1);
 
   return (
-    <Frame label="currency-slider.com" position={position} index={index}>
+    <Frame label="Currency Converter" position={position} index={index}>
       <div className={styles.conversionContainer}>
         <div className={styles.conversionPrice}>
           {country.currencySymbol} {relativeRound(country.conversionRateDefault * usd)} = ${usd}.00 USD

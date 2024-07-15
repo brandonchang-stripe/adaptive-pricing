@@ -105,7 +105,7 @@ export const useAppStore = create<AppState>((set, get) => ({
           case "GAME_FINISH":
             set({ state: "GAME_FINISH", isTimerRunning: false });
 
-            await new Promise((r) => setTimeout(r, 3000));
+            await new Promise((r) => setTimeout(r, 2000));
             get().transitionState("SCORE_SCREEN");
             break;
 

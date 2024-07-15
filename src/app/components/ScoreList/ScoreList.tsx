@@ -1,6 +1,6 @@
 import styles from "./ScoreList.module.css";
 
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { cancelFrame, frame, motion } from "framer-motion";
 import { useAppStore } from "../../store";
 import { useAudio } from "@/app/hooks/useAudio";
@@ -18,11 +18,11 @@ export default function ScoreList({ index = 1, onListAnimationComplete }: Props)
   const purchasedItems = useAppStore((state) => state.purchasedItems);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const tick = () => {
+  const tick = useCallback(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
-  };
+  }, []);
 
   const handleListAnimationComplete = () => {
     cancelFrame(tick);

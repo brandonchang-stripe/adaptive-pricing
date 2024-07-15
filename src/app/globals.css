@@ -78,6 +78,20 @@ p {
   line-height: 1.2;
 }
 
+.notes-contents {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: calc(var(--pixel-size) * 4);
+}
+
+.notes-footer {
+  display: flex;
+  flex-direction: column;
+  border-top: var(--pixel-size) dotted var(--color-100);
+  padding-top: calc(var(--pixel-size) * 4);
+}
+
 .spacer {
   flex-grow: 1;
 }

@@ -75,8 +75,9 @@ export default function ScoreFrame() {
             </div>
           </div>
         </div>
-        <img className={styles.scoreFrameImage} src="/sprites/plane-image.png" draggable={false} alt="" />
-        <Button onClick={handleNextStop}>NEXT STOP</Button>
+        <div className={styles.nextStopButton}>
+          <Button onClick={handleNextStop}>NEXT STOP</Button>
+        </div>
       </div>
     </Frame>
   );

@@ -1,8 +1,8 @@
 # Required
 - [x] Progress bar
+- [x] Multiple levels
 - [ ] Adaptive pricing visual
 - [ ] Buy animations
-- [ ] Multiple levels
 - [ ] OG Share
 - [ ] Flash sale mechanic
 - [ ] Music
