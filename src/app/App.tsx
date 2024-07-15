@@ -3,7 +3,7 @@
 import React from "react";
 import styles from "./page.module.css";
 import { useAppStore } from "./store";
-import { PixelContext, ScreenRefContext } from "./components/Context";
+import { ScreenRefContext } from "./components/Context";
 import MainMenu from "./screens/MainMenu";
 import ScoreScreen from "./screens/ScoreScreen";
 import InGame from "./screens/InGame";
@@ -25,26 +25,24 @@ export default function App({ nonce }: AppProps) {
   return (
     <MotionConfig nonce={nonce}>
       <ScreenRefContext>
-        <PixelContext>
-          <main className={styles.main}>
-            <Background />
-            <Monitor>
-              <div className={styles.grid}>
-                <AnimatePresence>
-                  <TravelMap key="travel-map" />
-                  {state === "MAIN_MENU" && <MainMenu key="main-menu" />}
-                  {(state === "GAME_PLAY" || state === "GAME_FINISH" || state === "GAME_PAUSED") && (
-                    <InGame key="in-game" />
-                  )}
-                  {state === "GAME_FINISH" && <GameFinish key="game-finish" />}
-                  {state === "SCORE_SCREEN" && <ScoreScreen key="score-screen" />}
-                </AnimatePresence>
-              </div>
-            </Monitor>
-            <Keyboard />
-            <GameTexts />
-          </main>
-        </PixelContext>
+        <main className={styles.main}>
+          <Background />
+          <Monitor>
+            <div className={styles.grid}>
+              <AnimatePresence>
+                <TravelMap key="travel-map" />
+                {state === "MAIN_MENU" && <MainMenu key="main-menu" />}
+                {(state === "GAME_PLAY" || state === "GAME_FINISH" || state === "GAME_PAUSED") && (
+                  <InGame key="in-game" />
+                )}
+                {state === "GAME_FINISH" && <GameFinish key="game-finish" />}
+                {state === "SCORE_SCREEN" && <ScoreScreen key="score-screen" />}
+              </AnimatePresence>
+            </div>
+          </Monitor>
+          <Keyboard />
+          <GameTexts />
+        </main>
       </ScreenRefContext>
     </MotionConfig>
   );
