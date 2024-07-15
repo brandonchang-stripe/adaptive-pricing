@@ -3,11 +3,16 @@
 - [x] Multiple levels
 - [ ] Adaptive pricing visual
 - [ ] Buy animations
-- [ ] OG Share
-- [ ] Flash sale mechanic
 - [ ] Music
+- [ ] OG Share
 - [ ] Live currencies
 - [ ] Mobile
+- [ ] Boot animation
+  - [ ] Rotating logo
+  - [ ] Button to boot
+  - [ ] OS text crawl
+  - [ ] Pointer to indicate push
+- [ ] Flash sale mechanic
 
 # Juice
 - [ ] Custom SFX
@@ -16,8 +21,3 @@
   - [ ] Incorrect buy
   - [ ] Boot animation
   - [ ] OS text bloops
-- [ ] Boot animation
-  - [ ] Rotating logo
-  - [ ] Button to boot
-  - [ ] OS text crawl
-  - [ ] Pointer to indicate push

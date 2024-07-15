@@ -29,13 +29,13 @@
   gap: calc(var(--pixel-size) * 6);
 }
 
-.scoreFrameMilesSquares {
+.number {
   display: flex;
   flex-direction: row;
   gap: calc(var(--pixel-size) * 3);
 }
 
-.scoreFrameMilesSquare {
+.numberSquare {
   display: flex;
   justify-content: center;
   align-items: center;

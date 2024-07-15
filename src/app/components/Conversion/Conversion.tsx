@@ -3,7 +3,6 @@ import styles from "./Conversion.module.css";
 import Frame from "../Frame/Frame";
 import { relativeRound } from "@/app/util/math";
 import ConversionSlider from "../ConversionSlider/ConversionSlider";
-import { CountryName, countryData } from "../gameData";
 import { useCurrentCountry } from "@/app/store";
 
 type ConversionWindowProps = {

@@ -3,8 +3,9 @@ import { ActiveItem, useAppStore, useCurrentCountry } from "@/app/store";
 import Frame from "../Frame/Frame";
 import Button from "../Button/Button";
 import { relativeRound } from "@/app/util/math";
-import { animate, motion, useMotionValue, useTransform } from "framer-motion";
+import { animate, motion, useMotionTemplate, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useEffect } from "react";
+import { useAudio } from "@/app/hooks/useAudio";
 
 type ItemDisplayFrameProps = {
   item: ActiveItem;
@@ -15,17 +16,45 @@ export default function ItemDisplayFrame({ item, index }: ItemDisplayFrameProps)
   const tutorialStep = useAppStore((state) => state.tutorialStep);
   const currentCountry = useCurrentCountry()!;
   const evaluate = useAppStore((state) => state.evaluate);
-  const usd = useMotionValue(`$${item.usdPrice.toFixed(2)}`);
-  // useEffect(() => {
-  //   const controls = animate([
-  //     [usd, "ADAPTIVE", { delay: 0, duration: 1.3 }],
-  //     [usd, "PRICING", { duration: 0.2 }],
-  //     [usd, "ENABLED", { duration: 0.2 }],
-  //     [usd, `$${item.usdPrice.toFixed(2)}`, { duration: 1.0 }],
-  //   ]);
+  const audio = useAudio();
 
-  //   return () => controls.stop();
-  // }, [usd, item.usdPrice]);
+  const motionValue = useMotionValue(-3);
+  const usd = `$${item.usdPrice.toFixed(2)}`;
+
+  const slots = usd.length;
+  const range = 3;
+  const string = useTransform(motionValue, (v) => {
+    const rounded = Math.round(v);
+    let output = "";
+    for (let i = 0; i < slots; i++) {
+      if (rounded - i <= slots) {
+        output += Math.abs(i - rounded) < range ? "*" : "+";
+      } else {
+        output += usd[i] || "";
+      }
+    }
+    return output;
+  });
+
+  useEffect(() => {
+    const c = setTimeout(() => {
+      if (item.converted) audio("convert");
+    }, 1650);
+
+    const s = setTimeout(() => {
+      if (item.converted) audio("scroll", 1.5);
+    }, 1000);
+
+    return () => {
+      clearTimeout(c);
+      clearTimeout(s);
+    };
+  }, []);
+
+  useEffect(() => {
+    const controls = animate([[motionValue, slots * 2 + range, { duration: 1, delay: 1.0 }]]);
+    return () => controls.stop();
+  }, [slots, motionValue]);
 
   return (
     <Frame allowDrag key={item.type} label={item.merchant} position={`item-${index}`} index={index}>
@@ -49,14 +78,16 @@ export default function ItemDisplayFrame({ item, index }: ItemDisplayFrameProps)
               <div>{item.type}</div>
               <motion.div className={styles.itemDisplayPrice}>
                 {item.converted
-                  ? usd
+                  ? string
                   : `${currentCountry!.currencySymbol} ${relativeRound(
                       item.usdPrice * currentCountry.conversionRateDefault
                     )}`}
               </motion.div>
             </div>
           </div>
-          <Button onClick={() => evaluate(item.merchant)} disabled={tutorialStep >= 0}>Buy</Button>
+          <Button onClick={() => evaluate(item.merchant)} disabled={tutorialStep >= 0}>
+            Buy
+          </Button>
         </motion.div>
       </div>
     </Frame>
