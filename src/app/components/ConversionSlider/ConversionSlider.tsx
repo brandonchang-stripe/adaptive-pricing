@@ -63,9 +63,13 @@ export default function ConversionSlider({ step = 1, min = 0, max = 100, onChang
         <motion.div
           className={styles.sliderControl}
           drag="x"
-          // whileDrag={{ opacity: 0.2, transition: { duration: 0.2, ease: stepEase(2) } }}
           dragConstraints={{ left: -notchWidth * count, right: 0 }}
-          dragTransition={{ bounceStiffness: 1000, bounceDamping: 100 }}
+          dragTransition={{
+            power: 0.2,
+            bounceStiffness: 1000,
+            bounceDamping: 100,
+            modifyTarget: (target) => Math.round(target / notchWidth) * notchWidth,
+          }}
           dragElastic={0.05}
           dragListener={false}
           dragControls={dragControls}
