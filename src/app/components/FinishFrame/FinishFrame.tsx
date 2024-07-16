@@ -11,18 +11,10 @@ export default function FinishFrame() {
   }, [audio]);
 
   return (
-    <Frame index={0} label="Done purchasing" position="game-finish" allowDrag>
-      <div className={styles.finishContainer}>
-        <div className={styles.finishText}>
-          <pre>
-            {`
-    ____   ____   _   __ ______ __
-   / __ \\ / __ \\ / | / // ____// /
-  / / / // / / //  |/ // __/  / / 
- / /_/ // /_/ // /|  // /___ /_/  
-/_____/ \\____//_/ |_//_____/(_)   
-`}
-          </pre>
+    <Frame index={0} label="Done purchasing" position="game-finish" allowDrag type="simple">
+      <div className={styles.container}>
+        <div className={styles.text}>
+          DONE!
         </div>
       </div>
     </Frame>

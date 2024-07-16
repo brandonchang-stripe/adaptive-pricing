@@ -49,7 +49,6 @@ interface AppState {
   score: number;
   level: number;
   combo: number;
-  startGame: () => void;
   initGame: () => void;
   chooseRandomMerchants: (itemIndex: number, count?: number) => void;
   evaluate: (merchant: string | boolean) => void;
@@ -76,86 +75,53 @@ export const useAppStore = create<AppState>((set, get) => ({
   state: "MAIN_MENU",
   transitionState: async (newState: GameState) => {
     const currentState = get().state;
-    switch (currentState) {
+    switch (newState) {
       case "MAIN_MENU":
-        switch (newState) {
-          case "TUTORIAL":
-            get().initGame();
-            set({ state: "TUTORIAL" });
-            break;
-
-          // Right now, only transition to game paused state
-          case "GAME_PLAY":
-            get().initGame();
-            get().startGame();
-            set({ state: "GAME_PLAY" });
-            break;
-
-          default:
-            console.error(`Invalid state transition from ${currentState} to ${newState}`);
-        }
+        set({ state: newState });
         break;
 
       case "TUTORIAL":
-        switch (newState) {
-          case "GAME_PLAY":
-            get().startGame();
-            set({ state: "GAME_PLAY", tutorialStep: -1 });
+        get().initGame();
+        set({ state: newState });
+        break;
+
+      case "GAME_START":
+        switch (currentState) {
+          case "TUTORIAL":
+            // End the tutorial on game start
+            set({ state: newState, tutorialStep: -1 });
+            break;
+          case "MAIN_MENU":
+            get().initGame();
+            set({ state: newState });
             break;
         }
+        await new Promise((r) => setTimeout(r, 1500));
+        get().transitionState("GAME_PLAY");
         break;
 
       case "GAME_PLAY":
-        switch (newState) {
-          case "TUTORIAL":
-            set({ state: "TUTORIAL", isTimerRunning: false });
-            break;
-
-          case "GAME_FINISH":
-            set({ state: "GAME_FINISH", isTimerRunning: false });
-
-            await new Promise((r) => setTimeout(r, 2000));
-            get().transitionState("SCORE_SCREEN");
-            break;
-
-          default:
-            console.error(`Invalid state transition from ${currentState} to ${newState}`);
-        }
+        set({ state: newState, isTimerRunning: true });
         break;
 
       case "GAME_FINISH":
-        switch (newState) {
-          case "SCORE_SCREEN":
-            set({ state: newState });
-            break;
-
-          default:
-            console.error(`Invalid state transition from ${currentState} to ${newState}`);
-        }
+        set({ state: newState, isTimerRunning: false });
+        await new Promise((r) => setTimeout(r, 2000));
+        get().transitionState("SCORE_SCREEN");
         break;
-
       case "SCORE_SCREEN":
-        switch (newState) {
-          case "MAIN_MENU":
-            set({ state: newState });
-            break;
-
-          default:
-            console.error(`Invalid state transition from ${currentState} to ${newState}`);
-        }
+        set({ state: newState });
         break;
+
+      default:
+        console.error(`Invalid state transition from ${currentState} to ${newState}`);
     }
   },
 
   initGame: async () => {
     get().chooseRandomMerchants(0);
     get().initTimerDuration();
-    set({ purchasedItems: [], itemIndex: 0 });
-  },
-
-  startGame: async () => {
-    await new Promise((r) => setTimeout(r, 1000));
-    set({ isTimerRunning: true });
+    set({ purchasedItems: [], itemIndex: 0, isTimerRunning: false });
   },
 
   // Country state

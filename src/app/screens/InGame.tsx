@@ -5,12 +5,13 @@ import Conversion from "@/app/components/Conversion/Conversion";
 import Timer from "@/app/components/Timer/Timer";
 import Button from "../components/Button/Button";
 import ProgressBar from "../components/ProgressBar/ProgressBar";
+import StartFrame from "../components/StartFrame/StartFrame";
 
 export default function InGame() {
   const currentItems = useAppStore((state) => state.currentItems);
-  const country = useAppStore((state) => state.countryIndex);
+  const state = useAppStore((state) => state.state);
   const evaluate = useAppStore((state) => state.evaluate);
-  const setState = useAppStore((state) => state.transitionState);
+  const transitionState = useAppStore((state) => state.transitionState);
   const tutorialStep = useAppStore((state) => state.tutorialStep);
   const nextTutorialStep = useAppStore((state) => state.nextTutorialStep);
   const endTutorial = useAppStore((state) => state.endTutorial);
@@ -18,7 +19,7 @@ export default function InGame() {
 
   const handleStart = () => {
     endTutorial();
-    setState("GAME_PLAY");
+    transitionState("GAME_START");
   };
 
   return (
@@ -78,8 +79,9 @@ export default function InGame() {
         </Frame>
       )}
 
-      {/* {!tutorialActive && <ProgressBar />} */}
-      <ProgressBar />
+      {!tutorialActive && <ProgressBar />}
+
+      {state === "GAME_START" && <StartFrame />}
     </>
   );
 }
