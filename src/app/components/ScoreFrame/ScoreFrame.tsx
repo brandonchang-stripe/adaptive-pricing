@@ -13,7 +13,8 @@ export default function ScoreFrame() {
   const nextCountry = useAppStore((state) => state.nextCountry);
   const totalSpend = items.reduce((acc, item) => acc + item.usdPrice, 0);
   const totalSaved = items.reduce((acc, item) => acc + item.saved, 0);
-  const scoreDigits = (score * 100).toString().split("");
+  const totalScore = score.reduce((acc, s) => acc + s, 0);
+  const scoreDigits = (totalScore * 100).toString().split("");
   const audio = useAudio();
 
   useEffect(() => {
