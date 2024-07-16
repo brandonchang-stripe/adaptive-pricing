@@ -1,0 +1,58 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: calc(var(--pixel-size) * 4);
+  background-color: var(--color-100);
+  align-items: center;
+}
+
+.title {
+  padding: calc(var(--pixel-size) * 16);
+  font-size: calc(var(--pixel-size) * 16);
+  color: var(--color-200);
+  text-align: center;
+  border-bottom: var(--pixel-size) dotted var(--color-200);
+  width: 100%;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  padding: calc(var(--pixel-size) * 16);
+  margin: 0;
+  max-width: calc(var(--pixel-size) * 260);
+  width: 100%;
+  gap: calc(var(--pixel-size) * 4);
+}
+
+.countryItem {
+  display: flex;
+  flex-direction: row;
+}
+
+.checkbox,
+.miles {
+  color: var(--color-200);
+}
+
+.divider {
+  flex-grow: 1;
+  padding: 0 calc(var(--pixel-size) * 4);
+  border-bottom: var(--pixel-size) dotted var(--color-200);
+}
+
+.mapContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-grow: 1;
+  width: 100%;
+}
+
+.map {
+  display: block;
+  width: calc(var(--pixel-size) * 176 * 1.5);
+  height: calc(var(--pixel-size) * 114 * 1.5);
+}

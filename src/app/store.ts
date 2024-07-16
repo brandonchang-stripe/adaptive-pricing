@@ -1,10 +1,11 @@
 import type { Vector2 } from "@/types/Vector2";
 import { create } from "zustand";
 import { nanoid } from "nanoid";
-import { CountryData, ItemType, emailSubjects, countryData } from "./components/gameData";
+import { CountryData, emailSubjects, countryData } from "./components/gameData";
 import { randiRange } from "./util/math";
 import { playSound } from "./hooks/useAudio";
 import { Props as GameTextProps } from "./components/GameText";
+import { replaceAt } from "./util/array";
 
 type GameState =
   | "SPLASH"
@@ -24,7 +25,7 @@ export type PurchasedItem = {
 } & ActiveItem;
 
 export type ActiveItem = {
-  type: ItemType;
+  type: string;
   merchant: string;
   usdPrice: number;
   converted: boolean;
@@ -46,10 +47,10 @@ interface AppState {
   nextTutorialStep: () => void;
   endTutorial: () => void;
 
-  score: number;
-  level: number;
+  score: number[];
   combo: number;
   initGame: () => void;
+  initRound: () => void;
   chooseRandomMerchants: (itemIndex: number, count?: number) => void;
   evaluate: (merchant: string | boolean) => void;
   skipItem: () => void;
@@ -82,17 +83,28 @@ export const useAppStore = create<AppState>((set, get) => ({
 
       case "TUTORIAL":
         get().initGame();
+        get().initRound();
         set({ state: newState });
         break;
 
       case "GAME_START":
         switch (currentState) {
+          // End the tutorial on game start
           case "TUTORIAL":
-            // End the tutorial on game start
             set({ state: newState, tutorialStep: -1 });
             break;
+
+          // Start new game without tutorial (Play again)
           case "MAIN_MENU":
             get().initGame();
+            get().initRound();
+            set({ state: newState });
+            break;
+
+          // Starting new round
+          case "ROUND_FINISH":
+            get().nextCountry();
+            get().initRound();
             set({ state: newState });
             break;
         }
@@ -102,6 +114,16 @@ export const useAppStore = create<AppState>((set, get) => ({
 
       case "GAME_PLAY":
         set({ state: newState, isTimerRunning: true });
+        break;
+
+      case "ROUND_FINISH":
+        set({ state: newState, isTimerRunning: false });
+        await new Promise((r) => setTimeout(r, 3000));
+        if (get().countryIndex === countryData.length - 1) {
+          get().transitionState("GAME_FINISH");
+        } else {
+          get().transitionState("GAME_START");
+        }
         break;
 
       case "GAME_FINISH":
@@ -119,15 +141,28 @@ export const useAppStore = create<AppState>((set, get) => ({
   },
 
   initGame: async () => {
+    set({
+      purchasedItems: [],
+      itemIndex: 0,
+      isTimerRunning: false,
+      score: Array(countryData.length).fill(-1),
+    });
+  },
+
+  initRound: () => {
     get().chooseRandomMerchants(0);
     get().initTimerDuration();
-    set({ purchasedItems: [], itemIndex: 0, isTimerRunning: false });
+    set((state) => ({
+      isTimerRunning: false,
+      itemIndex: 0,
+      score: replaceAt(state.score, state.countryIndex, 0),
+      combo: 0,
+    }));
   },
 
   // Country state
   countryIndex: 0,
   nextCountry: () => {
-    get().transitionState("MAIN_MENU");
     set((state) => {
       const nextIndex = state.countryIndex + 1;
       if (nextIndex >= countryData.length) {
@@ -150,8 +185,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   },
 
   // Game meta state
-  score: 0,
-  level: 1,
+  score: Array(countryData.length).fill(0),
   combo: 0,
 
   // Item State
@@ -257,7 +291,7 @@ export const useAppStore = create<AppState>((set, get) => ({
       set({ isTimerRunning: true });
     } else {
       set({ itemIndex: itemIndex + 1, isTimerRunning: false });
-      get().transitionState("GAME_FINISH");
+      get().transitionState("ROUND_FINISH");
     }
   },
   skipItem: () => {
@@ -270,9 +304,10 @@ export const useAppStore = create<AppState>((set, get) => ({
     set((state) => {
       playSound("correct", Math.min(get().combo * 0.1 + 0.8, 1.8));
 
+      const countryIndex = get().countryIndex;
+      const newScore = state.score[countryIndex] + points;
       return {
-        score: state.score + points,
-        level: state.level + 1,
+        score: replaceAt(state.score, countryIndex, newScore),
         combo: state.combo + 1,
       };
     });
@@ -280,10 +315,7 @@ export const useAppStore = create<AppState>((set, get) => ({
 
   losePoints: () => {
     playSound("error");
-    set((state) => ({
-      level: state.level + 1,
-      combo: 0,
-    }));
+    set({ combo: 0 });
   },
 
   timerDuration: 0,

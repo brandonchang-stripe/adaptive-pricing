@@ -80,8 +80,6 @@ export default function InGame() {
       )}
 
       {!tutorialActive && <ProgressBar />}
-
-      {state === "GAME_START" && <StartFrame />}
     </>
   );
 }

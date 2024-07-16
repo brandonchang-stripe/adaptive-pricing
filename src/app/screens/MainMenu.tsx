@@ -2,6 +2,7 @@ import Frame from "@/app/components/Frame/Frame";
 import { useAppStore } from "../store";
 import Button from "../components/Button/Button";
 import { countryData } from "../components/gameData";
+import RoundEndFrame from "../components/RoundFinishFrame/RoundFinishFrame";
 
 export default function MainMenu() {
   const countryIndex = useAppStore((state) => state.countryIndex);

@@ -14,6 +14,9 @@ import { AnimatePresence, MotionConfig } from "framer-motion";
 import TravelMap from "./components/TravelMap/TravelMap";
 import Background from "./components/Background/Background";
 import Keyboard from "./components/Keyboard/Keyboard";
+import RoundEndFrame from "./components/RoundFinishFrame/RoundFinishFrame";
+import StartFrame from "./components/StartFrame/StartFrame";
+import FinishFrame from "./components/FinishFrame/FinishFrame";
 
 type AppProps = {
   nonce: string;
@@ -35,7 +38,10 @@ export default function App({ nonce }: AppProps) {
                 {(state === "GAME_PLAY" ||
                   state === "GAME_FINISH" ||
                   state === "TUTORIAL" ||
-                  state === "GAME_START") && <InGame key="in-game" />}
+                  state === "GAME_START" ||
+                  state === "ROUND_FINISH") && <InGame key="in-game" />}
+                {state === "GAME_START" && <StartFrame key="start" />}
+                {state === "ROUND_FINISH" && <RoundEndFrame key="round" />}
                 {state === "GAME_FINISH" && <GameFinish key="game-finish" />}
                 {state === "SCORE_SCREEN" && <ScoreScreen key="score-screen" />}
               </AnimatePresence>

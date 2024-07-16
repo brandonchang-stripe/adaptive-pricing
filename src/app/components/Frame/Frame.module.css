@@ -103,6 +103,11 @@
   grid-row: 1 / span 11;
 }
 
+.frame:global(.round-finish) {
+  grid-column: 3 / span 8;
+  grid-row: 1 / span 12;
+}
+
 .frame:global(.progress-bar) {
   grid-column: 2 / span 10;
   grid-row: 2 / span 1;
