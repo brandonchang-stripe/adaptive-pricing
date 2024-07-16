@@ -37,6 +37,7 @@ export default function ItemDisplayFrame({ item, index }: ItemDisplayFrameProps)
   });
 
   useEffect(() => {
+    console.log("enter");
     const c = setTimeout(() => {
       if (item.converted) audio("convert");
     }, 1650);
@@ -49,12 +50,13 @@ export default function ItemDisplayFrame({ item, index }: ItemDisplayFrameProps)
       clearTimeout(c);
       clearTimeout(s);
     };
-  }, []);
+  }, [item]);
 
   useEffect(() => {
+    motionValue.set(-range);
     const controls = animate([[motionValue, slots * 2 + range, { duration: 1, delay: 1.0 }]]);
     return () => controls.stop();
-  }, [slots, motionValue]);
+  }, [slots, motionValue, item]);
 
   return (
     <Frame allowDrag key={item.type} label={item.merchant} position={`item-${index}`} index={index}>
