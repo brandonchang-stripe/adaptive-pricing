@@ -32,7 +32,7 @@ export default function App({ nonce }: AppProps) {
               <AnimatePresence>
                 <TravelMap key="travel-map" />
                 {state === "MAIN_MENU" && <MainMenu key="main-menu" />}
-                {(state === "GAME_PLAY" || state === "GAME_FINISH" || state === "GAME_PAUSED") && (
+                {(state === "GAME_PLAY" || state === "GAME_FINISH" || state === "TUTORIAL") && (
                   <InGame key="in-game" />
                 )}
                 {state === "GAME_FINISH" && <GameFinish key="game-finish" />}

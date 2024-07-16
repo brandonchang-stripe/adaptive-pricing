@@ -39,7 +39,7 @@ export default function InGame() {
 
       {tutorialStep !== 0 && <ItemDisplay item={currentItems[1]} index={2} />}
       {tutorialStep === 1 && (
-        <Frame label="Buying items" position="tutorial-1" type="note" index={3} allowDrag>
+        <Frame label="Buying items" position="tutorial-1" type="note" index={6} allowDrag>
           <div className="notes-contents">
             <p>This merchant has Adaptive Pricing enabled! It&apos;s already converted to my local currency.</p>
             <div className="spacer"></div>

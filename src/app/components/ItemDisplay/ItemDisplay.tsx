@@ -3,7 +3,7 @@ import { ActiveItem, useAppStore, useCurrentCountry } from "@/app/store";
 import Frame from "../Frame/Frame";
 import Button from "../Button/Button";
 import { relativeRound } from "@/app/util/math";
-import { animate, motion, useMotionTemplate, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { animate, motion, useMotionValue, useTransform } from "framer-motion";
 import { useEffect } from "react";
 import { useAudio } from "@/app/hooks/useAudio";
 
@@ -37,17 +37,11 @@ export default function ItemDisplayFrame({ item, index }: ItemDisplayFrameProps)
   });
 
   useEffect(() => {
-    console.log("enter");
-    const c = setTimeout(() => {
-      if (item.converted) audio("convert");
-    }, 1650);
-
     const s = setTimeout(() => {
-      if (item.converted) audio("scroll", 1.5);
+      if (item.converted) audio("convert", 1.4);
     }, 1000);
 
     return () => {
-      clearTimeout(c);
       clearTimeout(s);
     };
   }, [item]);

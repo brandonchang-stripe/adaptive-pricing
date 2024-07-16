@@ -6,7 +6,16 @@ import { randiRange } from "./util/math";
 import { playSound } from "./hooks/useAudio";
 import { Props as GameTextProps } from "./components/GameText";
 
-type GameState = "SPLASH" | "BOOT" | "MAIN_MENU" | "GAME_PLAY" | "GAME_PAUSED" | "GAME_FINISH" | "SCORE_SCREEN";
+type GameState =
+  | "SPLASH"
+  | "BOOT"
+  | "MAIN_MENU"
+  | "TUTORIAL"
+  | "GAME_START"
+  | "GAME_PLAY"
+  | "ROUND_FINISH"
+  | "GAME_FINISH"
+  | "SCORE_SCREEN";
 
 export type PurchasedItem = {
   score: number;
@@ -70,9 +79,9 @@ export const useAppStore = create<AppState>((set, get) => ({
     switch (currentState) {
       case "MAIN_MENU":
         switch (newState) {
-          case "GAME_PAUSED":
+          case "TUTORIAL":
             get().initGame();
-            set({ state: "GAME_PAUSED" });
+            set({ state: "TUTORIAL" });
             break;
 
           // Right now, only transition to game paused state
@@ -87,7 +96,7 @@ export const useAppStore = create<AppState>((set, get) => ({
         }
         break;
 
-      case "GAME_PAUSED":
+      case "TUTORIAL":
         switch (newState) {
           case "GAME_PLAY":
             get().startGame();
@@ -98,8 +107,8 @@ export const useAppStore = create<AppState>((set, get) => ({
 
       case "GAME_PLAY":
         switch (newState) {
-          case "GAME_PAUSED":
-            set({ state: "GAME_PAUSED", isTimerRunning: false });
+          case "TUTORIAL":
+            set({ state: "TUTORIAL", isTimerRunning: false });
             break;
 
           case "GAME_FINISH":

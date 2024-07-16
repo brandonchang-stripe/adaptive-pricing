@@ -12,7 +12,7 @@ export default function MainMenu() {
     if (tutorialStep === -1) {
       setState("GAME_PLAY");
     } else {
-      setState("GAME_PAUSED");
+      setState("TUTORIAL");
     }
   }
 

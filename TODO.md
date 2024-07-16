@@ -1,7 +1,8 @@
 # Required
 - [x] Progress bar
 - [x] Multiple levels
-- [ ] Adaptive pricing visual
+- [x] Adaptive pricing visual
+- [ ] Country interstitial
 - [ ] Buy animations
 - [ ] Music
 - [ ] OG Share

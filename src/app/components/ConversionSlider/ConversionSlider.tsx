@@ -34,9 +34,9 @@ export default function ConversionSlider({ step = 1, min = 0, max = 100, onChang
     if (val !== lastVal.current) {
       // const rate = Math.abs(latest.x - latest.) * 0.005 + 0.9;
       if (val < min || val > count) {
-        throttleFunc("tick", 0.4);
+        throttleFunc("tock", 0.4);
       } else {
-        throttleFunc("tick", 0.8 + val * 0.006);
+        throttleFunc("tock", 0.8 + val * 0.007);
       }
       onChange(Math.max(Math.min(val, count), 0));
     }

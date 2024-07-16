@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import styles from "./Button.module.css";
 import { useAudio } from "@/app/hooks/useAudio";
 
@@ -12,13 +13,26 @@ export default function Button({ children, onClick, disabled }: Props) {
 
   function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
-    e.stopPropagation()
-    audio('clickShort');
+    e.stopPropagation();
     onClick();
   }
 
+  const handleMouseDown = useCallback(() => {
+    audio(disabled ? "clickDisabled" : "clickDown");
+  }, [disabled]);
+
+  function handleMouseUp() {
+    audio("clickUp");
+  }
+
   return (
-    <button onClick={handleClick} disabled={disabled} className={styles.button}>
+    <button
+      onPointerDown={handleMouseDown}
+      onPointerUp={handleMouseUp}
+      onClick={handleClick}
+      disabled={disabled}
+      className={styles.button}
+    >
       {children}
     </button>
   );
