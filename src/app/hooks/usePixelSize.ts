@@ -6,7 +6,7 @@ export function usePixelSize() {
   useEffect(() => {
     const updatePixelSize = () => {
       const size = getComputedStyle(document.documentElement).getPropertyValue("--pixel-size");
-      setPixelSize(parseInt(size));
+      setPixelSize(parseFloat(size));
     };
 
     updatePixelSize();

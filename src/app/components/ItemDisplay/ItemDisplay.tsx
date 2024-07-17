@@ -118,15 +118,15 @@ function Popover({ targetRef }: PopoverRef) {
       window.removeEventListener("resize", updateBounds);
       setTargetBounds(null);
     };
-  }, [targetRef]);
+  }, [targetRef, pixelSize]);
 
   return (
     <motion.div
       variants={{
         hidden: {
           scale: 0,
-          x: targetBounds ? targetBounds.x + (pixelSize * 70) : 0,
-          y: targetBounds ? targetBounds.y - (pixelSize * 60): 0,
+          x: targetBounds ? targetBounds.x + (pixelSize * 40) : 0,
+          y: targetBounds ? targetBounds.y - (pixelSize * 50) : 0,
         },
         visible: {
           scale: [null, 1, 1, 0],
@@ -134,7 +134,7 @@ function Popover({ targetRef }: PopoverRef) {
         },
       }}
       initial="hidden"
-      animate={targetBounds ? "visible" : "hidden"}
+      animate={targetBounds && pixelSize !== 0 ? "visible" : "hidden"}
       className={styles.popover}
     >
       Price
