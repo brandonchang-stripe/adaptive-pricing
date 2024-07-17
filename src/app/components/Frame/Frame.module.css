@@ -61,7 +61,7 @@
 }
 
 .frame:global(.starting-notes) {
-  grid-column: 5 / span 5;
+  grid-column: 4 / span 6;
   grid-row: 3 / span 6;
 }
 
@@ -99,8 +99,8 @@
 }
 
 .frame:global(.game-start) {
-  grid-column: 4 / span 6;
-  grid-row: 2 / span 9;
+  grid-column: 3 / span 8;
+  grid-row: 2 / span 10;
 }
 
 .frame:global(.game-finish) {

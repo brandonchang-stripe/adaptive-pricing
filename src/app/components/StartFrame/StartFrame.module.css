@@ -1,18 +1,47 @@
 .container {
+  position: relative;
   display: flex;
-  height: 100%;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  background-image: url('/sprites/gradient.png');
-  background-repeat: no-repeat;
-  background-size: calc(var(--pixel-size) * 223) calc(var(--pixel-size) * 259);
-  background-position: center;
-  background-size: cover;
+  height: 100%;
+  background-image: url('/sprites/textures/texture-6.png');
+  background-repeat: repeat;
+  background-size: calc(var(--pixel-size) * 5);
 }
 
 .text {
   font-family: var(--font-dogica);
   font-size: calc(var(--pixel-size) * 32);
-  color: var(--color-200);
+  color: var(--color-100);
+  text-transform: uppercase;
+  letter-spacing: calc(var(--pixel-size) * -4);
   line-height: 1.2;
+  z-index: 1;
+}
+
+.map {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.header,
+.footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: stretch;
+  align-items: center;
+  padding: calc(var(--pixel-size) * 4);
+  gap: calc(var(--pixel-size) * 4);
+  background: var(--color-200);
+  width: 100%;
+}
+
+.block {
+  flex-grow: 1;
+  height: 100%;
+  background-image: url("/sprites/textures/texture-7.png");
+  background-size: calc(var(--pixel-size) * 2);
 }

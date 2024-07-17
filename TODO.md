@@ -2,11 +2,14 @@
 - [x] Progress bar
 - [x] Multiple levels
 - [x] Adaptive pricing visual
-  - [ ] Adaptive pricing popover
-  - [ ] Using GameTexts?
+  - [x] Adaptive pricing popover
+  - [x] Using GameTexts?
 - [ ] Lightning round
 - [x] Country interstitial
+  - [ ] Tweak designs
 - [ ] Buy animations
+- [ ] Domain purchasing
+  - [ ] Reach out to #edge on run
 - [ ] Music
 - [ ] OG Share
 - [ ] Live currencies
@@ -17,6 +20,7 @@
   - [ ] OS text crawl
   - [ ] Pointer to indicate push
 - [ ] Flash sale mechanic
+- [ ] Travel map locations
 
 # Juice
 - [ ] Custom SFX

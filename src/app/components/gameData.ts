@@ -1,3 +1,5 @@
+import { Vector2 } from "@/types/Vector2";
+
 export type ItemType =
   | "Luggage tag"
   | "Plug adaptor"
@@ -24,7 +26,7 @@ export type CountryData = {
   currencySymbol: string;
   conversionRateDefault: number;
   currentConversionRate: number;
-  position: { x: number; y: number };
+  position: Vector2;
   items: ItemData[];
 };
 

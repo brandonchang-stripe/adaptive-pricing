@@ -63,7 +63,7 @@
   border: var(--pixel-size) solid var(--color-100);
   color: var(--color-200);
   padding: calc(var(--pixel-size) * 4);
-  z-index: 2;
+  z-index: 1;
 
   border-image-source: url("/sprites/border.png");
   border-image-slice: 1;
