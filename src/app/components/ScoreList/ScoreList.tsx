@@ -31,6 +31,13 @@ export default function ScoreList({ index = 1, onListAnimationComplete }: Props)
     }
   };
 
+  const handleDown = (index: number) => {
+    audio("clickDisabled", 0.68 + index * 0.12);
+  }
+  const handleUp = (index: number) => {
+    audio("clickUp", 0.68 + index * 0.12);
+  }
+
   // after all items have animated in, stop scrolling to the bottom
   useEffect(() => {
     frame.render(tick, true);
@@ -53,7 +60,8 @@ export default function ScoreList({ index = 1, onListAnimationComplete }: Props)
                 src={`/sprites/email-icon-${i + 1}.png`}
                 alt=""
                 draggable={false}
-                onClick={() => audio("clickShort")}
+                onPointerDown={() => handleDown(i)}
+                onPointerUp={() => handleUp(i)}
               />
             ))}
           <img className={styles.scoreListDivider} src="/sprites/email-icon-divider.png" alt="" draggable={false} />
@@ -66,7 +74,8 @@ export default function ScoreList({ index = 1, onListAnimationComplete }: Props)
                 src={`/sprites/email-icon-${i + 6}.png`}
                 alt=""
                 draggable={false}
-                onClick={() => audio("clickShort")}
+                onPointerDown={() => handleDown(i + 5)}
+                onPointerUp={() => handleUp(i + 5)}
               />
             ))}
         </div>
