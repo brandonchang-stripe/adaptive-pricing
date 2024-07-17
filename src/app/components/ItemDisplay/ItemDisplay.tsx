@@ -4,8 +4,11 @@ import Frame from "../Frame/Frame";
 import Button from "../Button/Button";
 import { relativeRound } from "@/app/util/math";
 import { animate, motion, useMotionValue, useTransform } from "framer-motion";
-import { useEffect } from "react";
+import { RefObject, useEffect, useRef, useState } from "react";
 import { useAudio } from "@/app/hooks/useAudio";
+import { createPortal } from "react-dom";
+import { stepEase } from "@/app/util/stepEase";
+import { usePixelSize } from "@/app/hooks/usePixelSize";
 
 type ItemDisplayFrameProps = {
   item: ActiveItem;
@@ -16,6 +19,7 @@ export default function ItemDisplayFrame({ item, index }: ItemDisplayFrameProps)
   const tutorialStep = useAppStore((state) => state.tutorialStep);
   const currentCountry = useCurrentCountry()!;
   const evaluate = useAppStore((state) => state.evaluate);
+  const ref = useRef<HTMLDivElement>(null);
   const audio = useAudio();
 
   const motionValue = useMotionValue(-3);
@@ -53,39 +57,89 @@ export default function ItemDisplayFrame({ item, index }: ItemDisplayFrameProps)
   }, [slots, motionValue, item]);
 
   return (
-    <Frame allowDrag key={item.type} label={item.merchant} position={`item-${index}`} index={index}>
-      <div className={styles.itemDisplayOuter}>
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={{
-            hidden: { backgroundColor: "var(--color-200)" },
-            visible: {
-              backgroundColor: "var(--color-200)",
-              // backgroundColor: ["var(--color-200)", "var(--color-300)", "var(--color-200)"],
-              // transition: { duration: 0.1, delay: 0.3 * (index + 1) + 0.1 },
-            },
-          }}
-          className={styles.itemDisplay}
-        >
-          <div className={styles.itemDisplayContainer}>
-            <div className={styles.itemDisplayImage} />
-            <div className={styles.itemDisplayData}>
-              <div>{item.type}</div>
-              <motion.div className={styles.itemDisplayPrice}>
-                {item.converted
-                  ? string
-                  : `${currentCountry!.currencySymbol} ${relativeRound(
-                      item.usdPrice * currentCountry.conversionRateDefault
-                    )}`}
-              </motion.div>
+    <>
+      <Frame allowDrag key={item.type} label={item.merchant} position={`item-${index}`} index={index}>
+        <div className={styles.itemDisplayOuter} ref={ref}>
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={{
+              hidden: { backgroundColor: "var(--color-200)" },
+              visible: { backgroundColor: "var(--color-200)" },
+            }}
+            className={styles.itemDisplay}
+          >
+            <div className={styles.itemDisplayContainer}>
+              <div className={styles.itemDisplayImage} />
+              <div className={styles.itemDisplayData}>
+                <div>{item.type}</div>
+                <motion.div className={styles.itemDisplayPrice}>
+                  {item.converted
+                    ? string
+                    : `${currentCountry!.currencySymbol} ${relativeRound(
+                        item.usdPrice * currentCountry.conversionRateDefault
+                      )}`}
+                </motion.div>
+              </div>
             </div>
-          </div>
-          <Button onClick={() => evaluate(item.merchant)} disabled={tutorialStep >= 0}>
-            Buy
-          </Button>
-        </motion.div>
-      </div>
-    </Frame>
+            <Button onClick={() => evaluate(item.merchant)} disabled={tutorialStep >= 0}>
+              Buy
+            </Button>
+
+            {item.converted &&
+              createPortal(<Popover targetRef={ref} />, document.getElementById("main")!, item.merchant)}
+          </motion.div>
+        </div>
+      </Frame>
+    </>
+  );
+}
+
+type PopoverRef = {
+  targetRef: RefObject<HTMLDivElement>;
+};
+
+function Popover({ targetRef }: PopoverRef) {
+  const [targetBounds, setTargetBounds] = useState<DOMRect | null>(null);
+  const pixelSize = usePixelSize();
+
+  useEffect(() => {
+    const updateBounds = () => {
+      if (targetRef.current) {
+        setTargetBounds(targetRef.current.getBoundingClientRect());
+      }
+    };
+    updateBounds();
+
+    // Add resize observer to handle window resizing
+    window.addEventListener("resize", updateBounds);
+
+    return () => {
+      window.removeEventListener("resize", updateBounds);
+      setTargetBounds(null);
+    };
+  }, [targetRef]);
+
+  return (
+    <motion.div
+      variants={{
+        hidden: {
+          scale: 0,
+          x: targetBounds ? targetBounds.x + (pixelSize * 70) : 0,
+          y: targetBounds ? targetBounds.y - (pixelSize * 60): 0,
+        },
+        visible: {
+          scale: [null, 1, 1, 0],
+          transition: { times: [0, 0.2, 0.8, 1], ease: stepEase(3), duration: 1.2, delay: 1.3 },
+        },
+      }}
+      initial="hidden"
+      animate={targetBounds ? "visible" : "hidden"}
+      className={styles.popover}
+    >
+      Price
+      <br />
+      Adapted!
+    </motion.div>
   );
 }

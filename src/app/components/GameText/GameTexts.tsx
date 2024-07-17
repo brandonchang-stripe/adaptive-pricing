@@ -3,12 +3,12 @@ import styles from "./GameText.module.css";
 import { useAppStore } from "@/app/store";
 
 export default function GameTexts() {
-  const texts = useAppStore((state) => state.gameTexts);
+  const texts = useAppStore((state) => state.popovers);
 
   return (
     <div className={styles.container}>
-      {texts.map((text) => (
-        <GameText {...text} key={text.id} />
+      {Array.from(texts).map(([id, props]) => (
+        <GameText {...props} key={id} />
       ))}
     </div>
   );

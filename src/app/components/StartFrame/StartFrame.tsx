@@ -13,7 +13,7 @@ export default function StartFrame() {
   }, [audio]);
 
   return (
-    <Frame index={0} label="GET SHOPPING" position="game-start" allowDrag type="simple">
+    <Frame index={0} label="" position="game-start" allowDrag type="simple">
       <div className={styles.container}>
         <div className={styles.text}>
           {country.name}<br/>

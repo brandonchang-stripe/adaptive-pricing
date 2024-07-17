@@ -2,7 +2,10 @@
 - [x] Progress bar
 - [x] Multiple levels
 - [x] Adaptive pricing visual
-- [ ] Country interstitial
+  - [ ] Adaptive pricing popover
+  - [ ] Using GameTexts?
+- [ ] Lightning round
+- [x] Country interstitial
 - [ ] Buy animations
 - [ ] Music
 - [ ] OG Share

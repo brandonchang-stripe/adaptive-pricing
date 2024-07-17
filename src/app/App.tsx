@@ -28,7 +28,7 @@ export default function App({ nonce }: AppProps) {
   return (
     <MotionConfig nonce={nonce}>
       <ScreenRefContext>
-        <main className={styles.main}>
+        <main id="main" className={styles.main}>
           <Background />
           <Monitor>
             <div className={styles.grid}>

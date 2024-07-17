@@ -6,6 +6,7 @@ import { randiRange } from "./util/math";
 import { playSound } from "./hooks/useAudio";
 import { Props as GameTextProps } from "./components/GameText";
 import { replaceAt } from "./util/array";
+import { ReactNode } from "react";
 
 type GameState =
   | "SPLASH"
@@ -64,9 +65,10 @@ interface AppState {
   isTimerRunning: boolean;
   initTimerDuration: () => void;
   // game texts
-  createGameText: (text: string, position: Vector2) => void;
-  popGameText: (id: string) => void;
-  gameTexts: GameTextProps[];
+  createPopover: (node: () => ReactNode, position: Vector2) => void;
+  deletePopover: (id: string) => void;
+  popovers: Map<string, GameTextProps>;
+
   // positions
   positions: Record<string, Vector2>;
   setPosition: (id: string, position: Vector2) => void;
@@ -328,24 +330,24 @@ export const useAppStore = create<AppState>((set, get) => ({
     set({ timerDuration: duration });
   },
 
-  createGameText: (text: string, position: Vector2) => {
-    const texts = get().gameTexts;
-    const newText = { text, position, id: nanoid() };
-    set({
-      gameTexts: [...texts, newText],
-    });
+  createPopover: (node: () => ReactNode, position: Vector2) => {
+    if (node == null) return;
+
+    const newTexts = new Map(get().popovers);
+    const id = nanoid();
+    newTexts.set(id, { node, position, id });
+    set({ popovers: newTexts });
   },
 
-  popGameText: (id: string) => {
-    const texts = get().gameTexts;
-    const index = texts.findIndex((t) => t.id === id);
-    set({
-      gameTexts: [...texts.slice(0, index), ...texts.slice(index + 1)],
-    });
+  deletePopover: (id: string) => {
+    const newTexts = new Map(get().popovers);
+    newTexts.delete(id);
+    set({ popovers: newTexts });
   },
 
-  gameTexts: [],
+  popovers: new Map<string, GameTextProps>(),
 
+  // TODO Review position
   positions: {},
   setPosition: (id: string, position: Vector2) => {
     set({ positions: { ...get().positions, [id]: position } });
