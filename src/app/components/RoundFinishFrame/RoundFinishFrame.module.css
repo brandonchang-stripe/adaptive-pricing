@@ -4,6 +4,7 @@
   height: 100%;
   padding: calc(var(--pixel-size) * 4);
   background-color: var(--color-100);
+  inset: 12px;
   align-items: center;
 }
 

@@ -32,7 +32,9 @@ export type ActiveItem = {
 };
 
 interface AppState {
+  // Game state machine
   state: GameState;
+  // All state transition logic is handled here
   transitionState: (newState: GameState) => void;
 
   countryIndex: number;

@@ -7,7 +7,7 @@ import { useScreenRef } from "../Context";
 
 type FrameProps = {
   children?: React.ReactNode;
-  label: string;
+  label?: string;
   position: string;
   type?: "regular" | "note" | "simple";
   index?: number;

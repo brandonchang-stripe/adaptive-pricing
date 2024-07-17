@@ -55,7 +55,7 @@ export default function TimerFrame({ onTimeout, index }: TimerProps) {
   }, [running]);
 
   return (
-    <Frame allowDrag label="Time left to purchase" position="timer" index={index}>
+    <Frame allowDrag position="timer" type="simple" index={index}>
       <div className={styles.timerContainer}>
         <div className={styles.timerBackground}></div>
         <div className={styles.timerNumberTop}>{toMMSS(seconds)}</div>

@@ -20,8 +20,8 @@ export default function MainMenu() {
   return (
     <>
       {countryIndex === 0 && (
-        <Frame allowDrag label="Notes" position="starting-notes" type="note" index={2}>
-          <div className="notes-contents">
+        <Frame allowDrag position="starting-notes" type="note" index={2}>
+          <>
             <p>
               <b>NOTES TO SELF!</b>
             </p>
@@ -34,19 +34,19 @@ export default function MainMenu() {
               <p>PS: Dont leave everything for the last minute again.</p>
               <Button onClick={handleStart}>Start shopping</Button>
             </div>
-          </div>
+          </>
         </Frame>
       )}
 
       {countryIndex === 1 && (
         <Frame allowDrag label="Notes" position="next-stop-notes" type="note" index={2}>
-          <div className="notes-contents">
+          <>
             <p>Next stop, {countryData[countryIndex].name}</p>
             <div className="spacer"></div>
             <div className="notes-footer">
               <Button onClick={handleStart}>Start shopping</Button>
             </div>
-          </div>
+          </>
         </Frame>
       )}
     </>

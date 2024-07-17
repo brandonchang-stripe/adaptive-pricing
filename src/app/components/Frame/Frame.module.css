@@ -31,6 +31,7 @@
   border-image-slice: 3 fill;
   border-image-width: calc(var(--pixel-size) * 3);
   border-image-repeat: round;
+  padding: calc(var(--pixel-size) * 1) calc(var(--pixel-size) * 3) calc(var(--pixel-size) * 3);
 
   position: relative;
   overflow: hidden;
@@ -40,7 +41,11 @@
   border-image-source: url("/sprites/notes-frame-contents.png");
   border-image-slice: 3 3 7 fill;
   border-image-width: calc(var(--pixel-size) * 3) calc(var(--pixel-size) * 3) calc(var(--pixel-size) * 7);
-  padding: calc(var(--pixel-size) * 8);
+
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: calc(var(--pixel-size) * 8) calc(var(--pixel-size) * 8) calc(var(--pixel-size) * 12);
 }
 
 .frame[data-type="note"] p {
@@ -145,7 +150,7 @@
 
 .frame:global(.tutorial-3) {
   grid-column: 5 / span 4;
-  grid-row: 4 / span 5;
+  grid-row: 6 / span 3;
 }
 
 .frame:global(.next-stop-notes) {
