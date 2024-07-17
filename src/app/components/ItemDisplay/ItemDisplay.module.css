@@ -62,7 +62,12 @@
   background: var(--color-300);
   border: var(--pixel-size) solid var(--color-100);
   color: var(--color-200);
-  font-weight: 800;
-  padding: calc(var(--pixel-size) * 8);
+  padding: calc(var(--pixel-size) * 4);
   z-index: 2;
+
+  border-image-source: url("/sprites/border.png");
+  border-image-slice: 1;
+  border-image-width: calc(var(--pixel-size) * 1);
+  border-image-outset: calc(var(--pixel-size) * 1);
+  border-image-repeat: repeat;
 }

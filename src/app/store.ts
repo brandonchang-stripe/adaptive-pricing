@@ -210,12 +210,12 @@ export const useAppStore = create<AppState>((set, get) => ({
       }
 
       const merchant = currentItemData.merchants[merchantIndex];
-      const converted = i === 1;
+      const converted = i === 1 || itemIndex === country.items.length - 1;
 
       let price = currentItemData.baseUsdPrice;
 
       // Only change the price of the conversion item
-      if (converted) {
+      if (i === 1) {
         // Pick an increment at random
         const increment = currentItemData.priceIncrements[randiRange(0, currentItemData.priceIncrements.length - 1)];
         // 50/50 chance the increment subtracts instead of adds
