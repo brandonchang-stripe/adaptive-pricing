@@ -31,9 +31,7 @@ export default function InGame() {
 
       {tutorialStep !== 0 && state !== "GAME_START" && <ItemDisplay item={currentItems[1]} index={2} />}
       <TutorialFrame tutorialStep={1} onNext={nextTutorialStep} index={6}>
-        <p>
-          This shop has Stripe&apos;s Adaptive Pricing enabled! It&apos;s already converted to your local currency.
-        </p>
+        <p>This shop has Stripe&apos;s Adaptive Pricing enabled! It&apos;s already converted to your local currency.</p>
       </TutorialFrame>
 
       {(!tutorialActive || tutorialStep >= 2) && <Conversion position="slider" index={2} />}
@@ -47,7 +45,7 @@ export default function InGame() {
       {(!tutorialActive || tutorialStep >= 3) && <Timer onTimeout={() => evaluate(false)} index={2} />}
 
       <TutorialFrame tutorialStep={3} onNext={handleStart} index={1}>
-        <p>You have limited time. Choose quickly and wisely. </p>
+        <p>You have limited time. Choose quickly and wisely.</p>
       </TutorialFrame>
 
       {!tutorialActive && <ProgressBar />}

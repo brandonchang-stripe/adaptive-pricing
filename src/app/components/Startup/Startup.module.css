@@ -1,0 +1,16 @@
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  grid-column: 1/13;
+  grid-row: 1/13;
+}
+
+.text {
+  font-family: var(--font-dogica);
+  color: var(--color-200);
+  font-size: calc(var(--pixel-size) * 8);
+  line-height: 2;
+}

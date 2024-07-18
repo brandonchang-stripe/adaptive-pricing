@@ -1,6 +1,0 @@
-.keyboard {
-  position: absolute;
-  top: calc(50% + var(--pixel-size) * 210);
-  width: calc(var(--pixel-size) * 504);
-  height: calc(var(--pixel-size) * 93);
-}

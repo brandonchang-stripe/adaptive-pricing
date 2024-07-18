@@ -23,6 +23,9 @@ export const soundBoard = {
   start: new Howl({ src: "./sfx/confirm_11.mp3", volume: 0.4 }),
   finish: new Howl({ src: "./audio/confirmation_004.ogg", volume: 0.3 }),
   finishSmall: new Howl({ src: "./audio/confirmation_003.ogg", volume: 0.3 }),
+  boot: new Howl({ src: "./sfx/startup_01.mp3", volume: 0.5 }),
+  beep: new Howl({ src: "./sfx/beep_04.mp3", volume: 0.05 }),
+  splash: new Howl({ src: "./sfx/startup_02.mp3", volume: 0.05 }),
 } as const;
 
 export type SoundName = keyof typeof soundBoard;

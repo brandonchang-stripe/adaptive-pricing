@@ -78,10 +78,12 @@ interface AppState {
 
 export const useAppStore = create<AppState>((set, get) => ({
   // Game state machine
-  state: "MAIN_MENU",
+  state: "SLEEP",
   transitionState: async (newState: GameState) => {
     const currentState = get().state;
     switch (newState) {
+      case "BOOT":
+      case "SPLASH":
       case "MAIN_MENU":
         set({ state: newState });
         break;

@@ -2,20 +2,20 @@
   height: 100%;
   width: 100%;
   max-width: calc(var(--pixel-size) * 537);
-  max-height: calc(var(--pixel-size) * 494);
-  border-image-source: url('/sprites/monitor.png');
-  border-image-slice: 40 40 100;
-  border-image-width: calc(var(--pixel-size) * 40) calc(var(--pixel-size) * 40) calc(var(--pixel-size) * 100);
+  max-height: calc(var(--pixel-size) * 452);
+  border-image-source: url('/sprites/monitor-bezel.png');
+  border-image-slice: 40 40 58;
+  border-image-width: calc(var(--pixel-size) * 40) calc(var(--pixel-size) * 40) calc(var(--pixel-size) * 58);
   border-image-repeat: repeat;
 
-  padding: calc(var(--pixel-size) * 41) calc(var(--pixel-size) * 41) calc(var(--pixel-size) * 100);
+  padding: calc(var(--pixel-size) * 41) calc(var(--pixel-size) * 41) calc(var(--pixel-size) * 58);
 
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   position: relative;
-  top: calc(var(--pixel-size) * -12);
+  top: calc(var(--pixel-size) * -32);
 }
 
 .overlay {
@@ -29,7 +29,7 @@
 .screenBackground {
   position: absolute;
   top: calc(var(--pixel-size) * 34);
-  height: calc(100% - var(--pixel-size) * 127);
+  height: calc(100% - var(--pixel-size) * 85);
   left: calc(var(--pixel-size) * 33);
   width: calc(100% - var(--pixel-size) * 66);
 

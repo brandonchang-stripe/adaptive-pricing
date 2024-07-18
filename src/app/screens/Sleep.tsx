@@ -1,11 +1,5 @@
-import ScoreList from "@/app/components/ScoreList/ScoreList";
-import ScoreFrame from "@/app/components/ScoreFrame/ScoreFrame";
+import ScreenSaver from "../components/ScreenSaver/ScreenSaver";
 
-export default function ScoreScreen() {
-  return (
-    <>
-      <ScoreList />
-      <ScoreFrame />
-    </>
-  );
+export default function SleepScreen() {
+  return <ScreenSaver />;
 }

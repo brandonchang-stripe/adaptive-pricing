@@ -1,0 +1,13 @@
+.container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-column: 1/13;
+  grid-row: 1/13;
+}
+
+.logo {
+  width: calc(var(--pixel-size) * 223);
+  height: calc(var(--pixel-size) * 141);
+}

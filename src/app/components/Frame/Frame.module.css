@@ -62,7 +62,7 @@
 
 .frame:global(.starting-notes) {
   grid-column: 4 / span 6;
-  grid-row: 3 / span 6;
+  grid-row: 4 / span 5;
 }
 
 .frame:global(.level-select-note) {
