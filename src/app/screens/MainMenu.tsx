@@ -23,15 +23,11 @@ export default function MainMenu() {
         <Frame allowDrag position="starting-notes" type="note" index={2}>
           <>
             <p>
-              <b>NOTES TO SELF!</b>
-            </p>
-            <p>
-              Its finally time for my trip around the world, but before I go I need to buy everything I need for the
-              trip.
+              Get ready for your world tour! You&apos;re headed to Japan, Mexico, Brazil, and New Zealand. Make sure you
+              have everything you need before you go.
             </p>
             <div className="spacer"></div>
             <div className="notes-footer">
-              <p>PS: Dont leave everything for the last minute again.</p>
               <Button onClick={handleStart}>Start shopping</Button>
             </div>
           </>

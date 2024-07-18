@@ -26,13 +26,13 @@ export default function InGame() {
       {state !== "GAME_START" && <ItemDisplay item={currentItems[0]} index={1} />}
 
       <TutorialFrame tutorialStep={0} onNext={nextTutorialStep} index={2}>
-        <p>Save money by comparing prices between two different merchants, side-by-side.</p>
+        <p>Save money by comparing prices between two shops.</p>
       </TutorialFrame>
 
       {tutorialStep !== 0 && state !== "GAME_START" && <ItemDisplay item={currentItems[1]} index={2} />}
       <TutorialFrame tutorialStep={1} onNext={nextTutorialStep} index={6}>
         <p>
-          This merchant has Stripe&apos;s Adaptive Pricing enabled! It&apos;s already converted to my local currency.
+          This shop has Stripe&apos;s Adaptive Pricing enabled! It&apos;s already converted to your local currency.
         </p>
       </TutorialFrame>
 
@@ -40,14 +40,14 @@ export default function InGame() {
 
       {tutorialStep === 2 && (
         <TutorialFrame tutorialStep={2} onNext={nextTutorialStep} index={1}>
-          <p>Use the conversion slider to help compare prices to get the best deal.</p>
+          <p>Use the currency conversion slider to compare prices and select the best deal.</p>
         </TutorialFrame>
       )}
 
       {(!tutorialActive || tutorialStep >= 3) && <Timer onTimeout={() => evaluate(false)} index={2} />}
 
       <TutorialFrame tutorialStep={3} onNext={handleStart} index={1}>
-        <p>I only have a limited time, so think fast!</p>
+        <p>You have limited time. Choose quickly and wisely. </p>
       </TutorialFrame>
 
       {!tutorialActive && <ProgressBar />}
