@@ -14,6 +14,7 @@ export const soundBoard = {
   clickDown: new Howl({ src: "./sfx/click_02.mp3", volume: 0.8 }),
   clickUp: new Howl({ src: "./sfx/click_01.mp3", volume: 0.8 }),
   clickDisabled: new Howl({ src: "./sfx/tock_01.mp3", volume: 0.5 }),
+  check: new Howl({ src: "./sfx/confirm_06.mp3", volume: 0.5 }),
   tick: new Howl({ src: "./audio/click_003.ogg", volume: 0.3 }),
   tock: new Howl({ src: "./sfx/tock_02.mp3", volume: 0.5 }),
   error: new Howl({ src: "./sfx/error_01.mp3", volume: 0.6 }),

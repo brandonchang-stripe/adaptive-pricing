@@ -2,10 +2,21 @@ import styles from "./RoundFinishFrame.module.css";
 import Frame from "../Frame/Frame";
 import { useAppStore } from "@/app/store";
 import { countryData } from "../gameData";
+import { useEffect, useState } from "react";
+import { useAudio } from "@/app/hooks/useAudio";
 
 export default function RoundEndFrame() {
+  const audio = useAudio();
   const countryIndex = useAppStore((state) => state.countryIndex);
+  const [offset, setOffset] = useState(-1);
   const score = useAppStore((state) => state.score);
+
+  useEffect(() => {
+    setTimeout(() => {
+      audio("check");
+      setOffset(0);
+    }, 1500);
+  }, []);
 
   return (
     <Frame allowDrag label="ITINERARY" position="round-finish" index={1}>
@@ -16,7 +27,7 @@ export default function RoundEndFrame() {
           {countryData.map((country, index) => (
             <div key={country.name} className={styles.countryItem}>
               <div className={styles.checkbox}>
-                [{index <= countryIndex ? "X" : " "}] {country.name}
+                [{index <= countryIndex + offset ? "X" : " "}] {country.name}
               </div>
               <div className={styles.divider}></div>
               <div className={styles.miles}>{score[index] === -1 ? "N/A" : (score[index] * 100).toString()}</div>

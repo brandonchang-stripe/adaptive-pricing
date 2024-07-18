@@ -3,7 +3,7 @@ import { useAppStore, useCurrentCountry } from "@/app/store";
 import Frame from "../Frame/Frame";
 import { AnimatePresence, motion, useIsPresent } from "framer-motion";
 import { stepEase } from "@/app/util/stepEase";
-import { useEffect } from "react";
+import { forwardRef } from "react";
 
 export default function ProgressBar() {
   const currentItems = useCurrentCountry()?.items || [];
@@ -30,12 +30,14 @@ export default function ProgressBar() {
 type ItemProps = {
   item: { type: string };
 };
-function Item({ item }: ItemProps) {
+const Item = forwardRef<HTMLDivElement, ItemProps>(function Item({ item }, ref) {
   const isPresent = useIsPresent();
 
   return (
     <motion.div
+      ref={ref}
       key={item.type}
+      initial={false}
       animate={{ scale: 1, transition: { duration: 0.3, ease: stepEase(4) } }}
       exit={{
         scale: 0,
@@ -47,4 +49,4 @@ function Item({ item }: ItemProps) {
       [{isPresent ? " " : "x"}] {item.type}
     </motion.div>
   );
-}
+});

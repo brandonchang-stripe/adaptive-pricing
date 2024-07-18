@@ -196,7 +196,8 @@ export const useAppStore = create<AppState>((set, get) => ({
   currentItems: [],
   itemIndex: 0,
   chooseRandomMerchants: (itemIndex, count = 2) => {
-    const country = countryData[get().countryIndex];
+    const countryIndex = get().countryIndex;
+    const country = countryData[countryIndex];
     const currentItemData = country.items[itemIndex];
     const items: ActiveItem[] = [];
 
@@ -210,11 +211,11 @@ export const useAppStore = create<AppState>((set, get) => ({
       }
 
       const merchant = currentItemData.merchants[merchantIndex];
-      const converted = i === 1 || itemIndex === country.items.length - 1;
+      const converted = i === 1 || itemIndex === country.items.length - 1 || countryIndex === countryData.length - 1;
 
       let price = currentItemData.baseUsdPrice;
 
-      // Only change the price of the conversion item
+      // Only change the price of the second item
       if (i === 1) {
         // Pick an increment at random
         const increment = currentItemData.priceIncrements[randiRange(0, currentItemData.priceIncrements.length - 1)];
@@ -326,7 +327,8 @@ export const useAppStore = create<AppState>((set, get) => ({
   isTimerRunning: false,
 
   initTimerDuration: () => {
-    const duration = Math.max(15000 - get().combo * 1000, 5000);
+    const isLastRound = get().countryIndex === countryData.length - 1;
+    const duration = isLastRound ? 5000 : Math.max(15000 - get().combo * 1000, 5000);
     set({ timerDuration: duration });
   },
 

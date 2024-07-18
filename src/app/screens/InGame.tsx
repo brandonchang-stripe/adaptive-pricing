@@ -6,6 +6,7 @@ import ProgressBar from "../components/ProgressBar/ProgressBar";
 import TutorialFrame from "../components/TutorialFrame/TutorialFrame";
 
 export default function InGame() {
+  const state = useAppStore((state) => state.state);
   const currentItems = useAppStore((state) => state.currentItems);
   const evaluate = useAppStore((state) => state.evaluate);
   const transitionState = useAppStore((state) => state.transitionState);
@@ -22,13 +23,13 @@ export default function InGame() {
 
   return (
     <>
-      <ItemDisplay item={currentItems[0]} index={1} />
+      {state !== "GAME_START" && <ItemDisplay item={currentItems[0]} index={1} />}
 
       <TutorialFrame tutorialStep={0} onNext={nextTutorialStep} index={2}>
         <p>Save money by comparing prices between two different merchants, side-by-side.</p>
       </TutorialFrame>
 
-      {tutorialStep !== 0 && <ItemDisplay item={currentItems[1]} index={2} />}
+      {tutorialStep !== 0 && state !== "GAME_START" && <ItemDisplay item={currentItems[1]} index={2} />}
       <TutorialFrame tutorialStep={1} onNext={nextTutorialStep} index={6}>
         <p>This merchant has Stripe's Adaptive Pricing enabled! It&apos;s already converted to my local currency.</p>
       </TutorialFrame>

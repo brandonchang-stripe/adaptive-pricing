@@ -53,7 +53,7 @@ export default function StartFrame() {
     for (let i = 0; i < country.name.length; i++) {
       setTimeout(() => {
         audio("scroll");
-      }, 500 / country.name.length * i + 450);
+      }, (500 / country.name.length) * i + 450);
     }
 
     animate(stringIndex, country.name.length, { duration: 0.5, delay: 0.5 });

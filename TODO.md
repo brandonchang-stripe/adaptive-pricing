@@ -6,8 +6,8 @@
   - [x] Using GameTexts?
 - [x] Country interstitial
   - [x] Tweak designs
-- [ ] Buy animations
 - [ ] Lightning round
+- [ ] Buy animations
 - [ ] Domain purchasing
   - [ ] Reach out to #edge on run
 - [ ] Music
