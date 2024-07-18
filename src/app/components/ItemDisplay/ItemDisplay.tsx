@@ -130,7 +130,7 @@ function Popover({ targetRef }: PopoverRef) {
         },
         visible: {
           scale: [null, 1, 1, 0],
-          transition: { times: [0, 0.2, 0.8, 1], ease: stepEase(3), duration: 1.2, delay: 1.3 },
+          transition: { times: [0, 0.1, 0.9, 1], ease: stepEase(3), duration: 1.6, delay: 1.3 },
         },
       }}
       initial="hidden"

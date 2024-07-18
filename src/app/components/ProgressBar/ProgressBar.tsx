@@ -33,10 +33,6 @@ type ItemProps = {
 function Item({ item }: ItemProps) {
   const isPresent = useIsPresent();
 
-  useEffect(() => {
-    !isPresent && console.log("I've been removed!");
-  }, [isPresent]);
-
   return (
     <motion.div
       key={item.type}

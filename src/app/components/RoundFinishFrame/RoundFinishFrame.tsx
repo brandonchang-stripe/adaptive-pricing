@@ -6,7 +6,7 @@ import { countryData } from "../gameData";
 export default function RoundEndFrame() {
   const countryIndex = useAppStore((state) => state.countryIndex);
   const score = useAppStore((state) => state.score);
-  console.log(score, countryIndex);
+
   return (
     <Frame allowDrag label="ITINERARY" position="round-finish" index={1}>
       <div className={styles.container}>

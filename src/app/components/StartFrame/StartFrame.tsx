@@ -50,6 +50,12 @@ export default function StartFrame() {
 
   useEffect(() => {
     audio("start");
+    for (let i = 0; i < country.name.length; i++) {
+      setTimeout(() => {
+        audio("scroll");
+      }, 500 / country.name.length * i + 450);
+    }
+
     animate(stringIndex, country.name.length, { duration: 0.5, delay: 0.5 });
   }, [audio]);
 

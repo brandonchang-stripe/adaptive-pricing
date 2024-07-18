@@ -5,7 +5,7 @@ export const soundBoard = {
   dragStart: new Howl({ src: "./audio/maximize_009.ogg", volume: 0.2 }),
   dragEnd: new Howl({ src: "./audio/minimize_009.ogg", volume: 0.2 }),
   convert: new Howl({ src: "./sfx/convert.mp3", volume: 0.5 }),
-  scroll: new Howl({ src: "./audio/scroll_001.ogg", volume: 0.2 }),
+  scroll: new Howl({ src: "./sfx/tock_04.mp3", volume: 0.2 }),
   auto: new Howl({ src: "./audio/confirmation_002.ogg", volume: 0.3 }),
   gain: new Howl({ src: "./audio/confirmation_003.ogg", volume: 0.3 }),
   correct: new Howl({ src: "./sfx/confirm_01.mp3", volume: 0.8 }),

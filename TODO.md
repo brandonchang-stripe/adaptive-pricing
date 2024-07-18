@@ -4,10 +4,10 @@
 - [x] Adaptive pricing visual
   - [x] Adaptive pricing popover
   - [x] Using GameTexts?
-- [ ] Lightning round
 - [x] Country interstitial
-  - [ ] Tweak designs
+  - [x] Tweak designs
 - [ ] Buy animations
+- [ ] Lightning round
 - [ ] Domain purchasing
   - [ ] Reach out to #edge on run
 - [ ] Music
