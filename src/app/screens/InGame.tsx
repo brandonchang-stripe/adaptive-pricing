@@ -31,7 +31,9 @@ export default function InGame() {
 
       {tutorialStep !== 0 && state !== "GAME_START" && <ItemDisplay item={currentItems[1]} index={2} />}
       <TutorialFrame tutorialStep={1} onNext={nextTutorialStep} index={6}>
-        <p>This merchant has Stripe's Adaptive Pricing enabled! It&apos;s already converted to my local currency.</p>
+        <p>
+          This merchant has Stripe&apos;s Adaptive Pricing enabled! It&apos;s already converted to my local currency.
+        </p>
       </TutorialFrame>
 
       {(!tutorialActive || tutorialStep >= 2) && <Conversion position="slider" index={2} />}

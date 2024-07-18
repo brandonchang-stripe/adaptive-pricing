@@ -9,8 +9,9 @@ import { replaceAt } from "./util/array";
 import { ReactNode } from "react";
 
 type GameState =
-  | "SPLASH"
+  | "SLEEP"
   | "BOOT"
+  | "SPLASH"
   | "MAIN_MENU"
   | "TUTORIAL"
   | "GAME_START"
