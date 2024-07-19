@@ -1,38 +1,44 @@
-.scoreFrameContainer {
-  padding: 0 calc(var(--pixel-size) * 6) calc(var(--pixel-size) * 6);
-}
-
 .scoreFrame {
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding-bottom: calc(var(--pixel-size) * 3);
+  gap: calc(var(--pixel-size) * 16);
+}
+
+.scoreFrameContainer {
+  padding: 0 calc(var(--pixel-size) * 4);
 }
 
 .scoreFrameTable {
   border-collapse: separate;
   border-spacing: 0 var(--pixel-size);
   width: 100%;
-  padding: calc(var(--pixel-size) * 6) 0;
+  padding: calc(var(--pixel-size) * 4) 0;
   border-bottom: var(--pixel-size) dotted var(--color-100);
 }
 
 .scoreFrameTable :global(td) {
-  padding: 0 calc(var(--pixel-size) * 6) calc(var(--pixel-size) * 1) 0;
+  padding: 0 calc(var(--pixel-size) * 4) calc(var(--pixel-size) * 1) 0;
 }
 
-.scoreFrameMilesContainer {
-  padding-top: calc(var(--pixel-size) * 18);
+.scoreFrameScoreContainer {
+  padding-top: calc(var(--pixel-size) * 8);
   display: flex;
   flex-direction: column;
-  gap: calc(var(--pixel-size) * 6);
+  gap: calc(var(--pixel-size) * 8);
+}
+
+.numberContainer {
+  display: flex;
+  flex-direction: row;
+  gap: calc(var(--pixel-size) * 4);
 }
 
 .number {
   display: flex;
   flex-direction: row;
-  gap: calc(var(--pixel-size) * 3);
+  font-size: calc(var(--pixel-size) * 16);
 }
 
 .numberSquare {
@@ -40,13 +46,9 @@
   justify-content: center;
   align-items: center;
   color: var(--color-300);
-  height: calc(var(--pixel-size) * 24);
-  width: calc(var(--pixel-size) * 20);
-  border: calc(var(--pixel-size) * 1) solid var(--color-300);
-}
-
-.scoreFrameMilesDigit {
-  font-size: calc(var(--pixel-size) * 16);
+  height: calc(var(--pixel-size) * 26);
+  width: calc(var(--pixel-size) * 24);
+  border: calc(var(--pixel-size) * 2) solid var(--color-300);
 }
 
 .scoreFrameImage {
@@ -56,6 +58,25 @@
   margin-right: auto;
 }
 
-.nextStopButton {
-  padding: 0 calc(var(--pixel-size) * 6) calc(var(--pixel-size) * 3);
+.blurb {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-100);
+  color: var(--color-200);
+  padding: calc(var(--pixel-size) * 4);
+  flex-grow: 1;
+}
+
+.blurb :global(p) {
+  line-height: 1.2;
+}
+
+.blurb :global(a) {
+  color: var(--color-300);
+}
+
+.shareButton {
+  --button-color: var(--color-100);
+  --button-background: var(--color-200);
+  margin-bottom: calc(var(--pixel-size) * 4);
 }

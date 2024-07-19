@@ -1,44 +1,31 @@
 import { useEffect } from "react";
 import styles from "./ScoreFrame.module.css";
-import { animate, transform, useMotionValue } from "framer-motion";
+import { animate, motion, useMotionValue, useTransform } from "framer-motion";
+import { useAudio } from "@/app/hooks/useAudio";
 
 type Props = {
-  spinning: boolean;
   digit: number;
+  index: number;
 };
 
-export default function ScoreMileCounter({ spinning, digit }: Props) {
+export default function ScoreMileCounter({ digit, index }: Props) {
+  const audio = useAudio();
   const scroll = useMotionValue(0);
-  const scrollTransform = transform([0, 1], [1000, 2000]);
+  const scrollNumber = useTransform(scroll, (v) => {
+    return (Math.round(v) % 10).toString();
+  });
 
   useEffect(() => {
-    if (spinning) {
-      animate(scroll, digit, { duration: 1.2 });
-    }
-  }, [spinning]);
+    const controls = animate(scroll, digit + 20, { duration: 1.2, delay: index * 0.3 + 0.5 });
+    controls.then(() => {
+      audio("scroll");
+    });
+    return () => controls.stop();
+  }, [index, scroll, digit]);
 
   return (
     <div className={styles.numberSquare}>
-      <div className={styles.number}>0</div>
-      <div className={styles.number}>1</div>
-      <div className={styles.number}>2</div>
-      <div className={styles.number}>3</div>
-      <div className={styles.number}>4</div>
-      <div className={styles.number}>5</div>
-      <div className={styles.number}>6</div>
-      <div className={styles.number}>7</div>
-      <div className={styles.number}>8</div>
-      <div className={styles.number}>9</div>
-      <div className={styles.number}>0</div>
-      <div className={styles.number}>1</div>
-      <div className={styles.number}>2</div>
-      <div className={styles.number}>3</div>
-      <div className={styles.number}>4</div>
-      <div className={styles.number}>5</div>
-      <div className={styles.number}>6</div>
-      <div className={styles.number}>7</div>
-      <div className={styles.number}>8</div>
-      <div className={styles.number}>9</div>
+      <motion.div className={styles.number}>{scrollNumber}</motion.div>
     </div>
   );
 }

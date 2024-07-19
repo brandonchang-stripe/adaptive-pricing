@@ -7,19 +7,20 @@
 - [x] Country interstitial
   - [x] Tweak designs
 - [x] Lightning round
-  - [ ] Disable slider on double adapted price
+  - [ ] Disable slider on double adapted price  
 - [ ] Buy animations
 - [ ] Domain purchasing
   - [x] Reach out to #edge on run
+- [ ] Mobile
 - [ ] Music
 - [ ] OG Share
 - [ ] Live currencies
-- [ ] Mobile
 - [x] Boot animation
   - [ ] Rotating logo
   - [x] Button to boot
   - [x] OS text crawl
 - [x] Travel map locations
+- [ ] Tweak planes
 
 # Juice
 - [x] Custom SFX

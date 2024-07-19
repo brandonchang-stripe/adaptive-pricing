@@ -84,7 +84,13 @@ export const useAppStore = create<AppState>((set, get) => ({
     switch (newState) {
       case "BOOT":
       case "SPLASH":
+        set({ state: newState });
+        break;
+
       case "MAIN_MENU":
+        if (currentState === "GAME_FINISH") {
+          get().initGame();
+        }
         set({ state: newState });
         break;
 
@@ -150,6 +156,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   initGame: async () => {
     set({
       purchasedItems: [],
+      countryIndex: 0,
       itemIndex: 0,
       isTimerRunning: false,
       score: Array(countryData.length).fill(-1),

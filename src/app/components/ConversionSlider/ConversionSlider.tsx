@@ -1,3 +1,4 @@
+import { useAppStore } from "@/app/store";
 import styles from "./ConversionSlider.module.css";
 import { SoundName, useAudio } from "@/app/hooks/useAudio";
 import { ResolvedValues, motion, useDragControls } from "framer-motion";
@@ -12,6 +13,7 @@ type ConversionSliderProps = {
 };
 
 export default function ConversionSlider({ step = 1, min = 0, max = 100, onChange }: ConversionSliderProps) {
+  // const currentItems = useAppStore((state) => state.currentItems);
   const [notchWidth, setNotchWidth] = useState(2);
   const dragControls = useDragControls();
 
