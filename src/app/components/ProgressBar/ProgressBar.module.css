@@ -1,7 +1,7 @@
 .progress {
   width: 100%;
   height: 100%;
-  background-image: url('/sprites/textures/texture-3.png');
+  background-image: url("/sprites/textures/texture-3.png");
   background-repeat: repeat;
   background-size: calc(var(--pixel-size) * 2);
 
@@ -19,7 +19,7 @@
   flex-direction: row;
   align-items: center;
   justify-items: center;
-  gap: calc(var(--pixel-size) * 4)
+  gap: calc(var(--pixel-size) * 4);
 }
 
 .text {
@@ -46,4 +46,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@media (max-width: 540px) {
+  .progress {
+    font-size: calc(var(--pixel-size) * 8);
+  }
 }

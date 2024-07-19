@@ -157,3 +157,101 @@
   grid-column: 5 / span 4;
   grid-row: 4 / span 3;
 }
+
+@media (max-width: 540px) {
+  .titlebar {
+    height: calc(var(--pixel-size) * 26);
+    border-image-width: calc(var(--pixel-size) * 2) calc(var(--pixel-size) * 20);
+  }
+
+  .content {
+    border-image-width: calc(var(--pixel-size) * 6);
+    border-image-repeat: round;
+    padding: calc(var(--pixel-size) * 2) calc(var(--pixel-size) * 6) calc(var(--pixel-size) * 6);
+  }
+
+  .frame:global(.starting-notes) {
+    grid-column: 1 / span 12;
+    grid-row: 3 / span 8;
+  }
+
+  .frame:global(.map) {
+    grid-column: 1 / span 13;
+    grid-row: 5 / span 6;
+  }
+
+  .frame:global(.slider) {
+    grid-column: 1 / span 12;
+    grid-row: 5 / span 4;
+  }
+
+  .frame:global(.item-1) {
+    grid-column: 1 / span 12;
+    grid-row: 2 / span 3;
+  }
+
+  .frame:global(.item-2) {
+    grid-column: 1 / span 12;
+    grid-row: 9 / span 3;
+  }
+
+  .frame:global(.timer) {
+    grid-column: 1 / span 12;
+    grid-row: 12 / span 1;
+
+    min-height: calc(var(--pixel-size) * 40);
+    height: calc(var(--pixel-size) * 40);
+  }
+
+  .frame:global(.round-finish),
+  .frame:global(.game-finish),
+  .frame:global(.game-start) {
+    grid-column: 1 / span 12;
+    grid-row: 1 / span 12;
+  }
+
+  .frame:global(.progress-bar) {
+    grid-column: 1 / span 12;
+    grid-row: 1 / span 1;
+  }
+
+  .frame:global(.score-list) {
+    grid-column: 2 / span 5;
+    grid-row: 2 / span 10;
+  }
+
+  .frame:global(.score-frame) {
+    grid-column: 1 / span 5;
+    grid-row: 1 / span 7;
+  }
+
+  .frame:global(.logo) {
+    grid-column: 2 / span 6;
+    grid-row: 2 / span 6;
+  }
+
+  .frame:global(.tutorial-0) {
+    grid-column: 1 / span 12;
+    grid-row: 6 / span 4;
+  }
+
+  .frame:global(.tutorial-1) {
+    grid-column: 1 / span 12;
+    grid-row: 3 / span 5;
+  }
+
+  .frame:global(.tutorial-2) {
+    grid-column: 1 / span 12;
+    grid-row: 9 / span 4;
+  }
+
+  .frame:global(.tutorial-3) {
+    grid-column: 1 / span 12;
+    grid-row: 9 / span 3;
+  }
+
+  .frame:global(.next-stop-notes) {
+    grid-column: 5 / span 4;
+    grid-row: 4 / span 3;
+  }
+}

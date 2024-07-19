@@ -33,7 +33,6 @@ export default function App({ nonce }: AppProps) {
           <Background />
           <Monitor>
             <div className={styles.grid}>
-              {state !== "SLEEP" && state !== "BOOT" && state !== "SPLASH" && <TravelMap key="travel-map" />}
               {state === "SLEEP" && <SleepScreen key="sleep" />}
               {state === "BOOT" && <Boot key="boot" />}
               {state === "SPLASH" && <Splash key="splash" />}

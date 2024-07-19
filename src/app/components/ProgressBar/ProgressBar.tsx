@@ -14,7 +14,7 @@ export default function ProgressBar() {
       <div className={styles.progress}>
         <div className={styles.text}>Items left</div>
         <div className={styles.progressContainer}>
-          <AnimatePresence initial={false} mode="popLayout">
+          <AnimatePresence initial={false} >
             {currentItems
               .filter((_, index) => index >= itemIndex)
               .map((item) => (

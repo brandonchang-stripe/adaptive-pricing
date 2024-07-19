@@ -43,3 +43,11 @@
   width: 100%;
   height: 100%;
 }
+
+@media (max-width: 540px) {
+  .bezel {
+    aspect-ratio: 452 / 537;
+    max-height: calc(100% - var(--pixel-size) * 100);
+    top: calc(var(--pixel-size) * -50);
+  }
+}

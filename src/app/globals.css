@@ -88,3 +88,10 @@ p {
 .spacer {
   flex-grow: 1;
 }
+
+@media (max-width: 540px) {
+  html,
+  body {
+    font-size: calc(var(--pixel-size) * 16);
+  }
+}

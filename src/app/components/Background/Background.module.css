@@ -10,3 +10,12 @@
   background-size: calc(var(--pixel-size) * 1200) calc(var(--pixel-size) * 720);
   background-position: center calc(50% - var(--pixel-size) * 20);
 }
+
+@media (max-width: 540px) {
+  .background {
+    top: auto;
+    bottom: calc(var(--pixel-size) * -48);
+    background-position: center bottom;
+    height: 100dvh;
+  }
+}
