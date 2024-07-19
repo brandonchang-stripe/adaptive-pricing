@@ -30,7 +30,7 @@ export default function RoundEndFrame() {
                 [{index <= countryIndex + offset ? "X" : " "}] {country.name}
               </div>
               <div className={styles.divider}></div>
-              <div className={styles.miles}>{score[index] === -1 ? "N/A" : (score[index] * 100).toString()}</div>
+              <div className={styles.points}>{score[index] === -1 ? "N/A" : (score[index] * 100).toString() + " points"}</div>
             </div>
           ))}
         </ul>

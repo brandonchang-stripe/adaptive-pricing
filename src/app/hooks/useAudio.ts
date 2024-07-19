@@ -1,5 +1,5 @@
-import { Howl } from "howler";
-import { useCallback, useRef } from "react";
+import { Howl, Howler } from "howler";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export const soundBoard = {
   dragStart: new Howl({ src: "./audio/maximize_009.ogg", volume: 0.2 }),
@@ -41,6 +41,15 @@ export function useAudio() {
   );
 
   return playSound;
+}
+
+export function useMute() {
+  const [muted, setMuted] = useState(false);
+  useEffect(() => {
+    Howler.mute(muted);
+  }, [muted]);
+
+  return setMuted;
 }
 
 /*

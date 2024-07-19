@@ -67,7 +67,7 @@ export default function ScoreFrame() {
           </table>
 
           <div className={styles.scoreFrameMilesContainer}>
-            <div>Total miles earned:</div>
+            <div>Total points earned:</div>
             <div className={styles.scoreFrameMilesSquares}>
               {scoreDigits.map((digit, i) => (
                 <ScoreMileCounter key={i} spinning={true} digit={parseInt(digit)} />

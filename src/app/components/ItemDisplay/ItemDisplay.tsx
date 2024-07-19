@@ -91,6 +91,7 @@ export default function ItemDisplayFrame({ item, index }: ItemDisplayFrameProps)
           </motion.div>
         </div>
       </Frame>
+      {}
     </>
   );
 }
