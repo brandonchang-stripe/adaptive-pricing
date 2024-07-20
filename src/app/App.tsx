@@ -8,10 +8,8 @@ import MainMenu from "./screens/MainMenu";
 import ScoreScreen from "./screens/ScoreScreen";
 import InGame from "./screens/InGame";
 import GameFinish from "./screens/GameFinish";
-import GameTexts from "./components/GameText/GameTexts";
 import Monitor from "./components/Monitor/Monitor";
-import { AnimatePresence, MotionConfig } from "framer-motion";
-import TravelMap from "./components/TravelMap/TravelMap";
+import { MotionConfig } from "framer-motion";
 import Background from "./components/Background/Background";
 import RoundEndFrame from "./components/RoundFinishFrame/RoundFinishFrame";
 import StartFrame from "./components/StartFrame/StartFrame";
@@ -48,7 +46,6 @@ export default function App({ nonce }: AppProps) {
               {state === "SCORE_SCREEN" && <ScoreScreen key="score-screen" />}
             </div>
           </Monitor>
-          <GameTexts />
         </main>
       </ScreenRefContext>
     </MotionConfig>

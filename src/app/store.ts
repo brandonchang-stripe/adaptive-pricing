@@ -1,12 +1,8 @@
-import type { Vector2 } from "@/types/Vector2";
 import { create } from "zustand";
-import { nanoid } from "nanoid";
 import { CountryData, emailSubjects, countryData } from "./components/gameData";
 import { randiRange } from "./util/math";
 import { playSound } from "./hooks/useAudio";
-import { Props as GameTextProps } from "./components/GameText";
 import { replaceAt } from "./util/array";
-import { ReactNode } from "react";
 
 type GameState =
   | "SLEEP"
@@ -46,6 +42,7 @@ interface AppState {
   itemIndex: number;
   purchasedItems: PurchasedItem[];
   purchaseItem: (item: ActiveItem, score: number, saved: number) => void;
+  buyingEnabled: boolean;
 
   tutorialStep: number;
   nextTutorialStep: () => void;
@@ -56,24 +53,15 @@ interface AppState {
   initGame: () => void;
   initRound: () => void;
   chooseRandomMerchants: (itemIndex: number, count?: number) => void;
-  evaluate: (merchant: string | boolean) => void;
+  evaluate: (merchant: string | boolean) => Promise<void>;
   skipItem: () => void;
 
-  losePoints: (points: number) => void;
+  losePoints: () => void;
   gainPoints: (points: number) => void;
   // timer state
   timerDuration: number;
   isTimerRunning: boolean;
   initTimerDuration: () => void;
-  // game texts
-  createPopover: (node: () => ReactNode, position: Vector2) => void;
-  deletePopover: (id: string) => void;
-  popovers: Map<string, GameTextProps>;
-
-  // positions
-  positions: Record<string, Vector2>;
-  setPosition: (id: string, position: Vector2) => void;
-  getPosition: (id: string) => Vector2;
 }
 
 export const useAppStore = create<AppState>((set, get) => ({
@@ -88,14 +76,11 @@ export const useAppStore = create<AppState>((set, get) => ({
         break;
 
       case "MAIN_MENU":
-        if (currentState === "GAME_FINISH") {
-          get().initGame();
-        }
+        get().initGame();
         set({ state: newState });
         break;
 
       case "TUTORIAL":
-        get().initGame();
         get().initRound();
         set({ state: newState });
         break;
@@ -263,6 +248,7 @@ export const useAppStore = create<AppState>((set, get) => ({
       ],
     });
   },
+  buyingEnabled: true,
 
   evaluate: async (merchant: string | boolean = false) => {
     if (get().state !== "GAME_PLAY") return;
@@ -274,14 +260,13 @@ export const useAppStore = create<AppState>((set, get) => ({
       if (!item) return;
 
       const lowest = currentItems.map((i) => i.usdPrice).reduce((a, b) => Math.min(a, b));
-
       const highest = currentItems.map((i) => i.usdPrice).reduce((a, b) => Math.max(a, b));
 
       if (item.usdPrice === lowest) {
         get().gainPoints(1);
         get().purchaseItem(item, 1, highest - item.usdPrice);
       } else {
-        get().losePoints(1);
+        get().losePoints();
         get().purchaseItem(item, -1, 0);
       }
     } else {
@@ -290,9 +275,13 @@ export const useAppStore = create<AppState>((set, get) => ({
       if (merchant) {
         get().gainPoints(1);
       } else {
-        get().losePoints(1);
+        get().losePoints();
       }
     }
+
+    set({ buyingEnabled: false });
+    await new Promise((r) => setTimeout(r, 800));
+    set({ buyingEnabled: true });
 
     const allItems = countryData[get().countryIndex].items;
     const itemIndex = get().itemIndex;
@@ -309,6 +298,7 @@ export const useAppStore = create<AppState>((set, get) => ({
       get().transitionState("ROUND_FINISH");
     }
   },
+
   skipItem: () => {
     set((state) => ({
       itemIndex: state.itemIndex + 1,
@@ -340,32 +330,6 @@ export const useAppStore = create<AppState>((set, get) => ({
     const isLastRound = get().countryIndex === countryData.length - 1;
     const duration = isLastRound ? 5000 : Math.max(15000 - get().combo * 1000, 5000);
     set({ timerDuration: duration });
-  },
-
-  createPopover: (node: () => ReactNode, position: Vector2) => {
-    if (node == null) return;
-
-    const newTexts = new Map(get().popovers);
-    const id = nanoid();
-    newTexts.set(id, { node, position, id });
-    set({ popovers: newTexts });
-  },
-
-  deletePopover: (id: string) => {
-    const newTexts = new Map(get().popovers);
-    newTexts.delete(id);
-    set({ popovers: newTexts });
-  },
-
-  popovers: new Map<string, GameTextProps>(),
-
-  // TODO Review position
-  positions: {},
-  setPosition: (id: string, position: Vector2) => {
-    set({ positions: { ...get().positions, [id]: position } });
-  },
-  getPosition: (id: string) => {
-    return get().positions[id];
   },
 }));
 

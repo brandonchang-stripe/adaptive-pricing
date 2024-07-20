@@ -1,5 +1,4 @@
 .itemDisplayOuter {
-  padding: calc(var(--pixel-size) * 1) calc(var(--pixel-size) * 3) calc(var(--pixel-size) * 3);
   height: 100%;
   width: 100%;
   display: flex;
@@ -70,4 +69,15 @@
   border-image-width: calc(var(--pixel-size) * 1);
   border-image-outset: calc(var(--pixel-size) * 1);
   border-image-repeat: repeat;
+}
+
+.purchasePopover {
+  background: var(--color-200);
+  color: var(--color-100);
+  padding: calc(var(--pixel-size) * 4);
+  font-size: calc(var(--pixel-size) * 16);
+}
+
+.bestDeal {
+  color: var(--color-300);
 }

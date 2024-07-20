@@ -5,7 +5,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  padding: calc(var(--pixel-size) * 4) calc(var(--pixel-size) * 5);
+  padding: calc(var(--pixel-size) * 4) calc(var(--pixel-size) * 3);
 }
 
 .conversionCountry {
@@ -13,9 +13,24 @@
 }
 
 .conversionPrice {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 100%;
+  position: relative;
   height: calc(var(--pixel-size) * 24);
   font-size: calc(var(--pixel-size) * 16);
+}
+
+.left {
+  position: absolute;
+  left: 10%;
+}
+
+.center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.right {
+  position: absolute;
+  right: 5%;
 }

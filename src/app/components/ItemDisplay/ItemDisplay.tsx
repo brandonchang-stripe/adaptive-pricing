@@ -16,8 +16,12 @@ type ItemDisplayFrameProps = {
 };
 
 export default function ItemDisplayFrame({ item, index }: ItemDisplayFrameProps) {
+  const [purchased, setPurchased] = useState(false);
   const tutorialStep = useAppStore((state) => state.tutorialStep);
+  const buyingEnabled = useAppStore((state) => state.buyingEnabled);
+  const currentItems = useAppStore((state) => state.currentItems);
   const currentCountry = useCurrentCountry()!;
+  const isBestDeal = currentItems.every((i) => i.usdPrice >= item.usdPrice);
   const evaluate = useAppStore((state) => state.evaluate);
   const ref = useRef<HTMLDivElement>(null);
   const audio = useAudio();
@@ -41,6 +45,7 @@ export default function ItemDisplayFrame({ item, index }: ItemDisplayFrameProps)
   });
 
   useEffect(() => {
+    setPurchased(false);
     const s = setTimeout(() => {
       if (item.converted) audio("convert", 1.4);
     }, 1000);
@@ -48,13 +53,19 @@ export default function ItemDisplayFrame({ item, index }: ItemDisplayFrameProps)
     return () => {
       clearTimeout(s);
     };
-  }, [item]);
+  }, [item, audio]);
 
   useEffect(() => {
     motionValue.set(-range);
     const controls = animate([[motionValue, slots * 2 + range, { duration: 1, delay: 1.0 }]]);
     return () => controls.stop();
   }, [slots, motionValue, item]);
+
+  const handlePurchase = async () => {
+    if (!buyingEnabled) return;
+    setPurchased(true);
+    evaluate(item.merchant);
+  };
 
   return (
     <>
@@ -82,25 +93,26 @@ export default function ItemDisplayFrame({ item, index }: ItemDisplayFrameProps)
                 </motion.div>
               </div>
             </div>
-            <Button onClick={() => evaluate(item.merchant)} disabled={tutorialStep >= 0}>
+            <Button onClick={handlePurchase} disabled={tutorialStep >= 0}>
               Buy
             </Button>
 
             {item.converted &&
-              createPortal(<Popover targetRef={ref} />, document.getElementById("main")!, item.merchant)}
+              createPortal(<AdaptivePricingPopover targetRef={ref} />, document.getElementById("main")!, item.merchant)}
+            {purchased &&
+              createPortal(<PurchasePopover targetRef={ref} isBestDeal={isBestDeal} />, document.getElementById("main")!, item.merchant + "p")}
           </motion.div>
         </div>
       </Frame>
-      {}
     </>
   );
 }
 
-type PopoverRef = {
+type AdaptivePricingPopoverRef = {
   targetRef: RefObject<HTMLDivElement>;
 };
 
-function Popover({ targetRef }: PopoverRef) {
+function AdaptivePricingPopover({ targetRef }: AdaptivePricingPopoverRef) {
   const [targetBounds, setTargetBounds] = useState<DOMRect | null>(null);
   const pixelSize = usePixelSize();
 
@@ -121,13 +133,28 @@ function Popover({ targetRef }: PopoverRef) {
     };
   }, [targetRef, pixelSize]);
 
+  function calculateOffset() {
+    if (targetBounds) {
+      const center = {
+        x: targetBounds.x + targetBounds.width / 2,
+        y: targetBounds.y + targetBounds.height / 2,
+      };
+      return {
+        x: center.x + pixelSize * 50,
+        y: center.y - pixelSize * 40,
+      };
+    }
+
+    return { x: 0, y: 0 };
+  }
+
   return (
     <motion.div
       variants={{
         hidden: {
           scale: 0,
-          x: targetBounds ? targetBounds.x + (pixelSize * 40) : 0,
-          y: targetBounds ? targetBounds.y - (pixelSize * 50) : 0,
+          x: calculateOffset().x,
+          y: calculateOffset().y,
         },
         visible: {
           scale: [null, 1, 1, 0],
@@ -141,6 +168,57 @@ function Popover({ targetRef }: PopoverRef) {
       Price
       <br />
       Adapted!
+    </motion.div>
+  );
+}
+
+type PurchasePopoverProps = {
+  targetRef: RefObject<HTMLDivElement>;
+  isBestDeal: boolean;
+};
+
+function PurchasePopover({ targetRef, isBestDeal }: PurchasePopoverProps) {
+  const [targetPos, setTargetPos] = useState({ x: 0, y: 0 });
+  const pixelSize = usePixelSize();
+
+  useEffect(() => {
+    const updateBounds = () => {
+      if (targetRef.current) {
+        const rect = targetRef.current.getBoundingClientRect();
+        setTargetPos({
+          x: rect.x + rect.width / 2 - pixelSize * 35,
+          y: rect.y + rect.height / 2 - pixelSize * 25,
+        });
+      }
+    };
+    updateBounds();
+
+    // Add resize observer to handle window resizing
+    window.addEventListener("resize", updateBounds);
+
+    return () => {
+      window.removeEventListener("resize", updateBounds);
+    };
+  }, [targetRef, pixelSize]);
+
+  return (
+    <motion.div
+      variants={{
+        hidden: {
+          scale: 0,
+        },
+        visible: {
+          scale: [null, 1, 1, 0],
+          x: [targetPos.x, targetPos.x, targetPos.x, targetPos.x],
+          y: [targetPos.y, targetPos.y, targetPos.y, targetPos.y - 50],
+          transition: { times: [0, 0.1, 0.9, 1], ease: stepEase(6), duration: 1.6 },
+        },
+      }}
+      initial="hidden"
+      animate={targetPos.x !== 0 && pixelSize !== 0 ? "visible" : "hidden"}
+      className={`${styles.purchasePopover} ${styles.popover} ${isBestDeal ? styles.bestDeal : styles.badDeal}`}
+    >
+      {isBestDeal ? `+100` : "Bad deal"}
     </motion.div>
   );
 }

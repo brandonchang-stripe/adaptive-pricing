@@ -25,11 +25,13 @@ export default function InGame() {
     <>
       {state !== "GAME_START" && <ItemDisplay item={currentItems[0]} index={1} />}
 
-      <TutorialFrame tutorialStep={0} onNext={nextTutorialStep} index={2}>
+      <TutorialFrame tutorialStep={0} onNext={nextTutorialStep} index={2} key={currentItems[0].merchant}>
         <p>Save money by comparing prices between two shops.</p>
       </TutorialFrame>
 
-      {tutorialStep !== 0 && state !== "GAME_START" && <ItemDisplay item={currentItems[1]} index={2} />}
+      {tutorialStep !== 0 && state !== "GAME_START" && (
+        <ItemDisplay item={currentItems[1]} index={2} key={currentItems[1].merchant} />
+      )}
       <TutorialFrame tutorialStep={1} onNext={nextTutorialStep} index={6}>
         <p>This shop has Stripe&apos;s Adaptive Pricing enabled! It&apos;s already converted to your local currency.</p>
       </TutorialFrame>

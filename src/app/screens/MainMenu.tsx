@@ -17,33 +17,15 @@ export default function MainMenu() {
   }
 
   return (
-    <>
-      {countryIndex === 0 && (
-        <Frame allowDrag position="starting-notes" type="note" index={2}>
-          <>
-            <p>
-              Get ready for your world tour! You&apos;re headed to Japan, Mexico, Brazil, and New Zealand. Make sure you
-              have everything you need before you go.
-            </p>
-            <div className="spacer"></div>
-            <div className="notes-footer">
-              <Button onClick={handleStart}>Start shopping</Button>
-            </div>
-          </>
-        </Frame>
-      )}
-
-      {countryIndex === 1 && (
-        <Frame allowDrag label="Notes" position="next-stop-notes" type="note" index={2}>
-          <>
-            <p>Next stop, {countryData[countryIndex].name}</p>
-            <div className="spacer"></div>
-            <div className="notes-footer">
-              <Button onClick={handleStart}>Start shopping</Button>
-            </div>
-          </>
-        </Frame>
-      )}
-    </>
+    <Frame allowDrag position="starting-notes" type="note" index={2}>
+      <p>
+        Get ready for your world tour! You&apos;re headed to Japan, Mexico, Brazil, and New Zealand. Make sure you have
+        everything you need before you go.
+      </p>
+      <div className="spacer"></div>
+      <div className="notes-footer">
+        <Button onClick={handleStart}>Start shopping</Button>
+      </div>
+    </Frame>
   );
 }
