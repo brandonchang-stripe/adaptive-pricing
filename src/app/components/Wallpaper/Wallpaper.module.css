@@ -1,0 +1,9 @@
+.wallpaper {
+  grid-column: 1/-1;
+  grid-row: 1/-1;
+  background-image: url('/sprites/textures/texture-8.png');
+  background-size: calc(var(--pixel-size) * 5);
+  background-position: var(--pixel-size);
+  background-repeat: repeat;
+  z-index: 1;
+}

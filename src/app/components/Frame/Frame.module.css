@@ -100,7 +100,7 @@
 
 .frame:global(.game-start) {
   grid-column: 3 / span 8;
-  grid-row: 2 / span 10;
+  grid-row: 1 / span 12;
 }
 
 .frame:global(.game-finish) {

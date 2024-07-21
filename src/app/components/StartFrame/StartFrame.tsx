@@ -2,13 +2,15 @@ import styles from "./StartFrame.module.css";
 import Frame from "@/app/components/Frame/Frame";
 import { useEffect, useRef, useState } from "react";
 import { useAudio } from "@/app/hooks/useAudio";
-import { useCurrentCountry } from "@/app/store";
+import { useAppStore, useCurrentCountry } from "@/app/store";
 import { usePixelSize } from "@/app/hooks/usePixelSize";
 import { animate, motion, useMotionValue, useTransform } from "framer-motion";
+import { countryData } from "../gameData";
 
 export default function StartFrame() {
   const audio = useAudio();
   const country = useCurrentCountry();
+  const countryIndex = useAppStore((state) => state.countryIndex); 
   const mapRef = useRef<HTMLImageElement>(null);
   const [mapSize, setMapSize] = useState({ x: 0, y: 0 });
   const pixelSize = usePixelSize();
@@ -73,7 +75,7 @@ export default function StartFrame() {
         />
         <div className={styles.header}>
           <div className={styles.block} />
-          <div>NEXT ROUND</div>
+          <div>ROUND {countryIndex + 1} / {countryData.length}</div>
           <div className={styles.block} />
         </div>
         <motion.div className={styles.text}>{string}</motion.div>

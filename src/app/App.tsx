@@ -16,6 +16,7 @@ import StartFrame from "./components/StartFrame/StartFrame";
 import SleepScreen from "./screens/Sleep";
 import Boot from "./screens/Boot";
 import Splash from "./screens/Splash";
+import Wallpaper from "./components/Wallpaper/Wallpaper";
 
 type AppProps = {
   nonce: string;
@@ -34,6 +35,7 @@ export default function App({ nonce }: AppProps) {
               {state === "SLEEP" && <SleepScreen key="sleep" />}
               {state === "BOOT" && <Boot key="boot" />}
               {state === "SPLASH" && <Splash key="splash" />}
+              {state !== "SLEEP" && state !== "BOOT" && state !== "SPLASH" && <Wallpaper key="wallpaper" />}
               {state === "MAIN_MENU" && <MainMenu key="main-menu" />}
               {(state === "GAME_PLAY" ||
                 state === "GAME_FINISH" ||
