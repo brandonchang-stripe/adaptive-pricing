@@ -20,7 +20,20 @@
   top: 0;
   left: 0;
   font-weight: 800;
-  color: var(--color-200);
-  font-size: calc(var(--pixel-size) * 32);
-  letter-spacing: -6px;
+
+  --width: calc(var(--pixel-size) * 1650);
+  --height: calc(var(--pixel-size) * 67);
+  background: url('/sprites/stripe-logo-2.png');
+  background-size: calc(var(--pixel-size) * 1650) var(--height);
+  height: var(--height);
+  width:  calc(var(--pixel-size) * 150);
+  background-repeat: no-repeat;
+  animation: spritesheet 3s steps(11) infinite forwards;
+  /* 1650 × 67 */
+}
+
+@keyframes spritesheet {
+  0% {background-position: 0 0;}
+  30% {background-position: 0 0;}
+  100% {background-position: calc(var(--pixel-size) * -1650) 0;}
 }
