@@ -1,6 +1,7 @@
 import Frame from "@/app/components/Frame/Frame";
 import { useAppStore } from "../store";
 import Button from "../components/Button/Button";
+import { countryData } from "../components/gameData";
 
 export default function MainMenu() {
   const setState = useAppStore((state) => state.transitionState);
@@ -17,8 +18,11 @@ export default function MainMenu() {
   return (
     <Frame allowDrag position="starting-notes" type="note" index={2}>
       <p>
-        Get ready for your world tour! You&apos;re headed to Japan, Mexico, Brazil, and New Zealand. Make sure you have
-        everything you need before you go.
+        Get ready for your world tour! You&apos;re headed to
+        {countryData.map(({ name }, index) => (
+          <b key={name}>{index === countryData.length - 1 ? ` and ${name}. ` : ` ${name},`}</b>
+        ))}
+        Make sure you have everything you need before you go.
       </p>
       <div className="spacer"></div>
       <div className="notes-footer">

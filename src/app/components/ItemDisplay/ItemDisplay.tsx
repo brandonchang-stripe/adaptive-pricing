@@ -81,7 +81,7 @@ export default function ItemDisplayFrame({ item, index }: ItemDisplayFrameProps)
             className={styles.itemDisplay}
           >
             <div className={styles.itemDisplayContainer}>
-              <div className={styles.itemDisplayImage} />
+              <img className={styles.itemDisplayImage} src={`/sprites/icons/${item.icon}.png`} />
               <div className={styles.itemDisplayData}>
                 <div>{item.type}</div>
                 <motion.div className={styles.itemDisplayPrice}>

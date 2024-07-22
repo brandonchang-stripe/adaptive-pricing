@@ -11,8 +11,8 @@
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  gap: calc(var(--pixel-size) * 4);
-  padding: calc(var(--pixel-size) * 4);
+  gap: calc(var(--pixel-size) * 3);
+  padding: calc(var(--pixel-size) * 3);
 }
 
 .itemDisplayContainer {
@@ -28,7 +28,7 @@
   border-image-repeat: round;
   background-color: var(--color-100);
   aspect-ratio: 1/1;
-  height: calc(var(--pixel-size) * 36);
+  height: calc(var(--pixel-size) * 42);
 }
 
 .itemDisplayData {

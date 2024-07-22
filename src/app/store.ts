@@ -27,6 +27,7 @@ export type ActiveItem = {
   merchant: string;
   usdPrice: number;
   converted: boolean;
+  icon: string;
 };
 
 interface AppState {
@@ -222,6 +223,7 @@ export const useAppStore = create<AppState>((set, get) => ({
       items.push({
         merchant,
         converted,
+        icon: currentItemData.icon,
         type: currentItemData.type,
         usdPrice: price,
       });

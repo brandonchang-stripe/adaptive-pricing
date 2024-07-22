@@ -10,7 +10,7 @@
 
   appearance: none;
   font-size: calc(var(--pixel-size) * 8);
-  padding: calc(var(--pixel-size) * 4) calc(var(--pixel-size) * 10);
+  padding: calc(var(--pixel-size) * 3) calc(var(--pixel-size) * 10);
   font-family: var(--font-dogica);
   background: var(--button-background, var(--color-300));
   color: var(--button-color, var(--color-200));

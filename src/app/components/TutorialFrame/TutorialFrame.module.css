@@ -8,6 +8,4 @@
 .footer {
   display: flex;
   flex-direction: column;
-  border-top: var(--pixel-size) dotted var(--color-100);
-  padding-top: calc(var(--pixel-size) * 4);
 }
