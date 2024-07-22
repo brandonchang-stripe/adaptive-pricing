@@ -28,7 +28,7 @@ export default function Logo() {
       <motion.img
         initial={{ scale: 0 }}
         animate={{ scale: 1, transition: { duration: 1, ease: stepEase(10) } }}
-        onAnimationStart={() => console.log("Logo animation started")}
+        draggable={false}
         className={styles.logo}
         src="/sprites/price-adapter-logo.png"
         alt="Price adapter"

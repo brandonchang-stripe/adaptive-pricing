@@ -1,4 +1,4 @@
-import { useAppStore } from "../store";
+import { useAppStore, useIsLightningRound } from "../store";
 import ItemDisplay from "@/app/components/ItemDisplay/ItemDisplay";
 import Conversion from "@/app/components/Conversion/Conversion";
 import Timer from "@/app/components/Timer/Timer";
@@ -11,7 +11,7 @@ export default function InGame() {
   const evaluate = useAppStore((state) => state.evaluate);
   const transitionState = useAppStore((state) => state.transitionState);
   const endTutorial = useAppStore((state) => state.endTutorial);
-
+  const isLightningRound = useIsLightningRound();
   const tutorialStep = useAppStore((state) => state.tutorialStep);
   const nextTutorialStep = useAppStore((state) => state.nextTutorialStep);
   const tutorialActive = tutorialStep !== -1;
@@ -36,7 +36,7 @@ export default function InGame() {
         <p>This shop has Stripe&apos;s Adaptive Pricing enabled! It&apos;s already converted to your local currency.</p>
       </TutorialFrame>
 
-      {(!tutorialActive || tutorialStep >= 2) && <Conversion position="slider" index={2} />}
+      {(!tutorialActive || tutorialStep >= 2) && !isLightningRound && <Conversion position="slider" index={2} />}
 
       {tutorialStep === 2 && (
         <TutorialFrame tutorialStep={2} onNext={nextTutorialStep} index={1}>

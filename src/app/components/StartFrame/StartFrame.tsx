@@ -2,15 +2,17 @@ import styles from "./StartFrame.module.css";
 import Frame from "@/app/components/Frame/Frame";
 import { useEffect, useRef, useState } from "react";
 import { useAudio } from "@/app/hooks/useAudio";
-import { useAppStore, useCurrentCountry } from "@/app/store";
+import { useAppStore, useCurrentCountry, useIsLightningRound } from "@/app/store";
 import { usePixelSize } from "@/app/hooks/usePixelSize";
 import { animate, motion, useMotionValue, useTransform } from "framer-motion";
 import { countryData } from "../gameData";
+import { stepEase } from "@/app/util/stepEase";
 
 export default function StartFrame() {
   const audio = useAudio();
   const country = useCurrentCountry();
-  const countryIndex = useAppStore((state) => state.countryIndex); 
+  const countryIndex = useAppStore((state) => state.countryIndex);
+  const isLightningRound = useIsLightningRound();
   const mapRef = useRef<HTMLImageElement>(null);
   const [mapSize, setMapSize] = useState({ x: 0, y: 0 });
   const pixelSize = usePixelSize();
@@ -51,7 +53,11 @@ export default function StartFrame() {
   }, [mapRef]);
 
   useEffect(() => {
-    audio("start");
+    if (isLightningRound) {
+      audio("startLightning");
+    } else {
+      audio("start");
+    }
     for (let i = 0; i < country.name.length; i++) {
       setTimeout(() => {
         audio("scroll");
@@ -75,10 +81,32 @@ export default function StartFrame() {
         />
         <div className={styles.header}>
           <div className={styles.block} />
-          <div>ROUND {countryIndex + 1} / {countryData.length}</div>
+          {isLightningRound ? (
+            <div>FINAL ROUND</div>
+          ) : (
+            <div>
+              ROUND {countryIndex + 1} / {countryData.length}
+            </div>
+          )}
           <div className={styles.block} />
         </div>
-        <motion.div className={styles.text}>{string}</motion.div>
+
+        <div className={styles.textContainer}>
+          <motion.div className={styles.text}>{string}</motion.div>
+          {isLightningRound && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1, zIndex: 2, transition: { delay: 1, ease: stepEase(3) } }}
+            >
+              <div className={styles.lightningtext}>
+                <br />
+                All prices are
+                <br />
+                now converted
+              </div>
+            </motion.div>
+          )}
+        </div>
         <div className={styles.footer}>
           <div className={styles.block} />
           <div>GET READY</div>

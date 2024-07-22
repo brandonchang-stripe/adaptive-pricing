@@ -10,6 +10,13 @@
   background-size: calc(var(--pixel-size) * 2);
 }
 
+.textContainer {
+  z-index: 1;
+  line-height: 1;
+  text-transform: uppercase;
+  text-align: center;
+}
+
 .text {
   font-family: var(--font-dogica);
   font-size: calc(var(--pixel-size) * 32);
@@ -18,6 +25,10 @@
   letter-spacing: calc(var(--pixel-size) * -4);
   line-height: 1.2;
   z-index: 1;
+}
+
+.lightningtext {
+  font-size: calc(var(--pixel-size) * 16);
 }
 
 .map {

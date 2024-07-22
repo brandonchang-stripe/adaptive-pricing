@@ -1,6 +1,4 @@
 .scoreListContainer {
-  padding: var(--pixel-size) calc(var(--pixel-size) * 3)
-    calc(var(--pixel-size) * 3);
   display: flex;
   height: 100%;
   flex-direction: column;
@@ -30,7 +28,38 @@
 }
 
 .scoreListContents {
-  padding: 0 calc(var(--pixel-size) * 2);
+  height: 100%;
+  padding: 0 calc(var(--pixel-size) * 4);
   overflow-y: scroll;
   overflow-x: hidden;
+  scrollbar-gutter: stable;
+}
+
+.scoreListContents::-webkit-scrollbar {
+  width: calc(var(--pixel-size) * 9);
+  background: var(--color-100);
+}
+
+.scoreListContents::-webkit-scrollbar-thumb {
+  border-image-source: url("/sprites/scrollbar-thumb.png");
+  border-image-slice: 2 0 fill;
+  border-image-width: calc(var(--pixel-size) * 2) 0;
+  border-image-repeat: round;
+}
+
+.scoreListContents::-webkit-scrollbar-button {
+  display: block;
+  width: calc(var(--pixel-size) * 9);
+  height: calc(var(--pixel-size) * 7);
+}
+
+.scoreListContents::-webkit-scrollbar-button:decrement {
+  background: url("/sprites/scrollbar-button-up.png");
+  background-size: calc(var(--pixel-size) * 9) calc(var(--pixel-size) * 7);
+  background-repeat: no-repeat;
+}
+
+.scoreListContents::-webkit-scrollbar-button:increment {
+  background: url("/sprites/scrollbar-button-down.png");
+  background-size: calc(var(--pixel-size) * 9) calc(var(--pixel-size) * 7);
 }

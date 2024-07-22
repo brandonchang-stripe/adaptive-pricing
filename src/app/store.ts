@@ -206,10 +206,9 @@ export const useAppStore = create<AppState>((set, get) => ({
       }
 
       const merchant = currentItemData.merchants[merchantIndex];
-      const converted = i === 1 || itemIndex === country.items.length - 1 || countryIndex === countryData.length - 1;
+      const converted = i === 1 || countryIndex === countryData.length - 1;
 
       let price = currentItemData.baseUsdPrice;
-
       // Only change the price of the second item
       if (i === 1) {
         // Pick an increment at random
@@ -336,4 +335,9 @@ export const useAppStore = create<AppState>((set, get) => ({
 export function useCurrentCountry(): CountryData {
   const countryIndex = useAppStore((state) => state.countryIndex);
   return countryData[countryIndex];
+}
+
+export function useIsLightningRound(): boolean {
+  const countryIndex = useAppStore((state) => state.countryIndex);
+  return countryIndex === countryData.length - 1;
 }

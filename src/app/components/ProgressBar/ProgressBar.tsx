@@ -1,5 +1,5 @@
 import styles from "./ProgressBar.module.css";
-import { useAppStore, useCurrentCountry } from "@/app/store";
+import { useAppStore, useCurrentCountry, useIsLightningRound } from "@/app/store";
 import Frame from "../Frame/Frame";
 import { AnimatePresence, motion, useIsPresent } from "framer-motion";
 import { stepEase } from "@/app/util/stepEase";

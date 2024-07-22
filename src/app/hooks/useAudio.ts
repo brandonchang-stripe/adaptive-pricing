@@ -21,6 +21,7 @@ export const soundBoard = {
   open: new Howl({ src: "./audio/maximize_008.ogg", volume: 0.3 }),
   close: new Howl({ src: "./audio/minimize_006.ogg", volume: 0.3 }),
   start: new Howl({ src: "./sfx/confirm_11.mp3", volume: 0.4 }),
+  startLightning: new Howl({ src: "./sfx/confirm_12.mp3", volume: 0.4 }),
   finish: new Howl({ src: "./audio/confirmation_004.ogg", volume: 0.3 }),
   finishSmall: new Howl({ src: "./audio/confirmation_003.ogg", volume: 0.3 }),
   boot: new Howl({ src: "./sfx/startup_01.mp3", volume: 0.5 }),
