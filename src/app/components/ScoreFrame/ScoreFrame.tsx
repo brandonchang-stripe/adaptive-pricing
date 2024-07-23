@@ -26,7 +26,7 @@ export default function ScoreFrame() {
 
     const play = setTimeout(() => {
       audio("score");
-    }, (items.length + 5) * 300 + 400);
+    }, (items.length + 5) * 300 + 600);
 
     return () => {
       clearTimeout(play);

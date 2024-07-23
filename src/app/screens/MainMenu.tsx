@@ -9,7 +9,7 @@ export default function MainMenu() {
 
   function handleStart() {
     if (tutorialStep === -1) {
-      setState("GAME_PLAY");
+      setState("GAME_START");
     } else {
       setState("TUTORIAL");
     }

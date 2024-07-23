@@ -6,7 +6,7 @@
   border-image-source: url('/sprites/monitor-bezel.png');
   border-image-slice: 40 40 58;
   border-image-width: calc(var(--pixel-size) * 40) calc(var(--pixel-size) * 40) calc(var(--pixel-size) * 58);
-  border-image-repeat: repeat;
+  border-image-repeat: round;
 
   padding: calc(var(--pixel-size) * 41) calc(var(--pixel-size) * 41) calc(var(--pixel-size) * 58);
 

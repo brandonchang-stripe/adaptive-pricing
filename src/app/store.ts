@@ -78,11 +78,11 @@ export const useAppStore = create<AppState>((set, get) => ({
 
       case "MAIN_MENU":
         get().initGame();
+        get().initRound();
         set({ state: newState });
         break;
 
       case "TUTORIAL":
-        get().initRound();
         set({ state: newState });
         break;
 
@@ -95,8 +95,6 @@ export const useAppStore = create<AppState>((set, get) => ({
 
           // Start new game without tutorial (Play again)
           case "MAIN_MENU":
-            get().initGame();
-            get().initRound();
             set({ state: newState });
             break;
 
