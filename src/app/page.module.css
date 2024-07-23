@@ -23,5 +23,6 @@
 @media (max-height: 720px) or (max-width: 810px) {
   .grid {
     max-width: calc(100vw - 10px);
+    grid-template-rows: 1fr 1fr 1fr 1.2fr 1fr 0.8fr 1fr 1fr 1fr 1fr 1.2fr 1fr ;
   }
 }

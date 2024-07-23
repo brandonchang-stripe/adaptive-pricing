@@ -9,7 +9,7 @@
 .timerBackground {
   position: absolute;
   inset: 0;
-  background-image: url('/sprites/textures/texture-3.png');
+  background-image: url("/sprites/textures/texture-3.png");
   background-size: calc(var(--pixel-size) * 2);
   z-index: 0;
 }
@@ -36,4 +36,18 @@
   transform-origin: left center;
   overflow: hidden;
   position: relative;
+}
+
+@media (max-height: 720px) or (max-width: 810px) {
+  .timerProgress {
+    height: 100%;
+  }
+
+  .timerNumber {
+    top: calc(var(--pixel-size) * 6);
+  }
+
+  .timerNumberTop {
+    top: calc(var(--pixel-size) * 6);
+  }
 }

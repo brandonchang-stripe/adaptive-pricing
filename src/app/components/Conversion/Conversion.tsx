@@ -4,6 +4,7 @@ import Frame from "../Frame/Frame";
 import { relativeRound } from "@/app/util/math";
 import ConversionSlider from "../ConversionSlider/ConversionSlider";
 import { useCurrentCountry } from "@/app/store";
+import useDeviceDetails from "@/app/hooks/useDeviceDetails";
 
 type ConversionWindowProps = {
   position: string;
@@ -11,11 +12,12 @@ type ConversionWindowProps = {
 };
 
 export default function Conversion({ position, index = 0 }: ConversionWindowProps) {
+  const {isMobile} = useDeviceDetails();
   const country = useCurrentCountry();
   const [usd, setUsd] = useState(1);
 
   return (
-    <Frame label="Currency Converter" position={position} index={index}>
+    <Frame label="Currency Converter" position={position} index={index} type={isMobile ? "simple" : "regular"}>
       <div className={styles.conversionContainer}>
         <div className={styles.conversionPrice}>
           <div className={styles.left}>

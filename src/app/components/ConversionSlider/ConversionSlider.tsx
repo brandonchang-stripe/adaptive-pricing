@@ -1,4 +1,3 @@
-import { useAppStore } from "@/app/store";
 import styles from "./ConversionSlider.module.css";
 import { SoundName, useAudio } from "@/app/hooks/useAudio";
 import { ResolvedValues, motion, useDragControls } from "framer-motion";

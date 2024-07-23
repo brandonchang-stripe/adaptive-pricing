@@ -28,3 +28,9 @@
   background: var(--color-200);
   color: var(--color-100);
 }
+
+@media (max-height: 720px) or (max-width: 810px) {
+  .button{
+    padding: calc(var(--pixel-size) * 5) calc(var(--pixel-size) * 10);
+  }
+}

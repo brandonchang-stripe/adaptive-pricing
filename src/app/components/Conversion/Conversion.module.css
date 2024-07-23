@@ -40,7 +40,26 @@
 }
 
 @media (max-height: 720px) or (max-width: 810px) {
+  .conversionPrice {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+  }
+
   .conversionPriceHorizontal {
     display: block;
+    font-size: calc(var(--pixel-size) * 16);
+  }
+
+  .left {
+    position: relative;
+    left: auto;
+  }
+  .right {
+    display: none;
+  }
+  .center {
+    display: none;
   }
 }

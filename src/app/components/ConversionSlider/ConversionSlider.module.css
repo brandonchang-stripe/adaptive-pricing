@@ -77,3 +77,9 @@
 .sliderNotch:first-of-type {
   height: 100%;
 }
+
+@media (max-height: 720px) or (max-width: 810px) {
+  .sliderContainer {
+    height: calc(var(--pixel-size) * 40);
+  }
+}
