@@ -1,9 +1,5 @@
 .mute {
   position: absolute;
-  /*
-  right: calc(var(--pixel-size) * -30);
-  bottom: calc(var(--pixel-size) * -53);
-  */
   right: calc(var(--pixel-size) * 4);
   bottom: calc(var(--pixel-size) * 4);
   z-index: 1;
@@ -20,4 +16,12 @@
 .image {
   height: calc(var(--pixel-size) * 17);
   width: calc(var(--pixel-size) * 18);
+}
+
+@media (max-height: 720px) or (max-width: 810px) {
+  .mute {
+    display: none;
+    right: calc(var(--pixel-size) * -4);
+    bottom: calc(var(--pixel-size) * 2);
+  }
 }

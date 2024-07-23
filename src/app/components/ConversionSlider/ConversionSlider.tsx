@@ -1,7 +1,7 @@
 import styles from "./ConversionSlider.module.css";
 import { SoundName, useAudio } from "@/app/hooks/useAudio";
 import { ResolvedValues, motion, useDragControls } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { throttle } from "throttle-debounce";
 
 type ConversionSliderProps = {
@@ -26,9 +26,9 @@ export default function ConversionSlider({ step = 1, min = 0, max = 100, onChang
     })
   ).current;
 
-  function startDrag(event: React.PointerEvent) {
+  const startDrag = useCallback((event: React.PointerEvent) => {
     dragControls.start(event, { snapToCursor: false });
-  }
+  }, [dragControls]);
 
   function handleUpdate(latest: ResolvedValues) {
     const val = Math.round(-latest.x / notchWidth);
@@ -69,7 +69,6 @@ export default function ConversionSlider({ step = 1, min = 0, max = 100, onChang
             power: 0.2,
             bounceStiffness: 1000,
             bounceDamping: 100,
-            modifyTarget: (target) => Math.round(target / notchWidth) * notchWidth,
           }}
           dragElastic={0.05}
           dragListener={false}
