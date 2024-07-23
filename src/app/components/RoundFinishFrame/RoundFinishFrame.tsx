@@ -21,7 +21,9 @@ export default function RoundEndFrame() {
   return (
     <Frame allowDrag label="ITINERARY" position="round-finish" index={1}>
       <div className={styles.container}>
-        <div className={styles.title}>ROUND COMPLETE</div>
+        <div className={styles.title}>
+          <img className={styles.icon} src="/sprites/round-complete.png" alt="Round Complete" />
+        </div>
 
         <ul className={styles.list}>
           {countryData.map((country, index) => (

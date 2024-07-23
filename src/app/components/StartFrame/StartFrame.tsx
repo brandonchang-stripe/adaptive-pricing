@@ -58,6 +58,7 @@ export default function StartFrame() {
     } else {
       audio("start");
     }
+
     for (let i = 0; i < country.name.length; i++) {
       setTimeout(() => {
         audio("scroll");

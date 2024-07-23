@@ -107,7 +107,8 @@ export const useAppStore = create<AppState>((set, get) => ({
             set({ state: newState });
             break;
         }
-        await new Promise((r) => setTimeout(r, 1600));
+        // TODO: Move this out to start frame component to handle the transition
+        await new Promise((r) => setTimeout(r, 1800));
         get().transitionState("GAME_PLAY");
         break;
 

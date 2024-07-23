@@ -9,12 +9,16 @@
 }
 
 .title {
-  padding: calc(var(--pixel-size) * 16);
-  font-size: calc(var(--pixel-size) * 16);
+  padding: calc(var(--pixel-size) * 8) calc(var(--pixel-size) * 16);
   color: var(--color-200);
   text-align: center;
   border-bottom: var(--pixel-size) dotted var(--color-200);
   width: 100%;
+}
+
+.icon {
+  height: calc(var(--pixel-size) * 68);
+  width: calc(var(--pixel-size) * 119);
 }
 
 .list {

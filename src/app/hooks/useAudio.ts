@@ -50,7 +50,7 @@ export function useMute() {
     Howler.mute(muted);
   }, [muted]);
 
-  return setMuted;
+  return [muted, setMuted] as const;
 }
 
 /*

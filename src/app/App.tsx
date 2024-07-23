@@ -17,6 +17,7 @@ import SleepScreen from "./screens/Sleep";
 import Boot from "./screens/Boot";
 import Splash from "./screens/Splash";
 import Wallpaper from "./components/Wallpaper/Wallpaper";
+import Mute from "./components/Mute/Mute";
 
 type AppProps = {
   nonce: string;
@@ -46,6 +47,7 @@ export default function App({ nonce }: AppProps) {
               {state === "ROUND_FINISH" && <RoundEndFrame key="round" />}
               {state === "GAME_FINISH" && <GameFinish key="game-finish" />}
               {state === "SCORE_SCREEN" && <ScoreScreen key="score-screen" />}
+              <Mute />
             </div>
           </Monitor>
         </main>

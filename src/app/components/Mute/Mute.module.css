@@ -1,0 +1,23 @@
+.mute {
+  position: absolute;
+  /*
+  right: calc(var(--pixel-size) * -30);
+  bottom: calc(var(--pixel-size) * -53);
+  */
+  right: calc(var(--pixel-size) * 4);
+  bottom: calc(var(--pixel-size) * 4);
+  z-index: 1;
+  appearance: none;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.mute:active {
+  transform: translateY(var(--pixel-size));
+}
+
+.image {
+  height: calc(var(--pixel-size) * 17);
+  width: calc(var(--pixel-size) * 18);
+}
