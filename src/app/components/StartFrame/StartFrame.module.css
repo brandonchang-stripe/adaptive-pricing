@@ -56,3 +56,11 @@
   background-image: url("/sprites/textures/texture-7.png");
   background-size: calc(var(--pixel-size) * 2);
 }
+
+@media (max-height: 720px) or (max-width: 810px) {
+  .map{
+    height: 90%;
+    width: 90%;
+    object-fit: contain;
+  }
+}

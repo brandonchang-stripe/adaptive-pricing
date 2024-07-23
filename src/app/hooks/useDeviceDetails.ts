@@ -8,9 +8,9 @@ type DeviceDetails = {
 
 export default function useDeviceDetails() {
   const [details, setDetails] = useState<DeviceDetails>({
-    width: window.innerWidth,
-    height: window.innerHeight,
-    isMobile: window.innerWidth <= 580,
+    width: 0,
+    height: 0,
+    isMobile: false,
   });
 
   useEffect(() => {
@@ -18,10 +18,11 @@ export default function useDeviceDetails() {
       setDetails({
         width: window.innerWidth,
         height: window.innerHeight,
-        isMobile: window.innerWidth <= 580,
+        isMobile: window.innerHeight <= 720 || window.innerWidth <= 810,
       });
     };
 
+    handleResize();
     window.addEventListener("resize", handleResize);
 
     return () => {

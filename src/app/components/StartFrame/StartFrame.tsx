@@ -7,11 +7,13 @@ import { usePixelSize } from "@/app/hooks/usePixelSize";
 import { animate, motion, useMotionValue, useTransform } from "framer-motion";
 import { countryData } from "../gameData";
 import { stepEase } from "@/app/util/stepEase";
+import useDeviceDetails from "@/app/hooks/useDeviceDetails";
 
 export default function StartFrame() {
   const audio = useAudio();
   const country = useCurrentCountry();
   const countryIndex = useAppStore((state) => state.countryIndex);
+  const { isMobile, height } = useDeviceDetails();
   const isLightningRound = useIsLightningRound();
   const mapRef = useRef<HTMLImageElement>(null);
   const [mapSize, setMapSize] = useState({ x: 0, y: 0 });
@@ -26,20 +28,20 @@ export default function StartFrame() {
   });
 
   useEffect(() => {
-    const handleLoad = (event: Event) => {
-      const target = event.target as HTMLImageElement;
+    const resizeImage = (image: HTMLImageElement) => {
       setMapSize({
-        x: target.naturalWidth,
-        y: target.naturalHeight,
+        x: image.naturalWidth,
+        y: image.naturalHeight,
       });
+    }
+
+    const handleLoad = (event: Event) => {
+      resizeImage(event.target as HTMLImageElement);
     };
 
     if (mapRef.current) {
       if (mapRef.current.complete) {
-        setMapSize({
-          x: mapRef.current.naturalWidth,
-          y: mapRef.current.naturalHeight,
-        });
+        resizeImage(mapRef.current);
       } else {
         mapRef.current.addEventListener("load", handleLoad);
       }
@@ -50,7 +52,7 @@ export default function StartFrame() {
         mapRef.current.removeEventListener("load", handleLoad);
       }
     };
-  }, [mapRef]);
+  }, [mapRef, isMobile, pixelSize, height]);
 
   useEffect(() => {
     if (isLightningRound) {
