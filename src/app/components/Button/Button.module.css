@@ -28,10 +28,3 @@
   background: var(--color-200);
   color: var(--color-100);
 }
-
-@media (max-width: 540px) {
-  .button {
-    font-size: calc(var(--pixel-size) * 16);
-    padding: calc(var(--pixel-size) * 8) calc(var(--pixel-size) * 10);
-  }
-}

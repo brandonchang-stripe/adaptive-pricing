@@ -31,8 +31,7 @@ export default function ScoreFrame() {
     return () => {
       clearTimeout(play);
       clearTimeout(vis);
-    }
-
+    };
   }, [audio, items.length]);
 
   function handlePlayAgain() {
@@ -99,8 +98,8 @@ export default function ScoreFrame() {
           <div className={styles.blurb}>
             <p>Let Stripe handle currency conversion for you.</p>
             <p>
-              With <b>Adaptive Pricing</b>, Stripe automatically calculates the localized price and handles all currency
-              conversion so your customers can pay in their local currency worldwide.
+              Improve conversion with <b>Adaptive Pricing</b>. Stripe automatically converts prices into buyer's local
+              currency and businesses see revenue increase by 17.8%.
             </p>
             <p>
               <a href="https://docs.stripe.com/payments/checkout/adaptive-pricing">Get started</a> with Adaptive Pricing

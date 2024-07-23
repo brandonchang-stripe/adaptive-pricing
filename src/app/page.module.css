@@ -20,5 +20,8 @@
   gap: calc(var(--pixel-size) * 4);
 }
 
-
-
+@media (max-height: 720px) or (max-width: 810px) {
+  .grid {
+    max-width: calc(100vw - 10px);
+  }
+}

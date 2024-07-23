@@ -159,18 +159,7 @@
   grid-row: 4 / span 3;
 }
 
-@media (max-width: 540px) {
-  .titlebar {
-    height: calc(var(--pixel-size) * 26);
-    border-image-width: calc(var(--pixel-size) * 2) calc(var(--pixel-size) * 20);
-  }
-
-  .content {
-    border-image-width: calc(var(--pixel-size) * 6);
-    border-image-repeat: round;
-    padding: calc(var(--pixel-size) * 2) calc(var(--pixel-size) * 6) calc(var(--pixel-size) * 6);
-  }
-
+@media (max-height: 720px) or (max-width: 810px) {
   .frame:global(.starting-notes) {
     grid-column: 1 / span 12;
     grid-row: 3 / span 8;

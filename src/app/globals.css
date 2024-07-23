@@ -53,12 +53,14 @@
 
 @media (max-height: 720px) or (max-width: 810px) {
   :root {
-    --pixel-size: 1px;
+    --pixel-size: 0.2vh;
   }
 }
 
 html,
 body {
+  overscroll-behavior-y: none;
+
   font-family: var(--font-dogica);
   font-size: calc(var(--pixel-size) * 8);
   letter-spacing: calc(var(--pixel-size) * -1);
@@ -85,11 +87,4 @@ p {
 
 .spacer {
   flex-grow: 1;
-}
-
-@media (max-width: 540px) {
-  html,
-  body {
-    font-size: calc(var(--pixel-size) * 16);
-  }
 }

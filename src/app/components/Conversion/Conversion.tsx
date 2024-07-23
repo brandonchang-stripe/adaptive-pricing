@@ -25,6 +25,9 @@ export default function Conversion({ position, index = 0 }: ConversionWindowProp
           <div className={styles.right}>${usd}.00 USD</div>
         </div>
         <ConversionSlider onChange={(v) => setUsd(v)} />
+        <div className={styles.conversionPriceHorizontal}>
+          <div className={styles.rightHorizontal}>${usd}.00 USD</div>
+        </div>
       </div>
     </Frame>
   );
