@@ -98,7 +98,7 @@ export default function ScoreFrame() {
           <div className={styles.blurb}>
             <p>Let Stripe handle currency conversion for you.</p>
             <p>
-              Improve conversion with <b>Adaptive Pricing</b>. Stripe automatically converts prices into buyer's local
+              Improve conversion with <b>Adaptive Pricing</b>. Stripe automatically converts prices into buyer&apos;s local
               currency and businesses see revenue increase by 17.8%.
             </p>
             <p>
