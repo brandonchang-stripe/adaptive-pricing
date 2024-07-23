@@ -20,12 +20,19 @@ export default function ScoreFrame() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const play = setTimeout(() => {
+    const vis = setTimeout(() => {
       setVisible(true);
-      audio("finishSmall");
     }, (items.length + 5) * 300);
 
-    return () => clearTimeout(play);
+    const play = setTimeout(() => {
+      audio("score");
+    }, (items.length + 5) * 300 + 400);
+
+    return () => {
+      clearTimeout(play);
+      clearTimeout(vis);
+    }
+
   }, [audio, items.length]);
 
   function handlePlayAgain() {

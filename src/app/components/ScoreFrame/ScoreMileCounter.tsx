@@ -18,7 +18,7 @@ export default function ScoreMileCounter({ digit, index }: Props) {
   useEffect(() => {
     const controls = animate(scroll, digit + 20, { duration: 1.2, delay: index * 0.3 + 0.5 });
     controls.then(() => {
-      audio("scroll");
+      audio("ping");
     });
     return () => controls.stop();
   }, [index, scroll, digit]);

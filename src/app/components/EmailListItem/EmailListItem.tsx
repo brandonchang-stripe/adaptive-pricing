@@ -25,7 +25,7 @@ export default function EmailListItem({
   useEffect(() => {
     for (let i = 0; i < openSounds.length; i++) {
       setTimeout(
-        () => audio(openSounds[i], 0.8 + (index * 0.05)),
+        () => audio(openSounds[i], 1 + (index * 0.05)),
         300 * (index + 2) + 100
       );
     }
