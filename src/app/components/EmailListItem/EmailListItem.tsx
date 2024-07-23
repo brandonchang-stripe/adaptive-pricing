@@ -7,27 +7,17 @@ import { useEffect } from "react";
 type Props = {
   subject: string;
   from: string;
-  imageSrc: string;
+  imageSrc?: string;
   children?: React.ReactNode;
   index: number;
   openSounds: SoundName[];
 };
 
-export default function EmailListItem({
-  subject,
-  from,
-  imageSrc,
-  children,
-  index,
-  openSounds,
-}: Props) {
+export default function EmailListItem({ subject, from, imageSrc, children, index, openSounds }: Props) {
   const audio = useAudio();
   useEffect(() => {
     for (let i = 0; i < openSounds.length; i++) {
-      setTimeout(
-        () => audio(openSounds[i], 1 + (index * 0.05)),
-        300 * (index + 2) + 100
-      );
+      setTimeout(() => audio(openSounds[i], 1 + index * 0.05), 300 * (index + 2) + 100);
     }
   }, [openSounds, index]);
 
@@ -40,10 +30,12 @@ export default function EmailListItem({
       transition={{ ease: stepEase(4), duration: 0.2 }}
       className={styles.item}
     >
-      <div className={styles.image}>{/* todo image */}</div>
+      {imageSrc && <img className={styles.image} src={imageSrc} />}
       <div className={styles.copy}>
         <div>{subject}</div>
-        <div><b>{from}</b></div>
+        <div>
+          <b>{from}</b>
+        </div>
         {children}
       </div>
     </motion.div>

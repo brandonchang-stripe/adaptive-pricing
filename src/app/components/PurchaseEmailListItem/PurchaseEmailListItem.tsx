@@ -15,7 +15,7 @@ export default function PurchaseEmailListItem({ item, index }: Props) {
       subject={title}
       from={merchant}
       index={index}
-      imageSrc=""
+      imageSrc={`/sprites/icons/${item.icon}.png`}
       openSounds={item.score > 0 ? ["close", "gainShort"] : ["close"]}
     >
       <div className={styles.prices}>
