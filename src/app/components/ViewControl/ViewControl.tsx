@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, useDragControls } from "framer-motion";
 import styles from "./ViewControl.module.css";
 import { useCallback, useRef } from "react";
 import { useAudio } from "@/app/hooks/useAudio";
@@ -9,7 +9,12 @@ type ViewControlProps = {
 
 export default function ViewControl({ onUpdate }: ViewControlProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const dragControls = useDragControls()
   const audio = useAudio();
+
+  const startDrag = useCallback((event: React.PointerEvent) => {
+    dragControls.start(event, { snapToCursor: false });
+  }, [dragControls]);
 
   const handleUpdate = useCallback((latest: { x: number }) => {
     onUpdate(latest.x);
@@ -24,14 +29,14 @@ export default function ViewControl({ onUpdate }: ViewControlProps) {
   }
 
   return (
-    <motion.div className={styles.container} ref={containerRef}>
+    <motion.div className={styles.container} ref={containerRef} onPointerDown={startDrag} >
       <motion.div
         onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
-        whileDrag={{ scale: 1.1 }}
         className={styles.control}
         dragConstraints={containerRef}
         dragTransition={{ bounceStiffness: 1500, bounceDamping: 50 }}
+        dragControls={dragControls}
         drag="x"
         dragSnapToOrigin
         dragElastic={0.1}

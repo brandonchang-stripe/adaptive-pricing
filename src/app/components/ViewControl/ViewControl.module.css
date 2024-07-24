@@ -19,7 +19,7 @@
 
 .control {
   display: block;
-  padding: calc(var(--pixel-size) * 10);
+  padding: calc(var(--pixel-size) * 20) calc(var(--pixel-size) * 12);
   cursor: grab;
 }
 

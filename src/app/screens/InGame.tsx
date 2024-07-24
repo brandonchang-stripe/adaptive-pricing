@@ -39,7 +39,7 @@ export default function InGame() {
 
       {tutorialStep === 2 && (
         <TutorialFrame tutorialStep={2} onNext={nextTutorialStep} index={1}>
-          <p>Use the currency conversion slider to compare prices and select the best deal.</p>
+          <p>Use the currency conversion slider to compare prices and select the best deal. The slider only goes to $100, so you may need to do some mental math.</p>
         </TutorialFrame>
       )}
 
