@@ -1,18 +1,3 @@
-import { Vector2 } from "@/types/Vector2";
-
-export type ItemType =
-  | "Luggage tag"
-  | "Plug adaptor"
-  | "Plane ticket"
-  | "Train ticket"
-  | "Visa"
-  | "Hotel"
-  | "Vacation rental"
-  | "Guidebook"
-  | "Gifts"
-  | "Guided tour"
-  | "Taxi";
-
 export type ItemData = {
   type: string;
   merchants: string[];
@@ -29,7 +14,6 @@ export type CountryData = {
   currencyCode: string;
   conversionRateDefault: number;
   currentConversionRate: number | null;
-  position: Vector2;
   items: ItemData[];
 };
 
@@ -39,9 +23,8 @@ export const countryData: CountryData[] = [
     code: "JP",
     currencySymbol: "¥",
     currencyCode: "jpy",
-    conversionRateDefault: 161,
+    conversionRateDefault: 0.00643388,
     currentConversionRate: null,
-    position: { x: 90, y: 100 },
     items: [
       {
         type: "Digital pet",
@@ -74,9 +57,8 @@ export const countryData: CountryData[] = [
     code: "BR",
     currencySymbol: "R$",
     currencyCode: "brl",
-    conversionRateDefault: 5.43,
+    conversionRateDefault: 0.175098,
     currentConversionRate: null,
-    position: { x: 350, y: 360 },
     items: [
       {
         type: "Soccer ball",
@@ -109,9 +91,8 @@ export const countryData: CountryData[] = [
     code: "MX",
     currencyCode: "mxn",
     currencySymbol: "$MXN",
-    conversionRateDefault: 20.13,
+    conversionRateDefault: 0.0538664,
     currentConversionRate: null,
-    position: { x: 350, y: 360 },
     items: [
       {
         type: "Sunglasses",
@@ -144,9 +125,8 @@ export const countryData: CountryData[] = [
     code: "NZ",
     currencySymbol: "NZ$",
     currencyCode: "nzd",
-    conversionRateDefault: 1.65,
+    conversionRateDefault: 0.586931,
     currentConversionRate: null,
-    position: { x: 310, y: 320 },
     items: [
       {
         type: "Fanny pack",

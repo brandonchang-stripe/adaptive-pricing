@@ -145,7 +145,7 @@
 
 .frame:global(.tutorial-2) {
   grid-column: 3 / span 8;
-  grid-row: 10 / span 4;
+  grid-row: 3 / span 4;
 }
 
 .frame:global(.tutorial-3) {

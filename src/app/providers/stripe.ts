@@ -1,5 +1,6 @@
 import qs from "querystring";
 import { countryData } from "../components/gameData";
+import { type TCountryCode, getCountryData } from "countries-list";
 
 type QuoteResponse = {
   id: string;
@@ -11,6 +12,12 @@ type QuoteResponse = {
   rates: Record<string, ExchangeRate>;
 };
 
+type ErrorResponse = {
+  error: {
+    message: string;
+  };
+};
+
 type ExchangeRate = {
   exchange_rate: number;
   rate_details: {
@@ -19,12 +26,19 @@ type ExchangeRate = {
   };
 };
 
-type Currencies = {
+export type Currencies = {
   toCurrency: string;
   rates: Record<string, number>;
 };
 
-export async function getCurrencies() {
+export async function getCurrencies(countryCode: string): Promise<Currencies> {
+  const currency = getCountryData(countryCode as TCountryCode).currency[0];
+
+  const from_currencies = countryData.map((c) => c.currencyCode.toLowerCase());
+  if (currency !== "USD") {
+    from_currencies.push("usd");
+  }
+
   const res = await fetch("https://api.stripe.com/v1/fx_quotes", {
     method: "POST",
     headers: {
@@ -32,13 +46,26 @@ export async function getCurrencies() {
       "Content-Type": "application/x-www-form-urlencoded",
     },
     body: qs.stringify({
-      to_currency: "usd",
-      "from_currencies[]": countryData.map((c) => c.currencyCode),
+      to_currency: currency,
+      "from_currencies[]": from_currencies,
       lock_duration: "none",
     }),
   });
 
-  const quotes = (await res.json()) as QuoteResponse;
+  const quotes = (await res.json()) as QuoteResponse | ErrorResponse;
 
-  return quotes;
+  if ("error" in quotes) {
+    throw new Error(quotes.error.message);
+  }
+
+  const currencies: Currencies = {
+    toCurrency: currency.toLowerCase(),
+    rates: {},
+  };
+
+  for (const [currencyCode, rate] of Object.entries(quotes.rates)) {
+    currencies.rates[currencyCode] = rate.exchange_rate;
+  }
+
+  return currencies;
 }

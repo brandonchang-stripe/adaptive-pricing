@@ -1,31 +1,34 @@
 "use client";
 
-import React, { useRef } from "react";
 import styles from "./page.module.css";
+import React, { useEffect, useRef } from "react";
+import { MotionConfig, clamp, motion, useMotionValue } from "framer-motion";
 import { useAppStore } from "./store";
 import { ScreenRefContext } from "./components/Context";
+import { usePixelSize } from "./hooks/usePixelSize";
+import type { Currencies } from "./providers/stripe";
+
 import MainMenu from "./screens/MainMenu";
 import ScoreScreen from "./screens/ScoreScreen";
 import InGame from "./screens/InGame";
+import Boot from "./screens/Boot";
+import Splash from "./screens/Splash";
+import SleepScreen from "./screens/Sleep";
+
 import Monitor from "./components/Monitor/Monitor";
-import { MotionConfig, clamp, motion, useMotionValue } from "framer-motion";
 import Background from "./components/Background/Background";
 import RoundEndFrame from "./components/RoundFinishFrame/RoundFinishFrame";
 import StartFrame from "./components/StartFrame/StartFrame";
-import SleepScreen from "./screens/Sleep";
-import Boot from "./screens/Boot";
-import Splash from "./screens/Splash";
-import Wallpaper from "./components/Wallpaper/Wallpaper";
 import Mute from "./components/Mute/Mute";
 import ViewControl from "./components/ViewControl/ViewControl";
-import { usePixelSize } from "./hooks/usePixelSize";
-import useDeviceDetails from "./hooks/useDeviceDetails";
 
 type AppProps = {
   nonce: string;
+  currencies: Currencies;
 };
 
-export default function App({ nonce }: AppProps) {
+export default function App({ nonce, currencies }: AppProps) {
+  const setCurrencies = useAppStore((state) => state.setCurrencies);
   const state = useAppStore((state) => state.state);
   const ref = useRef<HTMLDivElement>(null);
   const pixelSize = usePixelSize();
@@ -33,6 +36,10 @@ export default function App({ nonce }: AppProps) {
   const handlePan = (x: number) => {
     pan.set(clamp(-4000 * pixelSize, 4000 * pixelSize, x * -8));
   };
+
+  useEffect(() => {
+    setCurrencies(currencies);
+  }, [currencies, setCurrencies]);
 
   return (
     <MotionConfig nonce={nonce}>

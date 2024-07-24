@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./ScreenSaver.module.css";
+import { type Vector2 } from "@/types/Vector2";
 import { useAppStore } from "@/app/store";
 import { cancelFrame, frame } from "framer-motion";
-import { Vector2 } from "@/types/Vector2";
 import { usePixelSize } from "@/app/hooks/usePixelSize";
 
 export default function ScreenSaver() {

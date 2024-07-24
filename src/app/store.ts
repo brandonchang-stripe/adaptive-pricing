@@ -3,6 +3,8 @@ import { CountryData, emailSubjects, countryData } from "./components/gameData";
 import { randiRange } from "./util/math";
 import { playSound } from "./hooks/useAudio";
 import { replaceAt } from "./util/array";
+import { Currencies } from "./providers/stripe";
+import ItemDisplayFrame from "./components/ItemDisplay/ItemDisplay";
 
 type GameState =
   | "SLEEP"
@@ -31,6 +33,9 @@ export type ActiveItem = {
 };
 
 interface AppState {
+  currencies: Currencies | null;
+  setCurrencies: (currencies: Currencies) => void;
+
   // Game state machine
   state: GameState;
   // All state transition logic is handled here
@@ -155,6 +160,11 @@ export const useAppStore = create<AppState>((set, get) => ({
   },
 
   // Country state
+  currencies: null,
+  setCurrencies: (currencies) => {
+    set({ currencies });
+  },
+
   countryIndex: 0,
   nextCountry: () => {
     set((state) => {
@@ -332,6 +342,25 @@ export function useCurrentCountry(): CountryData {
   const countryIndex = useAppStore((state) => state.countryIndex);
   return countryData[countryIndex];
 }
+
+// export function useDisplayPrice(item: ActiveItem): number {
+//   const currentCountry = useCurrentCountry();
+//   const currencies = useAppStore((state) => state.currencies);
+
+//   if (currencies === null) {
+//     // No currencies loaded, assume player is in the US
+//     if (item.converted) {
+//       return (1 / currentCountry.conversionRateDefault) * item.usdPrice;
+//     } else {
+//       return item.usdPrice;
+//     }
+//   } else {
+//     if (item.converted) {
+//       return currencies[currentCountry.currency] * item.usdPrice;
+//     } else {
+//     }
+//   }
+// }
 
 export function useIsLightningRound(): boolean {
   const countryIndex = useAppStore((state) => state.countryIndex);

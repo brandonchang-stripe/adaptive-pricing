@@ -11,7 +11,7 @@
 
 .text {
   color: var(--color-200);
-  font-size: calc(var(--pixel-size) * 16);
+  font-size: calc(var(--pixel-size) * 8);
   z-index: 1;
 }
 

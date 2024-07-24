@@ -2,8 +2,8 @@ import { Howl, Howler } from "howler";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 export const soundBoard = {
-  dragStart: new Howl({ src: "./sfx/move_start.mp3", volume: 0.1 }),
-  dragEnd: new Howl({ src: "./sfx/move_end.mp3", volume: 0.1 }),
+  dragStart: new Howl({ src: "./sfx/move_start.mp3", volume: 0.04 }),
+  dragEnd: new Howl({ src: "./sfx/move_end.mp3", volume: 0.04 }),
   convert: new Howl({ src: "./sfx/convert.mp3", volume: 0.5 }),
   scroll: new Howl({ src: "./sfx/tock_04.mp3", volume: 0.2 }),
   gainShort: new Howl({ src: "./sfx/confirm_09.mp3", volume: 0.3 }),

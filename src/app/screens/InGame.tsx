@@ -32,14 +32,20 @@ export default function InGame() {
         <ItemDisplay item={currentItems[1]} index={2} key={currentItems[1].merchant} />
       )}
       <TutorialFrame tutorialStep={1} onNext={nextTutorialStep} index={6}>
-        <p>This shop has Stripe&apos;s <b>Adaptive Pricing</b> enabled! It&apos;s already converted to your local currency.</p>
+        <p>
+          This shop has Stripe&apos;s <b>Adaptive Pricing</b> enabled! It&apos;s already converted to your local
+          currency.
+        </p>
       </TutorialFrame>
 
       {(!tutorialActive || tutorialStep >= 2) && <Conversion position="slider" index={2} />}
 
       {tutorialStep === 2 && (
         <TutorialFrame tutorialStep={2} onNext={nextTutorialStep} index={1}>
-          <p>Use the currency conversion slider to compare prices and select the best deal. The slider only goes to $100, so you may need to do some mental math.</p>
+          <p>
+            Use the currency conversion slider to compare prices and select the best deal. The slider maxes out at $100
+            — anything higher, it's up to your math skills!
+          </p>
         </TutorialFrame>
       )}
 

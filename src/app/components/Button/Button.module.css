@@ -8,6 +8,7 @@
   border-image-outset: calc(var(--pixel-size) * 1);
   border-image-repeat: repeat;
 
+  letter-spacing: calc(var(--pixel-size) * -0.5);
   appearance: none;
   font-size: calc(var(--pixel-size) * 8);
   padding: calc(var(--pixel-size) * 3) calc(var(--pixel-size) * 10);

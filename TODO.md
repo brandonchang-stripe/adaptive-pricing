@@ -13,7 +13,7 @@
   - [x] Reach out to #edge on run
 - [x] Mobile
 - [ ] Music
-  - [ ] Pan desk
+  - [x] Pan desk
 - [ ] OG Share
 - [ ] Live currencies
 - [x] Boot animation
@@ -22,6 +22,13 @@
   - [x] OS text crawl
 - [x] Travel map locations
 - [x] Tweak planes
+- [ ] Top padding above item display title
+- [ ] Draggable false on item display icons
+- [ ] Less tracking on purchase popover
+- [ ] Invert colors on shades
+- [ ] Scrollbar left line
+- [ ] Share button "Share"
+- [ ] Share button outline
 
 # Juice
 - [x] Custom SFX
