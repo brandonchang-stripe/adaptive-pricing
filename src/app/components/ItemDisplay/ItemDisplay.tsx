@@ -9,6 +9,7 @@ import { useAudio } from "@/app/hooks/useAudio";
 import { createPortal } from "react-dom";
 import { stepEase } from "@/app/util/stepEase";
 import { usePixelSize } from "@/app/hooks/usePixelSize";
+import useDeviceDetails from "@/app/hooks/useDeviceDetails";
 
 type ItemDisplayFrameProps = {
   item: ActiveItem;
@@ -100,7 +101,11 @@ export default function ItemDisplayFrame({ item, index }: ItemDisplayFrameProps)
             {item.converted &&
               createPortal(<AdaptivePricingPopover targetRef={ref} />, document.getElementById("main")!, item.merchant)}
             {purchased &&
-              createPortal(<PurchasePopover targetRef={ref} isBestDeal={isBestDeal} />, document.getElementById("main")!, item.merchant + "p")}
+              createPortal(
+                <PurchasePopover targetRef={ref} isBestDeal={isBestDeal} />,
+                document.getElementById("main")!,
+                item.merchant + "p"
+              )}
           </motion.div>
         </div>
       </Frame>
@@ -114,6 +119,7 @@ type AdaptivePricingPopoverRef = {
 
 function AdaptivePricingPopover({ targetRef }: AdaptivePricingPopoverRef) {
   const [targetBounds, setTargetBounds] = useState<DOMRect | null>(null);
+  const { isMobile } = useDeviceDetails();
   const pixelSize = usePixelSize();
 
   useEffect(() => {
@@ -134,7 +140,14 @@ function AdaptivePricingPopover({ targetRef }: AdaptivePricingPopoverRef) {
   }, [targetRef, pixelSize]);
 
   function calculateOffset() {
-    if (targetBounds) {
+    if (!targetBounds) return { x: 0, y: 0 };
+
+    if (isMobile) {
+      return {
+        x: targetBounds.x + window.innerWidth / 2 - pixelSize * 600,
+        y: targetBounds.y - pixelSize * 430,
+      };
+    } else {
       const center = {
         x: targetBounds.x + targetBounds.width / 2,
         y: targetBounds.y + targetBounds.height / 2,
@@ -144,8 +157,6 @@ function AdaptivePricingPopover({ targetRef }: AdaptivePricingPopoverRef) {
         y: center.y - pixelSize * 40,
       };
     }
-
-    return { x: 0, y: 0 };
   }
 
   return (
@@ -179,16 +190,24 @@ type PurchasePopoverProps = {
 
 function PurchasePopover({ targetRef, isBestDeal }: PurchasePopoverProps) {
   const [targetPos, setTargetPos] = useState({ x: 0, y: 0 });
+  const { isMobile } = useDeviceDetails();
   const pixelSize = usePixelSize();
 
   useEffect(() => {
     const updateBounds = () => {
       if (targetRef.current) {
         const rect = targetRef.current.getBoundingClientRect();
-        setTargetPos({
-          x: rect.x + rect.width / 2 - pixelSize * 35,
-          y: rect.y + rect.height / 2 - pixelSize * 25,
-        });
+        if (isMobile) {
+          setTargetPos({
+            x: window.innerWidth / 2 - pixelSize * 100,
+            y: rect.y + pixelSize * 100,
+          });
+        } else {
+          setTargetPos({
+            x: rect.x + rect.width / 2 - pixelSize * 35,
+            y: rect.y + rect.height / 2 - pixelSize * 25,
+          });
+        }
       }
     };
     updateBounds();
@@ -199,7 +218,7 @@ function PurchasePopover({ targetRef, isBestDeal }: PurchasePopoverProps) {
     return () => {
       window.removeEventListener("resize", updateBounds);
     };
-  }, [targetRef, pixelSize]);
+  }, [targetRef, pixelSize, isMobile]);
 
   return (
     <motion.div
