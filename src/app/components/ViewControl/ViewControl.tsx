@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import styles from "./ViewControl.module.css";
-import { useRef } from "react";
+import { useCallback, useRef } from "react";
+import { useAudio } from "@/app/hooks/useAudio";
 
 type ViewControlProps = {
   onUpdate: (x: number) => void;
@@ -8,25 +9,35 @@ type ViewControlProps = {
 
 export default function ViewControl({ onUpdate }: ViewControlProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const audio = useAudio();
+
+  const handleUpdate = useCallback((latest: { x: number }) => {
+    onUpdate(latest.x);
+  }, [onUpdate]);
+
+  function handleDragStart() {
+    audio("dragStart");
+  }
+
+  function handleDragEnd() {
+    audio("dragEnd");
+  }
 
   return (
     <motion.div className={styles.container} ref={containerRef}>
       <motion.div
+        onDragStart={handleDragStart}
+        onDragEnd={handleDragEnd}
         whileDrag={{ scale: 1.1 }}
         className={styles.control}
         dragConstraints={containerRef}
-        drag="x"
         dragTransition={{ bounceStiffness: 1500, bounceDamping: 50 }}
+        drag="x"
         dragSnapToOrigin
         dragElastic={0.1}
-        onUpdate={(latest) => onUpdate(latest.x as number)}
+        onUpdate={handleUpdate}
       >
-        <img 
-        className={styles.image}
-        src="/sprites/view-control.png"
-        draggable="false"
-        alt="Drag to view" 
-        />
+        <img className={styles.image} src="/sprites/view-control.png" draggable="false" alt="Drag to view" />
       </motion.div>
     </motion.div>
   );

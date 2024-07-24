@@ -61,7 +61,6 @@ export default function Frame({
       initial="hidden"
       animate={visible ? "visible" : "hidden"}
       exit="hidden"
-      // style={{zIndex: z}}
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
       variants={{
