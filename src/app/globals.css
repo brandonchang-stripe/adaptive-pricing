@@ -56,7 +56,7 @@
 
 @media (max-height: 720px) or (max-width: 810px) {
   :root {
-    --pixel-size: 0.2vh;
+    --pixel-size: 0.2dvh;
   }
 }
 

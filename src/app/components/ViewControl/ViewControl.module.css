@@ -3,17 +3,18 @@
   display: none;
   align-items: center;
   justify-content: center;
-  bottom: calc(var(--pixel-size) * 24);
+  top: calc(100dvh - var(--pixel-size) * 30);
   left: 50%;
   transform: translateX(-50%);
   height: calc(var(--pixel-size) * 5);
-  width: calc(var(--pixel-size) * 140);
-  z-index: 1;
+  width: calc(var(--pixel-size) * 180);
+  z-index: 2;
 
   border-image-source: url("/sprites/view-slider.png");
   border-image-slice: 2 fill;
   border-image-width: calc(var(--pixel-size) * 2);
   border-image-repeat: repeat;
+  image-rendering: pixelated;
 }
 
 .control {
