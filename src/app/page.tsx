@@ -3,6 +3,7 @@ import App from "./App";
 
 export default function PageLayout() {
   const nonce = headers().get("x-nonce")!;
+  const country = headers().get("X-Vercel-IP-Country") || "US";
 
   return <App nonce={nonce} />;
 }

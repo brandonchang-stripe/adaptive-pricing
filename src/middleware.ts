@@ -1,3 +1,4 @@
+import { geolocation } from "@vercel/functions";
 import { NextRequest, NextResponse } from "next/server";
 
 export function middleware(request: NextRequest) {
@@ -24,6 +25,9 @@ export function middleware(request: NextRequest) {
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set("x-nonce", nonce);
   requestHeaders.set("Content-Security-Policy", contentSecurityPolicyHeaderValue);
+
+  const { country } = geolocation(request);
+  requestHeaders.set("X-Vercel-IP-Country", country || "US");
 
   const response = NextResponse.next({
     request: {

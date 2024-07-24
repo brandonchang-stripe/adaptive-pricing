@@ -71,7 +71,7 @@ export default function ConversionSlider({ step = 1, min = 0, max = 100, onChang
             bounceDamping: 100,
           }}
           dragElastic={0.05}
-          dragListener={false}
+          // dragListener={false}
           dragControls={dragControls}
           onUpdate={handleUpdate}
           ref={slideRef}

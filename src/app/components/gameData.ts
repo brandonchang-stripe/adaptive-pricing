@@ -24,6 +24,7 @@ export type ItemData = {
 
 export type CountryData = {
   name: string;
+  code: string;
   currencySymbol: string;
   conversionRateDefault: number;
   currentConversionRate: number;
@@ -34,6 +35,7 @@ export type CountryData = {
 export const countryData: CountryData[] = [
   {
     name: "Japan",
+    code: "JP",
     currencySymbol: "¥",
     conversionRateDefault: 161,
     currentConversionRate: 161,
@@ -67,6 +69,7 @@ export const countryData: CountryData[] = [
   },
   {
     name: "Mexico",
+    code: "MX",
     currencySymbol: "$MXN",
     conversionRateDefault: 20.13,
     currentConversionRate: 20.13,
@@ -100,6 +103,7 @@ export const countryData: CountryData[] = [
   },
   {
     name: "Brazil",
+    code: "BR",
     currencySymbol: "R$",
     conversionRateDefault: 5.43,
     currentConversionRate: 5.43,
@@ -133,6 +137,7 @@ export const countryData: CountryData[] = [
   },
   {
     name: "New Zealand",
+    code: "NZ",
     currencySymbol: "NZ$",
     conversionRateDefault: 1.65,
     currentConversionRate: 1.65,
