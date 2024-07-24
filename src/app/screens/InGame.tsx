@@ -44,7 +44,7 @@ export default function InGame() {
         <TutorialFrame tutorialStep={2} onNext={nextTutorialStep} index={1}>
           <p>
             Use the currency conversion slider to compare prices and select the best deal. The slider maxes out at $100
-            — anything higher, it's up to your math skills!
+            — anything higher, it&apos;s up to your math skills!
           </p>
         </TutorialFrame>
       )}
