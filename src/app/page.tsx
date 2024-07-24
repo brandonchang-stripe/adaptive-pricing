@@ -6,7 +6,6 @@ export default async function PageLayout() {
   const nonce = headers().get("x-nonce")!;
   const country = headers().get("X-Vercel-IP-Country") || "US";
   const currencies = await getCurrencies(country);
-  console.log(currencies);
 
-  return <App nonce={nonce} />;
+  return <App nonce={nonce} currencies={currencies} />;
 }
