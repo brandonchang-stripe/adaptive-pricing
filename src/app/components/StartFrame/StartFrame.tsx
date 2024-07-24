@@ -55,11 +55,7 @@ export default function StartFrame() {
   }, [mapRef, isMobile, pixelSize, height]);
 
   useEffect(() => {
-    if (isLightningRound) {
-      audio("startLightning");
-    } else {
-      audio("start");
-    }
+    audio("start");
 
     for (let i = 0; i < country.name.length; i++) {
       setTimeout(() => {
@@ -84,31 +80,14 @@ export default function StartFrame() {
         />
         <div className={styles.header}>
           <div className={styles.block} />
-          {isLightningRound ? (
-            <div>FINAL ROUND</div>
-          ) : (
             <div>
               ROUND {countryIndex + 1} / {countryData.length}
             </div>
-          )}
           <div className={styles.block} />
         </div>
 
         <div className={styles.textContainer}>
           <motion.div className={styles.text}>{string}</motion.div>
-          {isLightningRound && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1, zIndex: 2, transition: { delay: 1, ease: stepEase(3) } }}
-            >
-              <div className={styles.lightningtext}>
-                <br />
-                All prices are
-                <br />
-                now converted
-              </div>
-            </motion.div>
-          )}
         </div>
         <div className={styles.footer}>
           <div className={styles.block} />

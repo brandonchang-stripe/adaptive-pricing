@@ -118,17 +118,12 @@ export const useAppStore = create<AppState>((set, get) => ({
         set({ state: newState, isTimerRunning: false });
         await new Promise((r) => setTimeout(r, 3000));
         if (get().countryIndex === countryData.length - 1) {
-          get().transitionState("GAME_FINISH");
+          get().transitionState("SCORE_SCREEN");
         } else {
           get().transitionState("GAME_START");
         }
         break;
 
-      case "GAME_FINISH":
-        set({ state: newState, isTimerRunning: false });
-        await new Promise((r) => setTimeout(r, 2000));
-        get().transitionState("SCORE_SCREEN");
-        break;
       case "SCORE_SCREEN":
         set({ state: newState });
         break;

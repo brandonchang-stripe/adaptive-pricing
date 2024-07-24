@@ -7,7 +7,6 @@ import { ScreenRefContext } from "./components/Context";
 import MainMenu from "./screens/MainMenu";
 import ScoreScreen from "./screens/ScoreScreen";
 import InGame from "./screens/InGame";
-import GameFinish from "./screens/GameFinish";
 import Monitor from "./components/Monitor/Monitor";
 import { MotionConfig } from "framer-motion";
 import Background from "./components/Background/Background";
@@ -45,7 +44,6 @@ export default function App({ nonce }: AppProps) {
                 state === "ROUND_FINISH") && <InGame key="in-game" />}
               {state === "GAME_START" && <StartFrame key="start" />}
               {state === "ROUND_FINISH" && <RoundEndFrame key="round" />}
-              {state === "GAME_FINISH" && <GameFinish key="game-finish" />}
               {state === "SCORE_SCREEN" && <ScoreScreen key="score-screen" />}
               <Mute />
             </div>
