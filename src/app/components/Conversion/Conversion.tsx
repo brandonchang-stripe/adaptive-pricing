@@ -28,7 +28,7 @@ export default function Conversion({ position, index = 0 }: ConversionWindowProp
         <div className={styles.conversionContainer}>
           <div className={styles.conversionPrice}>
             <div className={styles.left}>
-              {country.currencySymbol} {relativeRound(country.conversionRateDefault * usd)}
+              {country.currencySymbol} {relativeRound((1/country.conversionRateDefault) * usd)}
             </div>
             <div className={styles.center}>=</div>
             <div className={styles.right}>${usd}.00 USD</div>

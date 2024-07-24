@@ -82,14 +82,14 @@ export default function ItemDisplayFrame({ item, index }: ItemDisplayFrameProps)
             className={styles.itemDisplay}
           >
             <div className={styles.itemDisplayContainer}>
-              <img className={styles.itemDisplayImage} src={`/sprites/icons/${item.icon}.png`} />
+              <img className={styles.itemDisplayImage} src={`/sprites/icons/${item.icon}.png`} draggable={false} />
               <div className={styles.itemDisplayData}>
                 <div>{item.type}</div>
                 <motion.div className={styles.itemDisplayPrice}>
                   {item.converted
                     ? string
                     : `${currentCountry!.currencySymbol} ${relativeRound(
-                        item.usdPrice * currentCountry.conversionRateDefault
+                        item.usdPrice * (1/currentCountry.conversionRateDefault)
                       )}`}
                 </motion.div>
               </div>
