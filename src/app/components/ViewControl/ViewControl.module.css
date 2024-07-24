@@ -7,7 +7,7 @@
   left: 50%;
   transform: translateX(-50%);
   height: calc(var(--pixel-size) * 5);
-  width: calc(var(--pixel-size) * 180);
+  width: calc(var(--pixel-size) * 160);
   z-index: 2;
 
   border-image-source: url("/sprites/view-slider.png");
@@ -19,9 +19,13 @@
 
 .control {
   display: block;
+  padding: calc(var(--pixel-size) * 10);
+  cursor: grab;
+}
+
+.image {
   width: calc(var(--pixel-size) * 47);
   height: calc(var(--pixel-size) * 15);
-  cursor: grab;
 }
 
 .control:active {

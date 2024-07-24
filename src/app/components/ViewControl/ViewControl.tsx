@@ -11,7 +11,8 @@ export default function ViewControl({ onUpdate }: ViewControlProps) {
 
   return (
     <motion.div className={styles.container} ref={containerRef}>
-      <motion.img
+      <motion.div
+        whileDrag={{ scale: 1.1 }}
         className={styles.control}
         dragConstraints={containerRef}
         drag="x"
@@ -19,10 +20,14 @@ export default function ViewControl({ onUpdate }: ViewControlProps) {
         dragSnapToOrigin
         dragElastic={0.1}
         onUpdate={(latest) => onUpdate(latest.x as number)}
-        draggable="false"
-        src="/sprites/view-control.png"
       >
-      </motion.img>
+        <img 
+        className={styles.image}
+        src="/sprites/view-control.png"
+        draggable="false"
+        alt="Drag to view" 
+        />
+      </motion.div>
     </motion.div>
   );
 }
