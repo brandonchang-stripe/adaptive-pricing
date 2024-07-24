@@ -24,7 +24,7 @@ type Currencies = {
   rates: Record<string, number>;
 };
 
-export async function getCurrencies(): Promise<Currencies> {
+export async function getCurrencies() {
   const res = await fetch("https://api.stripe.com/v1/fx_quotes", {
     method: "POST",
     headers: {
@@ -40,5 +40,5 @@ export async function getCurrencies(): Promise<Currencies> {
 
   const quotes = (await res.json()) as QuoteResponse;
 
-  const currencies: Currencies = {};
+  return quotes;
 }
