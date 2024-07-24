@@ -26,8 +26,9 @@ export type CountryData = {
   name: string;
   code: string;
   currencySymbol: string;
+  currencyCode: string;
   conversionRateDefault: number;
-  currentConversionRate: number;
+  currentConversionRate: number | null;
   position: Vector2;
   items: ItemData[];
 };
@@ -37,8 +38,9 @@ export const countryData: CountryData[] = [
     name: "Japan",
     code: "JP",
     currencySymbol: "¥",
+    currencyCode: "jpy",
     conversionRateDefault: 161,
-    currentConversionRate: 161,
+    currentConversionRate: null,
     position: { x: 90, y: 100 },
     items: [
       {
@@ -68,45 +70,12 @@ export const countryData: CountryData[] = [
     ],
   },
   {
-    name: "Mexico",
-    code: "MX",
-    currencySymbol: "$MXN",
-    conversionRateDefault: 20.13,
-    currentConversionRate: 20.13,
-    position: { x: 350, y: 360 },
-    items: [
-      {
-        type: "Sunglasses",
-        merchants: ["chido-gafas.com", "go-sunnies.mx"],
-        baseUsdPrice: 20.0,
-        priceIncrements: [3, 5],
-        quantity: "1x",
-        icon: "shades",
-      },
-      {
-        type: "Plane ticket",
-        merchants: ["aero-via.mx", "4242tix.mx"],
-        baseUsdPrice: 1000,
-        priceIncrements: [100, 50],
-        quantity: "1x",
-        icon: "ticket",
-      },
-      {
-        type: "Surfboard",
-        merchants: ["surf-mex.mx", "surfboards.mx"],
-        baseUsdPrice: 620.0,
-        priceIncrements: [120, 210],
-        quantity: "1x",
-        icon: "surfboard",
-      },
-    ],
-  },
-  {
     name: "Brazil",
     code: "BR",
     currencySymbol: "R$",
+    currencyCode: "brl",
     conversionRateDefault: 5.43,
-    currentConversionRate: 5.43,
+    currentConversionRate: null,
     position: { x: 350, y: 360 },
     items: [
       {
@@ -136,11 +105,47 @@ export const countryData: CountryData[] = [
     ],
   },
   {
+    name: "Mexico",
+    code: "MX",
+    currencyCode: "mxn",
+    currencySymbol: "$MXN",
+    conversionRateDefault: 20.13,
+    currentConversionRate: null,
+    position: { x: 350, y: 360 },
+    items: [
+      {
+        type: "Sunglasses",
+        merchants: ["chido-gafas.com", "go-sunnies.mx"],
+        baseUsdPrice: 20.0,
+        priceIncrements: [3, 5],
+        quantity: "1x",
+        icon: "shades",
+      },
+      {
+        type: "Plane ticket",
+        merchants: ["aero-via.mx", "4242tix.mx"],
+        baseUsdPrice: 1000,
+        priceIncrements: [100, 50],
+        quantity: "1x",
+        icon: "ticket",
+      },
+      {
+        type: "Surfboard",
+        merchants: ["surf-mex.mx", "surfboards.mx"],
+        baseUsdPrice: 620.0,
+        priceIncrements: [120, 210],
+        quantity: "1x",
+        icon: "surfboard",
+      },
+    ],
+  },
+  {
     name: "New Zealand",
     code: "NZ",
     currencySymbol: "NZ$",
+    currencyCode: "nzd",
     conversionRateDefault: 1.65,
-    currentConversionRate: 1.65,
+    currentConversionRate: null,
     position: { x: 310, y: 320 },
     items: [
       {
