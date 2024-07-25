@@ -61,10 +61,9 @@
 .blurb {
   display: flex;
   flex-direction: column;
-  background-color: var(--color-100);
-  color: var(--color-200);
-  padding: calc(var(--pixel-size) * 4);
+  padding: 0 calc(var(--pixel-size) * 4) calc(var(--pixel-size) * 4);
   flex-grow: 1;
+  border-top: var(--pixel-size) dotted var(--color-100);
 }
 
 .blurb :global(p) {

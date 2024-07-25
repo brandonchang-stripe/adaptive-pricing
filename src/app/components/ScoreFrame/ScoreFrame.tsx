@@ -107,7 +107,7 @@ export default function ScoreFrame() {
             </p>
             <div className="spacer"></div>
             <div className={styles.shareButton}>
-              <Button onClick={handleShare}>Share to X</Button>
+              <Button onClick={handleShare}>Share</Button>
             </div>
             <div className={styles.nextStopButton}>
               <Button onClick={handlePlayAgain}>PLAY AGAIN</Button>

@@ -22,13 +22,13 @@
   - [x] OS text crawl
 - [x] Travel map locations
 - [x] Tweak planes
-- [ ] Top padding above item display title
-- [ ] Draggable false on item display icons
+- [x] Top padding above item display title
+- [x] Draggable false on item display icons
 - [ ] Less tracking on purchase popover
 - [ ] Invert colors on shades
 - [ ] Scrollbar left line
-- [ ] Share button "Share"
-- [ ] Share button outline
+- [x] Share button "Share"
+- [x] Share button outline
 
 # Juice
 - [x] Custom SFX

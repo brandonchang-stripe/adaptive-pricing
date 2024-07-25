@@ -144,8 +144,8 @@ function AdaptivePricingPopover({ targetRef }: AdaptivePricingPopoverRef) {
 
     if (isMobile) {
       return {
-        x: targetBounds.x + window.innerWidth / 2 - pixelSize * 600,
-        y: targetBounds.y - pixelSize * 430,
+        x: window.innerWidth - pixelSize * 380,
+        y: targetBounds.y - pixelSize * 310,
       };
     } else {
       const center = {
@@ -153,8 +153,8 @@ function AdaptivePricingPopover({ targetRef }: AdaptivePricingPopoverRef) {
         y: targetBounds.y + targetBounds.height / 2,
       };
       return {
-        x: center.x + pixelSize * 50,
-        y: center.y - pixelSize * 40,
+        x: center.x + pixelSize * 44,
+        y: center.y - pixelSize * 44,
       };
     }
   }
@@ -204,8 +204,8 @@ function PurchasePopover({ targetRef, isBestDeal }: PurchasePopoverProps) {
           });
         } else {
           setTargetPos({
-            x: rect.x + rect.width / 2 - pixelSize * 35,
-            y: rect.y + rect.height / 2 - pixelSize * 25,
+            x: rect.x + rect.width / 2 - pixelSize * 30,
+            y: rect.y + rect.height / 2 - pixelSize * 14,
           });
         }
       }

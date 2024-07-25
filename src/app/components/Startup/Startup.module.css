@@ -3,14 +3,32 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: stretch;
+
+  color: var(--color-200);
   grid-column: 1/13;
   grid-row: 1/13;
+  gap: calc(var(--pixel-size) * 4);
 }
 
-.text {
-  font-family: var(--font-dogica);
-  color: var(--color-200);
-  font-size: calc(var(--pixel-size) * 8);
-  line-height: 2;
+.line {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: calc(var(--pixel-size) * 4);
+}
+
+.spacer {
+  display: block;
+  flex-grow: 1;
+  height: 100%;
+  border-bottom: var(--pixel-size) dotted var(--color-200);
+}
+
+.block {
+  display: block;
+  flex-grow: 1;
+  height: 100%;
+  background-image: url("/sprites/textures/texture-7.png");
+  background-size: calc(var(--pixel-size) * 2);
 }

@@ -17,6 +17,7 @@
   position: relative;
   height: calc(var(--pixel-size) * 24);
   font-size: calc(var(--pixel-size) * 16);
+  padding-top: calc(var(--pixel-size) * 2);
 }
 
 .conversionPriceHorizontal {

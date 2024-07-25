@@ -38,6 +38,7 @@
   align-items: stretch;
   flex-grow: 1;
   gap: calc(var(--pixel-size) * 6);
+  padding-top: calc(var(--pixel-size) * 4);
 }
 
 .itemDisplayData:global(.button) {
@@ -75,7 +76,8 @@
   background: var(--color-200);
   color: var(--color-100);
   padding: calc(var(--pixel-size) * 4);
-  font-size: calc(var(--pixel-size) * 16);
+  font-size: calc(var(--pixel-size) * 8);
+  letter-spacing: calc(var(--pixel-size) * -.5);
 }
 
 .bestDeal {

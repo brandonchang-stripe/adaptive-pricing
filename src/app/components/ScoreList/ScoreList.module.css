@@ -42,9 +42,9 @@
 
 .scoreListContents::-webkit-scrollbar-thumb {
   border-image-source: url("/sprites/scrollbar-thumb.png");
-  border-image-slice: 2 0 fill;
-  border-image-width: calc(var(--pixel-size) * 2) 0;
-  border-image-repeat: round;
+  border-image-slice: 5 0 fill;
+  border-image-width: calc(var(--pixel-size) * 5) 0;
+  border-image-repeat: repeat;
 }
 
 .scoreListContents::-webkit-scrollbar-button {
