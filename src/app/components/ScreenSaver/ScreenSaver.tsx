@@ -40,10 +40,23 @@ export default function ScreenSaver() {
       position.x += velocity.x * data.delta;
       position.y += velocity.y * data.delta;
 
-      if (position.x < 0 || position.x + bouncerRect.width > containerRect.width) {
+      if (position.x < 0) {
+        position.x = 0;
         velocity.x *= -1;
       }
-      if (position.y < 0 || position.y + bouncerRect.height > containerRect.height) {
+
+      if (position.x + bouncerRect.width > containerRect.width) {
+        position.x = containerRect.width - bouncerRect.width;
+        velocity.x *= -1;
+      }
+
+      if (position.y < 0) {
+        position.y = 0;
+        velocity.y *= -1;
+      }
+
+      if (position.y + bouncerRect.height > containerRect.height) {
+        position.y = containerRect.height - bouncerRect.height;
         velocity.y *= -1;
       }
     };

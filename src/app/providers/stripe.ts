@@ -67,7 +67,5 @@ export async function getCurrencies(countryCode: string): Promise<Currencies> {
     currencies.rates[currencyCode] = rate.exchange_rate;
   }
 
-  console.log(currencies);
-
   return currencies;
 }
