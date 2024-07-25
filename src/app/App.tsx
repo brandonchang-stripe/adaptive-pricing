@@ -21,13 +21,15 @@ import RoundEndFrame from "./components/RoundFinishFrame/RoundFinishFrame";
 import StartFrame from "./components/StartFrame/StartFrame";
 import Mute from "./components/Mute/Mute";
 import ViewControl from "./components/ViewControl/ViewControl";
+import PreviewMainMenu from "./screens/PreviewMainMenu";
 
 type AppProps = {
   nonce: string;
   currencies: Currencies | null;
+  isPreview?: boolean;
 };
 
-export default function App({ nonce, currencies }: AppProps) {
+export default function App({ nonce, currencies, isPreview = false}: AppProps) {
   const setCurrencies = useAppStore((state) => state.setCurrencies);
   const state = useAppStore((state) => state.state);
   const ref = useRef<HTMLDivElement>(null);
@@ -51,7 +53,8 @@ export default function App({ nonce, currencies }: AppProps) {
               {state === "SLEEP" && <SleepScreen key="sleep" />}
               {state === "BOOT" && <Boot key="boot" />}
               {state === "SPLASH" && <Splash key="splash" />}
-              {state === "MAIN_MENU" && <MainMenu key="main-menu" />}
+              {state === "MAIN_MENU" && !isPreview && <MainMenu key="main-menu" />}
+              {state === "MAIN_MENU" && isPreview && <PreviewMainMenu key="preview-menu" />}
               {(state === "GAME_PLAY" ||
                 state === "GAME_FINISH" ||
                 state === "TUTORIAL" ||

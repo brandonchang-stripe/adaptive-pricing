@@ -343,31 +343,28 @@ export function useCurrentCountry(): CountryData {
   return countryData[countryIndex];
 }
 
-export function useDisplayPrice(item: ActiveItem): string {
+export function useConvertedPrice(usdPrice: number, converted: boolean = false): string {
   const currentCountry = useCurrentCountry();
   const currencies = useAppStore((state) => state.currencies);
 
   if (currencies === null) {
     // No currencies loaded, assume player is in the US
-    if (item.converted) {
-      return formatDisplayPrice(
-        (1 / currentCountry.conversionRateDefault) * item.usdPrice,
-        currentCountry.currencyCode
-      );
+    if (converted) {
+      return formatDisplayPrice((1 / currentCountry.conversionRateDefault) * usdPrice, currentCountry.currencyCode);
     } else {
-      return formatDisplayPrice(item.usdPrice, "usd");
+      return formatDisplayPrice(usdPrice, "usd");
     }
   } else {
-    if (!item.converted) {
+    if (!converted) {
       return formatDisplayPrice(
-        (1 / currencies.rates[currentCountry.currencyCode]) * item.usdPrice,
+        (1 / currencies.rates[currentCountry.currencyCode]) * usdPrice,
         currentCountry.currencyCode
       );
     } else {
       if (currencies.toCurrency === "usd") {
-        return formatDisplayPrice(item.usdPrice, "usd");
+        return formatDisplayPrice(usdPrice, "usd");
       } else {
-        return formatDisplayPrice((1 / currencies.rates["usd"]) * item.usdPrice, currencies.toCurrency);
+        return formatDisplayPrice((1 / currencies.rates["usd"]) * usdPrice, currencies.toCurrency);
       }
     }
   }

@@ -1,5 +1,5 @@
 import styles from "./PurchaseEmailListItem.module.css";
-import { PurchasedItem } from "@/app/store";
+import { PurchasedItem, useConvertedPrice } from "@/app/store";
 import EmailListItem from "../EmailListItem/EmailListItem";
 
 type Props = {
@@ -9,6 +9,8 @@ type Props = {
 
 export default function PurchaseEmailListItem({ item, index }: Props) {
   const { merchant, title, usdPrice, score, saved } = item;
+  const paid = useConvertedPrice(usdPrice);
+  const discount = useConvertedPrice(saved);
 
   return (
     <EmailListItem
@@ -19,10 +21,8 @@ export default function PurchaseEmailListItem({ item, index }: Props) {
       openSounds={item.score > 0 ? ["close", "gainShort"] : ["close"]}
     >
       <div className={styles.prices}>
-        <div className={styles.paid}>${usdPrice.toFixed(2)}</div>
-        {score > 0 && (
-          <div className={styles.discount}>[${saved.toFixed(2)} saved]</div>
-        )}
+        <div className={styles.paid}>{paid}</div>
+        {score > 0 && <div className={styles.discount}>[{discount} saved]</div>}
       </div>
     </EmailListItem>
   );

@@ -1,8 +1,7 @@
 import styles from "./ItemDisplay.module.css";
-import { ActiveItem, useAppStore, useCurrentCountry, useDisplayPrice } from "@/app/store";
+import { ActiveItem, useAppStore, useConvertedPrice } from "@/app/store";
 import Frame from "../Frame/Frame";
 import Button from "../Button/Button";
-import { relativeRound } from "@/app/util/math";
 import { animate, motion, useMotionValue, useTransform } from "framer-motion";
 import { RefObject, useEffect, useRef, useState } from "react";
 import { useAudio } from "@/app/hooks/useAudio";
@@ -27,7 +26,7 @@ export default function ItemDisplayFrame({ item, index }: ItemDisplayFrameProps)
   const audio = useAudio();
 
   const motionValue = useMotionValue(-3);
-  const displayPrice = useDisplayPrice(item);
+  const displayPrice = useConvertedPrice(item.usdPrice, item.converted);
   const slots = displayPrice.length;
   const range = 3;
   const string = useTransform(motionValue, (v) => {

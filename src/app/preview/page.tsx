@@ -1,6 +1,6 @@
 import { headers } from "next/headers";
-import App from "./App";
-import { getCurrencies } from "./providers/stripe";
+import { getCurrencies } from "../providers/stripe";
+import App from "../App";
 
 export default async function PageLayout() {
   const nonce = headers().get("x-nonce")!;
@@ -12,5 +12,5 @@ export default async function PageLayout() {
     console.error(e);
   }
 
-  return <App nonce={nonce} currencies={currencies} isPreview />;
+  return <App nonce={nonce} currencies={currencies} isPreview={false} />;
 }
