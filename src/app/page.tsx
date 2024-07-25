@@ -5,7 +5,12 @@ import { getCurrencies } from "./providers/stripe";
 export default async function PageLayout() {
   const nonce = headers().get("x-nonce")!;
   const country = headers().get("X-Vercel-IP-Country") || "US";
-  const currencies = await getCurrencies(country);
+  let currencies = null;
+  try {
+    currencies = await getCurrencies(country);
+  } catch (e) {
+    console.error(e);
+  }
 
   return <App nonce={nonce} currencies={currencies} />;
 }

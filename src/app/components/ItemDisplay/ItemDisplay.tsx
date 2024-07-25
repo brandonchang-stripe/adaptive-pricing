@@ -1,5 +1,5 @@
 import styles from "./ItemDisplay.module.css";
-import { ActiveItem, useAppStore, useCurrentCountry } from "@/app/store";
+import { ActiveItem, useAppStore, useCurrentCountry, useDisplayPrice } from "@/app/store";
 import Frame from "../Frame/Frame";
 import Button from "../Button/Button";
 import { relativeRound } from "@/app/util/math";
@@ -21,25 +21,25 @@ export default function ItemDisplayFrame({ item, index }: ItemDisplayFrameProps)
   const tutorialStep = useAppStore((state) => state.tutorialStep);
   const buyingEnabled = useAppStore((state) => state.buyingEnabled);
   const currentItems = useAppStore((state) => state.currentItems);
-  const currentCountry = useCurrentCountry()!;
   const isBestDeal = currentItems.every((i) => i.usdPrice >= item.usdPrice);
   const evaluate = useAppStore((state) => state.evaluate);
   const ref = useRef<HTMLDivElement>(null);
   const audio = useAudio();
 
   const motionValue = useMotionValue(-3);
-  const usd = `$${item.usdPrice.toFixed(2)}`;
-
-  const slots = usd.length;
+  const displayPrice = useDisplayPrice(item);
+  const slots = displayPrice.length;
   const range = 3;
   const string = useTransform(motionValue, (v) => {
+    if (!item.converted) return displayPrice;
+
     const rounded = Math.round(v);
     let output = "";
     for (let i = 0; i < slots; i++) {
       if (rounded - i <= slots) {
         output += Math.abs(i - rounded) < range ? "*" : "+";
       } else {
-        output += usd[i] || "";
+        output += displayPrice[i] || "";
       }
     }
     return output;
@@ -86,11 +86,7 @@ export default function ItemDisplayFrame({ item, index }: ItemDisplayFrameProps)
               <div className={styles.itemDisplayData}>
                 <div>{item.type}</div>
                 <motion.div className={styles.itemDisplayPrice}>
-                  {item.converted
-                    ? string
-                    : `${currentCountry!.currencySymbol} ${relativeRound(
-                        item.usdPrice * (1/currentCountry.conversionRateDefault)
-                      )}`}
+                  {string}
                 </motion.div>
               </div>
             </div>

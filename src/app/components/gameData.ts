@@ -90,7 +90,7 @@ export const countryData: CountryData[] = [
     name: "Mexico",
     code: "MX",
     currencyCode: "mxn",
-    currencySymbol: "$MXN",
+    currencySymbol: "$MX",
     conversionRateDefault: 0.0538664,
     currentConversionRate: null,
     items: [

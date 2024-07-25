@@ -32,10 +32,10 @@ export type Currencies = {
 };
 
 export async function getCurrencies(countryCode: string): Promise<Currencies> {
-  const currency = getCountryData(countryCode as TCountryCode).currency[0];
+  const currency = getCountryData(countryCode as TCountryCode).currency[0].toLowerCase();
 
   const from_currencies = countryData.map((c) => c.currencyCode.toLowerCase());
-  if (currency !== "USD") {
+  if (currency !== "usd") {
     from_currencies.push("usd");
   }
 
@@ -66,6 +66,8 @@ export async function getCurrencies(countryCode: string): Promise<Currencies> {
   for (const [currencyCode, rate] of Object.entries(quotes.rates)) {
     currencies.rates[currencyCode] = rate.exchange_rate;
   }
+
+  console.log(currencies);
 
   return currencies;
 }

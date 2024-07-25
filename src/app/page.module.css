@@ -16,7 +16,7 @@
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: repeat(12, 1fr);
   height: 100%;
-  width: 100%;
+  width: calc(100% - var(--pixel-size) * 12);
   gap: calc(var(--pixel-size) * 4);
 }
 

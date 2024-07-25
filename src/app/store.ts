@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { CountryData, emailSubjects, countryData } from "./components/gameData";
-import { randiRange } from "./util/math";
+import { randiRange, relativeRound } from "./util/math";
 import { playSound } from "./hooks/useAudio";
 import { replaceAt } from "./util/array";
 import { Currencies } from "./providers/stripe";
@@ -34,7 +34,7 @@ export type ActiveItem = {
 
 interface AppState {
   currencies: Currencies | null;
-  setCurrencies: (currencies: Currencies) => void;
+  setCurrencies: (currencies: Currencies | null) => void;
 
   // Game state machine
   state: GameState;
@@ -205,7 +205,7 @@ export const useAppStore = create<AppState>((set, get) => ({
     const usedIndexes = new Set<number>();
     let merchantIndex = randiRange(0, currentItemData.merchants.length - 1);
     for (let i = 0; i < count; i++) {
-      // Don't re-use merchants
+      // Don't re-use merchants. This may be irrelevant now that there are always 2 merchants.
       while (usedIndexes.has(merchantIndex)) {
         merchantIndex = randiRange(0, currentItemData.merchants.length - 1);
       }
@@ -343,24 +343,40 @@ export function useCurrentCountry(): CountryData {
   return countryData[countryIndex];
 }
 
-// export function useDisplayPrice(item: ActiveItem): number {
-//   const currentCountry = useCurrentCountry();
-//   const currencies = useAppStore((state) => state.currencies);
+export function useDisplayPrice(item: ActiveItem): string {
+  const currentCountry = useCurrentCountry();
+  const currencies = useAppStore((state) => state.currencies);
 
-//   if (currencies === null) {
-//     // No currencies loaded, assume player is in the US
-//     if (item.converted) {
-//       return (1 / currentCountry.conversionRateDefault) * item.usdPrice;
-//     } else {
-//       return item.usdPrice;
-//     }
-//   } else {
-//     if (item.converted) {
-//       return currencies[currentCountry.currency] * item.usdPrice;
-//     } else {
-//     }
-//   }
-// }
+  if (currencies === null) {
+    // No currencies loaded, assume player is in the US
+    if (item.converted) {
+      return formatDisplayPrice(
+        (1 / currentCountry.conversionRateDefault) * item.usdPrice,
+        currentCountry.currencyCode
+      );
+    } else {
+      return formatDisplayPrice(item.usdPrice, "usd");
+    }
+  } else {
+    if (!item.converted) {
+      return formatDisplayPrice(
+        (1 / currencies.rates[currentCountry.currencyCode]) * item.usdPrice,
+        currentCountry.currencyCode
+      );
+    } else {
+      if (currencies.toCurrency === "usd") {
+        return formatDisplayPrice(item.usdPrice, "usd");
+      } else {
+        return formatDisplayPrice((1 / currencies.rates["usd"]) * item.usdPrice, currencies.toCurrency);
+      }
+    }
+  }
+}
+
+// Convert the currency of the user's locale. relativeRound() lops off any relatively insignificant digits
+export function formatDisplayPrice(price: number, currency: string): string {
+  return Intl.NumberFormat(undefined, { style: "currency", currency }).format(relativeRound(price));
+}
 
 export function useIsLightningRound(): boolean {
   const countryIndex = useAppStore((state) => state.countryIndex);

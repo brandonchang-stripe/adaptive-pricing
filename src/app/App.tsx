@@ -24,7 +24,7 @@ import ViewControl from "./components/ViewControl/ViewControl";
 
 type AppProps = {
   nonce: string;
-  currencies: Currencies;
+  currencies: Currencies | null;
 };
 
 export default function App({ nonce, currencies }: AppProps) {
