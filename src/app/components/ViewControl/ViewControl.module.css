@@ -6,15 +6,24 @@
   top: calc(100dvh - var(--pixel-size) * 34);
   left: 50%;
   transform: translateX(-50%);
-  height: calc(var(--pixel-size) * 5);
+  height: calc(var(--pixel-size) * 15);
   width: calc(var(--pixel-size) * 160);
   z-index: 2;
+
+}
+
+.track {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: calc(var(--pixel-size) * 5);
+  transform: translateY(-50%);
 
   border-image-source: url("/sprites/view-slider.png");
   border-image-slice: 2 fill;
   border-image-width: calc(var(--pixel-size) * 2);
   border-image-repeat: repeat;
-  image-rendering: pixelated;
 }
 
 .control {
@@ -24,8 +33,10 @@
 }
 
 .image {
+  position: relative;
   width: calc(var(--pixel-size) * 47);
   height: calc(var(--pixel-size) * 15);
+  z-index: 2;
 }
 
 .control:active {

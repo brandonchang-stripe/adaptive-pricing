@@ -13,7 +13,7 @@ export default function ViewControl({ onUpdate }: ViewControlProps) {
   const audio = useAudio();
 
   const startDrag = useCallback((event: React.PointerEvent) => {
-    dragControls.start(event, { snapToCursor: false });
+    dragControls.start(event, { snapToCursor: true });
   }, [dragControls]);
 
   const handleUpdate = useCallback((latest: { x: number }) => {
@@ -29,7 +29,8 @@ export default function ViewControl({ onUpdate }: ViewControlProps) {
   }
 
   return (
-    <motion.div className={styles.container} ref={containerRef} onPointerDown={startDrag} >
+    <div className={styles.container} ref={containerRef} onPointerDown={startDrag} >
+      <div className={styles.track} />
       <motion.div
         onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
@@ -37,6 +38,7 @@ export default function ViewControl({ onUpdate }: ViewControlProps) {
         dragConstraints={containerRef}
         dragTransition={{ bounceStiffness: 1500, bounceDamping: 50 }}
         dragControls={dragControls}
+        dragListener={true}
         drag="x"
         dragSnapToOrigin
         dragElastic={0.1}
@@ -44,6 +46,6 @@ export default function ViewControl({ onUpdate }: ViewControlProps) {
       >
         <img className={styles.image} src="/sprites/view-control.png" draggable="false" alt="Drag to view" />
       </motion.div>
-    </motion.div>
+    </div>
   );
 }
