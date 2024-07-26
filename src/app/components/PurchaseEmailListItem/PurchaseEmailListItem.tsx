@@ -9,8 +9,8 @@ type Props = {
 
 export default function PurchaseEmailListItem({ item, index }: Props) {
   const { merchant, title, usdPrice, score, saved } = item;
-  const paid = useConvertedPrice(usdPrice);
-  const discount = useConvertedPrice(saved);
+  const paid = useConvertedPrice(usdPrice, true);
+  const discount = useConvertedPrice(saved, true);
 
   return (
     <EmailListItem
