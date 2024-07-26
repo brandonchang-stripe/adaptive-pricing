@@ -15,7 +15,7 @@
 - [ ] Music
   - [x] Pan desk
 - [ ] OG Share
-- [ ] Live currencies
+- [x] Live currencies
 - [x] Boot animation
   - [x] Rotating logo
   - [x] Button to boot
@@ -24,7 +24,7 @@
 - [x] Tweak planes
 - [x] Top padding above item display title
 - [x] Draggable false on item display icons
-- [ ] Less tracking on purchase popover
+- [x] Less tracking on purchase popover
 - [ ] Invert colors on shades
 - [x] Scrollbar left line
 - [x] Share button "Share"

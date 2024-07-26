@@ -14,9 +14,9 @@ export default function ScoreFrame() {
   const transitionState = useAppStore((state) => state.transitionState);
 
   const totalSpendUSD = items.reduce((acc, item) => acc + item.usdPrice, 0);
-  const totalSpend = useConvertedPrice(totalSpendUSD);
+  const totalSpend = useConvertedPrice(totalSpendUSD, true);
   const totalSavedUSD = items.reduce((acc, item) => acc + item.saved, 0);
-  const totalSaved = useConvertedPrice(totalSavedUSD);
+  const totalSaved = useConvertedPrice(totalSavedUSD, true);
   const totalScore = score.reduce((acc, s) => acc + s, 0);
   const scoreDigits = (totalScore * 100).toString().split("");
 
@@ -75,7 +75,7 @@ export default function ScoreFrame() {
               <tbody>
                 <tr>
                   <td>Your {country + 1} trip spend:</td>
-                  <td>[${totalSpend}]</td>
+                  <td>[{totalSpend}]</td>
                 </tr>
                 <tr>
                   <td></td>
@@ -83,7 +83,7 @@ export default function ScoreFrame() {
                 </tr>
                 <tr>
                   <td>Total savings:</td>
-                  <td>[${totalSaved}]</td>
+                  <td>[{totalSaved}]</td>
                 </tr>
               </tbody>
             </table>
