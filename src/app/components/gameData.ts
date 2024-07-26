@@ -61,7 +61,7 @@ export const countryData: CountryData[] = [
     currentConversionRate: null,
     items: [
       {
-        type: "Soccer ball",
+        type: "Futbol",
         merchants: ["amazonian-air.br", "flybrazil.br"],
         baseUsdPrice: 30,
         priceIncrements: [1, 3, 9],

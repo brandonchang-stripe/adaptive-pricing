@@ -98,14 +98,6 @@ export default function ScoreList({ index = 1, onListAnimationComplete }: Props)
           {purchasedItems.map((item, i) => (
             <PurchaseEmailListItem key={i} item={item} index={i} />
           ))}
-
-          <EmailListItem
-            index={purchasedItems.length}
-            openSounds={["open"]}
-            subject="Your travel total"
-            from="Travel Budgeter"
-            imageSrc=""
-          />
         </motion.div>
       </div>
     </Frame>

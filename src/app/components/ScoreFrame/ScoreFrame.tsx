@@ -1,7 +1,7 @@
 import styles from "./ScoreFrame.module.css";
 import { useEffect, useState } from "react";
 import { useAudio } from "@/app/hooks/useAudio";
-import { useAppStore } from "@/app/store";
+import { useAppStore, useConvertedPrice } from "@/app/store";
 import Frame from "../Frame/Frame";
 import Button from "../Button/Button";
 import ScoreMileCounter from "./ScoreMileCounter";
@@ -12,8 +12,11 @@ export default function ScoreFrame() {
   const score = useAppStore((state) => state.score);
   const items = useAppStore((state) => state.purchasedItems);
   const transitionState = useAppStore((state) => state.transitionState);
-  const totalSpend = items.reduce((acc, item) => acc + item.usdPrice, 0);
-  const totalSaved = items.reduce((acc, item) => acc + item.saved, 0);
+
+  const totalSpendUSD = items.reduce((acc, item) => acc + item.usdPrice, 0);
+  const totalSpend = useConvertedPrice(totalSpendUSD);
+  const totalSavedUSD = items.reduce((acc, item) => acc + item.saved, 0);
+  const totalSaved = useConvertedPrice(totalSavedUSD);
   const totalScore = score.reduce((acc, s) => acc + s, 0);
   const scoreDigits = (totalScore * 100).toString().split("");
 
@@ -55,7 +58,7 @@ export default function ScoreFrame() {
               <tbody>
                 <tr>
                   <td>from:</td>
-                  <td>Travel Budgeter</td>
+                  <td>Price Adapter</td>
                 </tr>
                 <tr>
                   <td>sent:</td>
@@ -71,11 +74,12 @@ export default function ScoreFrame() {
             <table className={styles.scoreFrameTable}>
               <tbody>
                 <tr>
-                  <td>Your {country} trip spend:</td>
+                  <td>Your {country + 1} trip spend:</td>
                   <td>[${totalSpend}]</td>
                 </tr>
                 <tr>
-                  <td></td> <td></td>
+                  <td></td>
+                  <td></td>
                 </tr>
                 <tr>
                   <td>Total savings:</td>
@@ -98,8 +102,8 @@ export default function ScoreFrame() {
           <div className={styles.blurb}>
             <p>Let Stripe handle currency conversion for you.</p>
             <p>
-              Improve conversion with <b>Adaptive Pricing</b>. Stripe automatically converts prices into buyer&apos;s local
-              currency and businesses see revenue increase by 17.8%.
+              Improve conversion with <b>Adaptive Pricing</b>. Stripe automatically converts prices into buyer&apos;s
+              local currency and businesses see revenue increase by 17.8%.
             </p>
             <p>
               <a href="https://docs.stripe.com/payments/checkout/adaptive-pricing">Get started</a> with Adaptive Pricing

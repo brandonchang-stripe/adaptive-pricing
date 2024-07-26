@@ -26,7 +26,7 @@
 - [x] Draggable false on item display icons
 - [ ] Less tracking on purchase popover
 - [ ] Invert colors on shades
-- [ ] Scrollbar left line
+- [x] Scrollbar left line
 - [x] Share button "Share"
 - [x] Share button outline
 
