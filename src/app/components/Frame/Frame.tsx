@@ -1,8 +1,8 @@
 import styles from "./Frame.module.css";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { stepEase } from "@/app/util/stepEase";
 import { useAudio } from "@/app/hooks/useAudio";
-import { useState } from "react";
 import { useScreenRef } from "../Context";
 
 type FrameProps = {

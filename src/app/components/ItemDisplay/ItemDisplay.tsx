@@ -1,14 +1,15 @@
 import styles from "./ItemDisplay.module.css";
-import { ActiveItem, useAppStore, useConvertedPrice } from "@/app/store";
-import Frame from "../Frame/Frame";
-import Button from "../Button/Button";
 import { animate, motion, useMotionValue, useTransform } from "framer-motion";
 import { RefObject, useEffect, useRef, useState } from "react";
-import { useAudio } from "@/app/hooks/useAudio";
 import { createPortal } from "react-dom";
+
+import { ActiveItem, useAppStore, useConvertedPrice } from "@/app/store";
+import { useAudio } from "@/app/hooks/useAudio";
 import { stepEase } from "@/app/util/stepEase";
 import { usePixelSize } from "@/app/hooks/usePixelSize";
 import useDeviceDetails from "@/app/hooks/useDeviceDetails";
+import Frame from "../Frame/Frame";
+import Button from "../Button/Button";
 
 type ItemDisplayFrameProps = {
   item: ActiveItem;
