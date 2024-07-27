@@ -37,6 +37,20 @@ const dogica = localFont({
 export const metadata: Metadata = {
   title: "Price Adapter",
   description: "",
+  openGraph: {
+    type: "website",
+    url: "https://priceadapter.com",
+    title: "Price Adapter",
+    description: "",
+    images: [
+      {
+        url: "/og/image?scores=1000&500",
+        width: 1200,
+        height: 630,
+        alt: "Price Adapter",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({

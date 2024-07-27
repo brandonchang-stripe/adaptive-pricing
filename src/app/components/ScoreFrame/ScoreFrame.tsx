@@ -42,11 +42,12 @@ export default function ScoreFrame() {
   }
 
   function handleShare() {
+    const url = new URL("https://priceadapter.com");
+    url.searchParams.append("scores", totalScore.toString());
+    const message = `I saved ${totalSaved} planning my world tour at priceadapter.com. ${url.toString()}`;
+
     // share to twitter with a custom open graph image
-    window.open(
-      `https://twitter.com/intent/tweet?text=I%20just%20spent%20$${totalSpend}%20on%20my%20${country}%20trip%20and%20earned%20${totalScore}%20points!%20%23TravelBudgeter%20%23Stripe%20%23AdaptivePricing%20%23Travel%20%23${country}`,
-      "_blank"
-    );
+    window.open(`https://twitter.com/intent/tweet?text=${encodeURI(message)}`, "_blank");
   }
 
   return (
