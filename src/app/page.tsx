@@ -42,5 +42,5 @@ export default async function PageLayout() {
     console.error(e);
   }
 
-  return <App nonce={nonce} currencies={currencies} isPreview />;
+  return <App nonce={nonce} currencies={currencies} />;
 }
