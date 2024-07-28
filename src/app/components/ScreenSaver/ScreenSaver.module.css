@@ -29,11 +29,23 @@
   width:  calc(var(--pixel-size) * 150);
   background-repeat: no-repeat;
   animation: spritesheet 3s steps(11) infinite forwards;
-  /* 1650 × 67 */
+}
+
+.blinker {
+  height: calc(var(--pixel-size) * 8);
+  width: calc(var(--pixel-size) * 5);
+  display: inline-block;
+  background-color: var(--color-200);
+  animation: blink 1s steps(1) infinite forwards;
 }
 
 @keyframes spritesheet {
   0% {background-position: 0 0;}
   30% {background-position: 0 0;}
   100% {background-position: calc(var(--pixel-size) * -1650) 0;}
+}
+
+@keyframes blink {
+  0% {background-color: var(--color-200);} 
+  50% {background-color: transparent; } 
 }

@@ -82,7 +82,7 @@ export default function ScreenSaver() {
     <div className={styles.container} ref={containerRef} onClick={handleClick}>
       <div className={styles.bouncer} ref={bouncerRef}>
       </div>
-      <div className={styles.text}>[ CLICK TO WAKE ]</div>
+      <div className={styles.text}> &gt; CLICK TO WAKE <span className={styles.blinker}></span></div>
     </div>
   );
 }
