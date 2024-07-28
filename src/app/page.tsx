@@ -15,6 +15,7 @@ export async function generateMetadata({ searchParams }: MetaProps): Promise<Met
   return {
     title: "Price Adapter",
     description: "",
+    icons: [{ url: "/favicon.png" }],
     openGraph: {
       type: "website",
       url: "https://priceadapter.com",
@@ -22,7 +23,7 @@ export async function generateMetadata({ searchParams }: MetaProps): Promise<Met
       description: "Price Adapter",
       images: [
         {
-          url: scores ? `https://priceadapter.com/og/score/${scores}` : "https://priceadapter.com/og/main",
+          url: scores ? `https://priceadapter.com/og/score/${scores}` : "/share-image.png",
           width: 1200,
           height: 630,
           alt: "Price Adapter",
