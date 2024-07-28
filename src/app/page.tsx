@@ -9,17 +9,8 @@ type MetaProps = {
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
-export async function generateMetadata({ searchParams }: MetaProps, parent: ResolvingMetadata): Promise<Metadata> {
+export async function generateMetadata({ searchParams }: MetaProps): Promise<Metadata> {
   const { scores } = searchParams;
-
-  let imageUrl;
-  if (scores && Array.isArray(scores)) {
-    const url = new URL("https://priceadapter.com/og/score");
-    scores.forEach((score) => url.searchParams.append("scores", score));
-    imageUrl = url.toString();
-  } else {
-    imageUrl = "https://priceadapter.com/og/main";
-  }
 
   return {
     title: "Price Adapter",
@@ -31,7 +22,7 @@ export async function generateMetadata({ searchParams }: MetaProps, parent: Reso
       description: "Price Adapter",
       images: [
         {
-          url: imageUrl,
+          url: scores ? `https://priceadapter.com/og/score/${scores}` : "https://priceadapter.com/og/main",
           width: 1200,
           height: 630,
           alt: "Price Adapter",

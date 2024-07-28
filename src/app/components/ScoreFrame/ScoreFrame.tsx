@@ -9,7 +9,7 @@ import ScoreMileCounter from "./ScoreMileCounter";
 export default function ScoreFrame() {
   const audio = useAudio();
   const country = useAppStore((state) => state.countryIndex);
-  const score = useAppStore((state) => state.score);
+  const scores = useAppStore((state) => state.score);
   const items = useAppStore((state) => state.purchasedItems);
   const transitionState = useAppStore((state) => state.transitionState);
 
@@ -17,7 +17,7 @@ export default function ScoreFrame() {
   const totalSpend = useConvertedPrice(totalSpendUSD, true);
   const totalSavedUSD = items.reduce((acc, item) => acc + item.saved, 0);
   const totalSaved = useConvertedPrice(totalSavedUSD, true);
-  const totalScore = score.reduce((acc, s) => acc + s, 0);
+  const totalScore = scores.reduce((acc, s) => acc + s, 0) * 100;
   const scoreDigits = (totalScore * 100).toString().split("");
 
   const [visible, setVisible] = useState(false);
@@ -43,11 +43,12 @@ export default function ScoreFrame() {
 
   function handleShare() {
     const url = new URL("https://priceadapter.com");
-    url.searchParams.append("scores", totalScore.toString());
-    const message = `I saved ${totalSaved} planning my world tour at priceadapter.com. ${url.toString()}`;
+    const encoded = btoa(JSON.stringify( scores ));
+    url.searchParams.append("scores", encoded);
+    const message = `I scored ${totalScore} points planning my world tour on Price Adapter.`;
 
     // share to twitter with a custom open graph image
-    window.open(`https://twitter.com/intent/tweet?text=${encodeURI(message)}`, "_blank");
+    window.open(`https://twitter.com/intent/tweet?text=${encodeURI(message)}&url=${url.toString()}`, "_blank");
   }
 
   return (
