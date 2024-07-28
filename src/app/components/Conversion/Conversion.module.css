@@ -41,11 +41,8 @@
 }
 
 .lightninground {
-  font-size: calc(var(--pixel-size) * 16);
+  font-size: calc(var(--pixel-size) * 8);
   color: var(--color-100);
-  background: url('/sprites/textures/texture-1.png');
-  background-size: calc(var(--pixel-size)* 2);
-  background-repeat: repeat;
   height: 100%;
   width: 100%;
   display: flex;
@@ -53,7 +50,11 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  line-height: 0.7;
+  gap: calc(var(--pixel-size) * 3);
+}
+
+.lightningroundLogo {
+  width: calc(var(--pixel-size) * 212);
 }
 
 @media (max-height: 720px) or (max-width: 810px) {

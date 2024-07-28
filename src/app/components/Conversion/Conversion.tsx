@@ -21,8 +21,7 @@ export default function Conversion({ position, index = 0 }: ConversionWindowProp
     <Frame label="Currency Converter" position={position} index={index} type={isMobile ? "simple" : "regular"}>
       {isLightningRound ? (
         <div className={styles.lightninground}>
-          <b>LIGHTNING ROUND</b>
-          <br />
+          <img className={styles.lightningroundLogo} src="/sprites/lightning-round.png" alt="Lightning Round" />
           ALL PRICES ARE ADAPTED
         </div>
       ) : (
