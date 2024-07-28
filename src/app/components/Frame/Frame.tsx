@@ -9,7 +9,7 @@ type FrameProps = {
   children?: React.ReactNode;
   label?: string;
   position: string;
-  type?: "regular" | "note" | "simple";
+  type?: "regular" | "note" | "simple" | "tutorial";
   index?: number;
   visible?: boolean;
   allowDrag?: boolean;
@@ -73,7 +73,7 @@ export default function Frame({
       className={`${styles.frame} ${position} ${type}`}
       data-type={type}
     >
-      {type !== "simple" && <div className={styles.titlebar}>{label}</div>}
+      {type !== "simple" && type !== "tutorial" && <div className={styles.titlebar}>{label}</div>}
       <div className={styles.content}>{children}</div>
     </motion.div>
   );

@@ -60,6 +60,14 @@
   padding: calc(var(--pixel-size) * 3);
 }
 
+.frame[data-type="tutorial"] .content {
+  border-image-source: url("/sprites/border.png");
+  border-image-slice: 1 fill;
+  border-image-width: calc(var(--pixel-size));
+  background-color: var(--color-200);
+  padding: calc(var(--pixel-size) * 1);
+}
+
 .frame:global(.starting-notes) {
   grid-column: 4 / span 6;
   grid-row: 4 / span 5;
@@ -119,7 +127,7 @@
 }
 
 .frame:global(.score-list) {
-  grid-column: 2 / span 5;
+  grid-column: 1 / span 6;
   grid-row: 2 / span 10;
 }
 

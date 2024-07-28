@@ -24,7 +24,7 @@ export default function Startup() {
     <div key={5}>--- System health check start ---</div>,
     <div key={6} className={styles.line}>
       Exothermic radiator
-      <div className={styles.spacer} />[ OK ]
+      <div className={styles.spacer} />[ WARMED ]
     </div>,
     <div key={7} className={styles.line}>
       Feedback loop module

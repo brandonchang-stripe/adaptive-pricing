@@ -372,7 +372,11 @@ export function useConvertedPrice(usdPrice: number, converted: boolean = false):
 
 // Convert the currency of the user's locale. relativeRound() lops off any relatively insignificant digits
 export function formatDisplayPrice(price: number, currency: string): string {
-  return Intl.NumberFormat(undefined, { style: "currency", currency }).format(relativeRound(price));
+  return Intl.NumberFormat(undefined, {
+    style: "currency",
+    currency,
+    maximumFractionDigits: price >= 100 ? 0 : undefined,
+  }).format(price);
 }
 
 export function useIsLightningRound(): boolean {

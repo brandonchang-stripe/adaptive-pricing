@@ -18,7 +18,7 @@ export default function ScoreFrame() {
   const totalSavedUSD = items.reduce((acc, item) => acc + item.saved, 0);
   const totalSaved = useConvertedPrice(totalSavedUSD, true);
   const totalScore = scores.reduce((acc, s) => acc + s, 0) * 100;
-  const scoreDigits = (totalScore * 100).toString().split("");
+  const scoreDigits = totalScore.toString().split("");
 
   const [visible, setVisible] = useState(false);
 
@@ -108,7 +108,7 @@ export default function ScoreFrame() {
               local currency and businesses see revenue increase by 17.8%.
             </p>
             <p>
-              <a href="https://docs.stripe.com/payments/checkout/adaptive-pricing">Get started</a> with Adaptive Pricing
+              <a href="https://docs.stripe.com/payments/checkout/adaptive-pricing" target="_blank">Get started</a> with Adaptive Pricing
               on Checkout or Payment Links.
             </p>
             <div className="spacer"></div>

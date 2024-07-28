@@ -1,4 +1,4 @@
-import { useAppStore, useIsLightningRound } from "../store";
+import { useAppStore, useConvertedPrice, useIsLightningRound } from "../store";
 import ItemDisplay from "@/app/components/ItemDisplay/ItemDisplay";
 import Conversion from "@/app/components/Conversion/Conversion";
 import Timer from "@/app/components/Timer/Timer";
@@ -14,6 +14,7 @@ export default function InGame() {
   const tutorialStep = useAppStore((state) => state.tutorialStep);
   const nextTutorialStep = useAppStore((state) => state.nextTutorialStep);
   const tutorialActive = tutorialStep !== -1;
+  const sliderMax = useConvertedPrice(100, true);
 
   const handleStart = () => {
     endTutorial();
@@ -40,7 +41,7 @@ export default function InGame() {
       {tutorialStep === 2 && (
         <TutorialFrame tutorialStep={2} onNext={nextTutorialStep} index={1}>
           <p>
-            Use the currency conversion slider to compare prices and select the best deal. The slider maxes out at $100.
+            Use the currency conversion slider to compare prices and select the best deal. The slider maxes out at {sliderMax}.
             For anything more expensive, use your math skills!
           </p>
         </TutorialFrame>
@@ -49,7 +50,7 @@ export default function InGame() {
       {(!tutorialActive || tutorialStep >= 3) && <Timer onTimeout={() => evaluate(false)} index={2} />}
 
       <TutorialFrame tutorialStep={3} onNext={handleStart} index={1}>
-        <p>You have limited time. Choose quickly and wisely.</p>
+        <p>You have limited time. Choose quickly!</p>
       </TutorialFrame>
 
       {!tutorialActive && <ProgressBar />}

@@ -15,7 +15,7 @@ export default function TutorialFrame({ children, onNext, tutorialStep, index = 
 
   return (
     currentStep == tutorialStep && (
-      <Frame position={`tutorial-${tutorialStep}`} type="simple" index={index} allowDrag>
+      <Frame position={`tutorial-${tutorialStep}`} type="tutorial" index={index} allowDrag>
         <div className={style.container}>
           {children}
           <div className="spacer"></div>
