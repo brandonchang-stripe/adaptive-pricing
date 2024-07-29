@@ -33,7 +33,7 @@ export default function InGame() {
         <ItemDisplay item={currentItems[1]} index={2} key={currentItems[1].merchant} />
       )}
       <TutorialFrame tutorialStep={1} onNext={nextTutorialStep} index={6}>
-        <p>At this shop, the price has automatically been converted to your local currency.</p>
+        <p>At this shop, the price is automatically converted to your local currency.</p>
       </TutorialFrame>
 
       {(!tutorialActive || tutorialStep >= 2) && <Conversion position="slider" index={2} />}

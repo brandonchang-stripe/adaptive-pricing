@@ -29,7 +29,7 @@ export async function GET(_: Request, { params }: { params: { scores: string } }
         >
           <img
             style={{ width: "100%", height: "100%" }}
-            src="https://images.ctfassets.net/fzn2n1nzq965/eBHEQWdZwNR89SksLUGTi/e731cb1413908decbf08c153ba04942a/passport.png"
+            src="https://images.ctfassets.net/fzn2n1nzq965/eBHEQWdZwNR89SksLUGTi/520e56b0ca3f6a4ef1e8f1276f6e5937/passport.png"
           />
           <div
             style={{
