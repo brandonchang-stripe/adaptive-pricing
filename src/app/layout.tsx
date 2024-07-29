@@ -1,5 +1,6 @@
 import localFont from "next/font/local";
 import "./globals.css";
+import Script from "next/script";
 
 const dogica = localFont({
   src: [
@@ -41,6 +42,7 @@ export default function RootLayout({
 }>) {
   return (
     <html className={dogica.className} lang="en">
+      <Script data-domain="priceadapter.com" src="https://plausible.io/js/script.js" />
       <body>{children}</body>
     </html>
   );
