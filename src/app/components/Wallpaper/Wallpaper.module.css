@@ -9,4 +9,6 @@
   background-position: var(--pixel-size);
   background-repeat: round;
   z-index: 1;
+
+  cursor: url("/sprites/cursor.png"), auto;
 }

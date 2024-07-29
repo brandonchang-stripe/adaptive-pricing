@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import { ImageResponse } from "next/og";
 
 export async function GET(_: Request, { params }: { params: { scores: string } }) {
@@ -115,8 +116,7 @@ export async function GET(_: Request, { params }: { params: { scores: string } }
       }
     );
   } catch (e) {
-    return new Response(`Failed to generate the image`, {
-      status: 500,
-    });
+    console.error(e);
+    redirect(`/share-image.png`);
   }
 }

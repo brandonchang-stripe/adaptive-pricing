@@ -22,7 +22,7 @@
   background-color: var(--color-100);
   height: 100%;
   overflow: hidden;
-  cursor: grab;
+  cursor: url("/sprites/cursor-grab.png"), grab;
 
 
   background-image: url('/sprites/textures/texture-3.png');
@@ -30,7 +30,7 @@
 }
 
 .sliderWrapper:active {
-  cursor: grabbing;
+  cursor: url("/sprites/cursor-grabbing.png"), grabbing;
 }
 
 .sliderControl {

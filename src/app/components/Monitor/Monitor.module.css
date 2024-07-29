@@ -37,6 +37,7 @@
   border-image-slice: 5 fill;
   border-image-width: calc(var(--pixel-size) * 5);
   border-image-repeat: repeat;
+  cursor: url("/sprites/cursor.png"), auto;
 }
 
 .screen {
@@ -45,6 +46,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: url("/sprites/cursor.png"), auto;
 }
 
 @media (max-height: 720px) or (max-width: 810px) {
