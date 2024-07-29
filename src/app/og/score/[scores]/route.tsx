@@ -113,12 +113,12 @@ export async function GET(_: Request, { params }: { params: { scores: string } }
       {
         width: 1200,
         height: 630,
-        fonts: [{
-          name: string,
-          data: ArrayBuffer,
-          weight: number,
-          style: 'normal' | 'italic'
-        }]
+        // fonts: [{
+        //   name: string,
+        //   data: ArrayBuffer,
+        //   weight: number,
+        //   style: 'normal' | 'italic'
+        // }]
       }
     );
   } catch (e) {
