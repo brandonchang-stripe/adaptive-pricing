@@ -42,7 +42,7 @@ export async function GET(_: Request, { params }: { params: { scores: string } }
               width: "100px",
               justifyContent: "center",
               fontFamily: "courier monospace",
-              transform: "translate(220px, 270px) rotate(-36deg) skew(14deg)",
+              transform: "translate(260px, 275px) rotate(-35deg) skew(13deg)",
             }}
           >
             {scoreStrings[1] || "***"}
@@ -57,7 +57,7 @@ export async function GET(_: Request, { params }: { params: { scores: string } }
               width: "100px",
               justifyContent: "center",
               fontFamily: "courier monospace",
-              transform: "translate(475px, 312px) rotate(-5deg)",
+              transform: "translate(473px, 318px) rotate(-4deg)",
               textAlign: "center",
             }}
           >
@@ -73,7 +73,7 @@ export async function GET(_: Request, { params }: { params: { scores: string } }
               width: "100px",
               justifyContent: "center",
               fontFamily: "courier monospace",
-              transform: "translate(758px, 475px) rotate(-3deg)",
+              transform: "translate(720px, 450px) rotate(-3deg)",
             }}
           >
             {scoreStrings[2] || "***"}
@@ -88,7 +88,7 @@ export async function GET(_: Request, { params }: { params: { scores: string } }
               justifyContent: "center",
               fontWeight: "bold",
               fontFamily: "courier monospace",
-              transform: "translate(995px, 260px) rotate(6deg)",
+              transform: "translate(933px, 265px) rotate(6deg)",
             }}
           >
             {scoreStrings[3] || "***"}
@@ -103,7 +103,7 @@ export async function GET(_: Request, { params }: { params: { scores: string } }
               fontFamily: "courier monospace",
               width: "200px",
               justifyContent: "center",
-              transform: "translate(404px, 516px) rotate(1deg)",
+              transform: "translate(405px, 486px) rotate(1deg)",
             }}
           >
             {total}

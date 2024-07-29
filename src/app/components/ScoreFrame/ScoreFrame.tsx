@@ -42,7 +42,7 @@ export default function ScoreFrame() {
   }
 
   function handleShare() {
-    const url = new URL("https://priceadapter.com");
+    const url = new URL("https://www.priceadapter.com");
     const encoded = btoa(JSON.stringify( scores ));
     url.searchParams.append("scores", encoded);
     const message = `I scored ${totalScore} points planning my world tour on Price Adapter.`;
