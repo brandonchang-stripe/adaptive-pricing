@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { CountryData, emailSubjects, countryData } from "./components/gameData";
 import { randiRange, relativeRound } from "./util/math";
-import { playSound } from "./hooks/useAudio";
+import { playMusic, playSound, stopMusic } from "./hooks/useAudio";
 import { replaceAt } from "./util/array";
 import { Currencies } from "./providers/stripe";
 import ItemDisplayFrame from "./components/ItemDisplay/ItemDisplay";
@@ -84,6 +84,7 @@ export const useAppStore = create<AppState>((set, get) => ({
       case "MAIN_MENU":
         get().initGame();
         get().initRound();
+        playMusic();
         set({ state: newState });
         break;
 
@@ -130,6 +131,10 @@ export const useAppStore = create<AppState>((set, get) => ({
         break;
 
       case "SCORE_SCREEN":
+        stopMusic();
+        setTimeout(() => {
+          playMusic();
+        }, (get().purchasedItems.length + 5) * 300 + 6000);
         set({ state: newState });
         break;
 

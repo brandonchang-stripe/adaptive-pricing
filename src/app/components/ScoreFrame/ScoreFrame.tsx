@@ -1,6 +1,6 @@
 import styles from "./ScoreFrame.module.css";
 import { useEffect, useState } from "react";
-import { useAudio } from "@/app/hooks/useAudio";
+import { useAudio, playMusic } from "@/app/hooks/useAudio";
 import { useAppStore, useConvertedPrice } from "@/app/store";
 import Frame from "../Frame/Frame";
 import Button from "../Button/Button";
@@ -27,13 +27,18 @@ export default function ScoreFrame() {
       setVisible(true);
     }, (items.length + 5) * 300);
 
-    const play = setTimeout(() => {
+    const score = setTimeout(() => {
       audio("score");
     }, (items.length + 5) * 300 + 600);
 
+    const music = setTimeout(() => {
+      playMusic();
+    }, (items.length + 5) * 300 + 1500);
+
     return () => {
-      clearTimeout(play);
       clearTimeout(vis);
+      clearTimeout(score);
+      clearTimeout(music);
     };
   }, [audio, items.length]);
 

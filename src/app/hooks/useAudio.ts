@@ -60,3 +60,29 @@ export function playSound(id: SoundName, rate = 1) {
   const sound = soundBoard[id].play();
   soundBoard[id].rate(rate, sound);
 }
+
+const music = new Howl({
+  src: "./audio/bossa_adapter.mp3",
+  html5: true,
+  loop: true,
+  volume: 0.7,
+});
+
+// Keep this outside of the hook to prevent multiple instances
+let musicId: number | undefined;
+
+export function playMusic() {
+  if (!musicId) {
+    musicId = music.play();
+  }
+}
+
+export function stopMusic() {
+  if (musicId) {
+    music.fade(0.5, 0, 500, musicId);
+    music.once("fade", () => {
+      music.stop(musicId);
+      musicId = undefined;
+    });
+  }
+}
