@@ -10,5 +10,9 @@
   background-repeat: round;
   z-index: 1;
 
-  cursor: url("/sprites/cursor.png"), auto;
+  cursor: url("/sprites/cursor.png") 0 1, auto;
+}
+
+.wallpaper:active {
+  cursor: url("/sprites/cursor-down.png") 0 0, auto;
 }

@@ -14,19 +14,19 @@ export async function generateMetadata({ searchParams }: MetaProps): Promise<Met
 
   return {
     title: "Price Adapter",
-    description: "",
+    description: "Plan your world tour with Stripe's Price Adapter game. Shops that enable Adaptive Pricing display prices in local currencies to buyers all over the world, improving buyer conversion.",
     icons: [{ url: "/favicon.png" }],
     openGraph: {
       type: "website",
       url: "https://priceadapter.com",
       title: "Price Adapter",
-      description: "Price Adapter",
+      description: "Plan your world tour with Stripe's Price Adapter game. Shops that enable Adaptive Pricing display prices in local currencies to buyers all over the world, improving buyer conversion.",
       images: [
         {
           url: scores ? `https://priceadapter.com/og/score/${scores}` : "/share-image.png",
           width: 1200,
           height: 630,
-          alt: "Price Adapter",
+          alt: "A fictional pixel art passport with a stamps from Brazil, Japan, New Zealand, and Mexico. Each stamp shows a score. In the bottom left a logo reads Price Adapter",
         },
       ],
     },

@@ -108,7 +108,7 @@ export default function ScoreFrame() {
               local currency and businesses see revenue increase by 17.8%.
             </p>
             <p>
-              <a href="https://docs.stripe.com/payments/checkout/adaptive-pricing" target="_blank">Get started</a> with Adaptive Pricing
+              <a href=" https://docs.stripe.com/payments/checkout/adaptive-pricing?utm_medium=pr/comms&utm_source=d819&utm_campaign=GLOBAL_40d1&utm_content=8afb&utm_term=762d2b62986b" target="_blank">Get started</a> with Adaptive Pricing
               on Checkout or Payment Links.
             </p>
             <div className="spacer"></div>

@@ -6,7 +6,7 @@
   appearance: none;
   border: none;
   background-color: transparent;
-  cursor: pointer;
+  cursor: url("/sprites/cursor-pointer.png"), pointer;
 }
 
 .mute:active {
