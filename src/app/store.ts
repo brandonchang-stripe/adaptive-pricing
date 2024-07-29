@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { CountryData, emailSubjects, countryData } from "./components/gameData";
 import { randiRange, relativeRound } from "./util/math";
-import { playMusic, playSound, stopMusic } from "./hooks/useAudio";
+import { SoundName, playMusic, playSound, stopMusic } from "./hooks/useAudio";
 import { replaceAt } from "./util/array";
 import { Currencies } from "./providers/stripe";
 import ItemDisplayFrame from "./components/ItemDisplay/ItemDisplay";
@@ -134,7 +134,7 @@ export const useAppStore = create<AppState>((set, get) => ({
         stopMusic();
         setTimeout(() => {
           playMusic();
-        }, (get().purchasedItems.length + 5) * 300 + 6000);
+        }, (get().purchasedItems.length + 5) * 300 + 8000);
         set({ state: newState });
         break;
 
@@ -317,7 +317,7 @@ export const useAppStore = create<AppState>((set, get) => ({
 
   gainPoints: (points: number) => {
     set((state) => {
-      playSound("correct", Math.min(get().combo * 0.1 + 0.8, 1.8));
+      playSound(`point${Math.min(state.combo + 1, 5)}` as SoundName);
 
       const countryIndex = get().countryIndex;
       const newScore = state.score[countryIndex] + points;
