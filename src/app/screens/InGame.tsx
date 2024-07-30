@@ -69,7 +69,7 @@ export default function InGame() {
       {tutorialStep === 3 && (
         <TutorialFrame tutorialStep={3} onNext={nextTutorialStep} index={1}>
           <p>
-            Great! Now you can compare and find the better deal.
+            Great! Now you can <b>compare the two prices</b> and find the better deal.
             The slider maxes out at {formatDisplayPrice(sliderMax, localCurrency)}.
             For anything more expensive, use your math skills!
           </p>
