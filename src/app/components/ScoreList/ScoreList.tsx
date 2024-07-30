@@ -32,10 +32,7 @@ export default function ScoreList({ index = 1, onListAnimationComplete }: Props)
   };
 
   const handleDown = (index: number) => {
-    audio("clickDisabled", pitchToRate(index));
-  }
-  const handleUp = (index: number) => {
-    audio("clickUp");
+    audio("beepNote", pitchToRate(index));
   }
 
   // after all items have animated in, stop scrolling to the bottom
@@ -61,7 +58,6 @@ export default function ScoreList({ index = 1, onListAnimationComplete }: Props)
                 alt=""
                 draggable={false}
                 onPointerDown={() => handleDown(i)}
-                onPointerUp={() => handleUp(i)}
               />
             ))}
           <img className={styles.scoreListDivider} src="/sprites/email-icon-divider.png" alt="" draggable={false} />
@@ -75,7 +71,6 @@ export default function ScoreList({ index = 1, onListAnimationComplete }: Props)
                 alt=""
                 draggable={false}
                 onPointerDown={() => handleDown(i + 5)}
-                onPointerUp={() => handleUp(i + 5)}
               />
             ))}
         </div>

@@ -43,11 +43,11 @@ export const lerp = (x: number, y: number, a: number) => x * (1 - a) + y * a;
 export function pitchToRate(note: number, scale: "major" | "chromatic" = "major") {
   let selectedScale: number[];
   if (scale === "major") {
-    selectedScale = [1.0, 9 / 8, 5 / 4, 4 / 3, 3 / 2, 5 / 3, 15 / 8];
+    selectedScale = [1, 9 / 8, 5 / 4, 4 / 3, 3 / 2, 5 / 3, 15 / 8];
   } else {
-    selectedScale = [1.0, 25 / 24, 9 / 8, 6 / 5, 5 / 4, 4 / 3, 45 / 32, 3 / 2, 8 / 5, 5 / 3, 9 / 5, 15 / 8];
+    selectedScale = [1, 25 / 24, 9 / 8, 6 / 5, 5 / 4, 4 / 3, 45 / 32, 3 / 2, 8 / 5, 5 / 3, 9 / 5, 15 / 8];
   }
 
   const octave = Math.floor(note / selectedScale.length);
-  return selectedScale[note % selectedScale.length] + octave;
+  return selectedScale[note % selectedScale.length] * Math.pow(2, octave);
 }

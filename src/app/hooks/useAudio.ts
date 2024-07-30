@@ -26,6 +26,7 @@ export const soundBoard = {
   score: new Howl({ src: "./sfx/score.mp3", volume: 0.3 }),
   boot: new Howl({ src: "./sfx/startup_01.mp3", volume: 0.5 }),
   beep: new Howl({ src: "./sfx/beep_04.mp3", volume: 0.05 }),
+  beepNote: new Howl({ src: "./sfx/beep_06.mp3", volume: 0.3 }),
   splash: new Howl({ src: "./sfx/startup_02.mp3", volume: 0.05 }),
   ping: new Howl({ src: "./sfx/confirm_05.mp3", volume: 0.2 }),
 } as const;

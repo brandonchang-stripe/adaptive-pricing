@@ -63,6 +63,7 @@ export default function App({ nonce, currencies, isPreview = false}: AppProps) {
               {state === "GAME_START" && <StartFrame key="start" />}
               {state === "ROUND_FINISH" && <RoundEndFrame key="round" />}
               {state === "SCORE_SCREEN" && <ScoreScreen key="score-screen" />}
+              <ScoreScreen />
               <Mute />
             </div>
           </Monitor>
