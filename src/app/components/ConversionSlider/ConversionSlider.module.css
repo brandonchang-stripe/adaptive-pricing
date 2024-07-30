@@ -39,7 +39,7 @@
   height: 100%;
   position: absolute;
   display: flex;
-  gap: calc(var(--pixel-size) * 4);
+  gap: calc(var(--pixel-size) * 8);
   align-items: center;
   background-color: var(--color-100);
   overflow: visible;

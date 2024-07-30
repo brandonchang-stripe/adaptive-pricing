@@ -8,7 +8,6 @@ import ScoreMileCounter from "./ScoreMileCounter";
 
 export default function ScoreFrame() {
   const audio = useAudio();
-  const country = useAppStore((state) => state.countryIndex);
   const scores = useAppStore((state) => state.score);
   const items = useAppStore((state) => state.purchasedItems);
   const transitionState = useAppStore((state) => state.transitionState);

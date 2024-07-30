@@ -4,6 +4,7 @@ import Conversion from "@/app/components/Conversion/Conversion";
 import Timer from "@/app/components/Timer/Timer";
 import ProgressBar from "../components/ProgressBar/ProgressBar";
 import TutorialFrame from "../components/TutorialFrame/TutorialFrame";
+import { useRef } from "react";
 
 export default function InGame() {
   const state = useAppStore((state) => state.state);
@@ -19,9 +20,17 @@ export default function InGame() {
 
   const tutorialActive = tutorialStep !== -1;
 
+  // Handle advancing tutorial step when slider is in correct position,
+  // ignoring if the user slides past the correct position
+  const tutorial2Ref = useRef<any>(null);
   const handleSliderChange = (value: number) => {
-    if (tutorialStep === 2 && value === rightItemPrice) {
-      nextTutorialStep();
+    if (tutorialStep !== 2) return;
+    if (value === rightItemPrice) {
+      tutorial2Ref.current = setTimeout(() => { 
+        nextTutorialStep();
+      }, 500);
+    } else if (tutorial2Ref.current !== null) {
+      clearTimeout(tutorial2Ref.current);
     }
   }
 
@@ -60,7 +69,7 @@ export default function InGame() {
       {tutorialStep === 3 && (
         <TutorialFrame tutorialStep={3} onNext={nextTutorialStep} index={1}>
           <p>
-            Great! Now you can compare the prices of the two items.
+            Great! Now you can compare the prices the two items.
             The slider maxes out at {formatDisplayPrice(sliderMax, localCurrency)}.
             For anything more expensive, use your math skills!
           </p>
