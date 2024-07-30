@@ -64,10 +64,6 @@ export default function ScoreFrame() {
                   <td>Price Adapter</td>
                 </tr>
                 <tr>
-                  <td>sent:</td>
-                  <td>today</td>
-                </tr>
-                <tr>
                   <td>subject:</td>
                   <td>Your travel total</td>
                 </tr>
@@ -77,7 +73,7 @@ export default function ScoreFrame() {
             <table className={styles.scoreFrameTable}>
               <tbody>
                 <tr>
-                  <td>Your {country + 1} trip spend:</td>
+                  <td>Your trip spend:</td>
                   <td>[{totalSpend}]</td>
                 </tr>
                 <tr>
