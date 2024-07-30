@@ -52,7 +52,7 @@ export default function InGame() {
           <p>
             Use the currency conversion slider to compare prices.
             <br/><br/>
-            Try sliding it so the right value shows the adapted price of <b>{formatDisplayPrice(rightItemPrice, localCurrency)}</b>
+            <b>Try sliding it so the right side matches the adapted price of {formatDisplayPrice(rightItemPrice, localCurrency)}</b>
           </p>
         </TutorialFrame>
       )}

@@ -2,9 +2,6 @@ import { redirect } from "next/navigation";
 import { ImageResponse } from "next/og";
 
 export async function GET(_: Request, { params }: { params: { scores: string } }) {
-  // const fontData = await fetch(
-  // new URL('public/fonts/dogica/dogicapixelbold.ttf', import.meta.url),
-  // ).then((res) => res.arrayBuffer());
   try {
     const scores = JSON.parse(atob(params.scores));
     if (!scores || !Array.isArray(scores)) {
@@ -114,8 +111,8 @@ export async function GET(_: Request, { params }: { params: { scores: string } }
         width: 1200,
         height: 630,
         // fonts: [{
-        //   name: string,
-        //   data: ArrayBuffer,
+        //   name: "DotGothic",
+        //   data: DotGothic16,
         //   weight: number,
         //   style: 'normal' | 'italic'
         // }]
