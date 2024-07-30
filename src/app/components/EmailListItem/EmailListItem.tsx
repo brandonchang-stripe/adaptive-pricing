@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { stepEase } from "@/app/util/stepEase";
 import { SoundName, useAudio } from "@/app/hooks/useAudio";
+import { pitchToRate } from "@/app/util/math";
 
 type Props = {
   subject: string;
@@ -18,7 +19,7 @@ export default function EmailListItem({ subject, from, imageSrc, children, index
   const audio = useAudio();
   useEffect(() => {
     for (let i = 0; i < openSounds.length; i++) {
-      setTimeout(() => audio(openSounds[i], 1 + index * 0.05), 300 * (index + 2) + 100);
+      setTimeout(() => audio(openSounds[i], pitchToRate(index, "chromatic")), 300 * (index + 2) + 100);
     }
   }, [openSounds, index]);
 

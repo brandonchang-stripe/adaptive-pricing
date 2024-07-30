@@ -31,14 +31,9 @@ export default function ScoreFrame() {
       audio("score");
     }, (items.length + 5) * 300 + 600);
 
-    const music = setTimeout(() => {
-      playMusic();
-    }, (items.length + 5) * 300 + 1500);
-
     return () => {
       clearTimeout(vis);
       clearTimeout(score);
-      clearTimeout(music);
     };
   }, [audio, items.length]);
 

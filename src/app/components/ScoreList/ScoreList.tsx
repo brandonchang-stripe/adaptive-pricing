@@ -5,8 +5,8 @@ import { cancelFrame, frame, motion } from "framer-motion";
 import { useAppStore } from "../../store";
 import { useAudio } from "@/app/hooks/useAudio";
 import PurchaseEmailListItem from "@/app/components/PurchaseEmailListItem/PurchaseEmailListItem";
-import EmailListItem from "@/app/components/EmailListItem/EmailListItem";
 import Frame from "@/app/components/Frame/Frame";
+import { pitchToRate } from "@/app/util/math";
 
 type Props = {
   index?: number;
@@ -32,10 +32,10 @@ export default function ScoreList({ index = 1, onListAnimationComplete }: Props)
   };
 
   const handleDown = (index: number) => {
-    audio("clickDisabled", 0.68 + index * 0.12);
+    audio("clickDisabled", pitchToRate(index));
   }
   const handleUp = (index: number) => {
-    audio("clickUp", 0.68 + index * 0.12);
+    audio("clickUp");
   }
 
   // after all items have animated in, stop scrolling to the bottom

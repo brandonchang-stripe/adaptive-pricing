@@ -134,7 +134,7 @@ export const useAppStore = create<AppState>((set, get) => ({
         stopMusic();
         setTimeout(() => {
           playMusic();
-        }, (get().purchasedItems.length + 5) * 300 + 8000);
+        }, (get().purchasedItems.length + 5) * 300 + 5000);
         set({ state: newState });
         break;
 
