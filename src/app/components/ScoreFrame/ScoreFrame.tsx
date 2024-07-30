@@ -1,7 +1,7 @@
 import styles from "./ScoreFrame.module.css";
 import { useEffect, useState } from "react";
-import { useAudio, playMusic } from "@/app/hooks/useAudio";
-import { useAppStore, useConvertedPrice } from "@/app/store";
+import { useAudio } from "@/app/hooks/useAudio";
+import { useAppStore, useUsdToCurrency } from "@/app/store";
 import Frame from "../Frame/Frame";
 import Button from "../Button/Button";
 import ScoreMileCounter from "./ScoreMileCounter";
@@ -13,10 +13,11 @@ export default function ScoreFrame() {
   const items = useAppStore((state) => state.purchasedItems);
   const transitionState = useAppStore((state) => state.transitionState);
 
+  const localCurrency = useAppStore((state) => state.localCurrency);
   const totalSpendUSD = items.reduce((acc, item) => acc + item.usdPrice, 0);
-  const totalSpend = useConvertedPrice(totalSpendUSD, true);
+  const totalSpend = useUsdToCurrency(totalSpendUSD, localCurrency);
   const totalSavedUSD = items.reduce((acc, item) => acc + item.saved, 0);
-  const totalSaved = useConvertedPrice(totalSavedUSD, true);
+  const totalSaved = useUsdToCurrency(totalSavedUSD, localCurrency);
   const totalScore = scores.reduce((acc, s) => acc + s, 0) * 100;
   const scoreDigits = totalScore.toString().split("");
 

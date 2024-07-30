@@ -36,12 +36,15 @@ export async function generateMetadata({ searchParams }: MetaProps): Promise<Met
 export default async function PageLayout() {
   const nonce = headers().get("x-nonce")!;
   const country = headers().get("X-Vercel-IP-Country") || "US";
-  let currencies = null;
+  let allCurrencies = null;
+  let currencyCode = "usd";
   try {
-    currencies = await getCurrencies(country);
+    const {currencies, localCurrencyCode} = await getCurrencies(country);
+    allCurrencies = currencies;
+    currencyCode = localCurrencyCode;
   } catch (e) {
     console.error(e);
   }
 
-  return <App nonce={nonce} currencies={currencies} />;
+  return <App nonce={nonce} currencies={allCurrencies} localCurrency={currencyCode} />;
 }

@@ -1,5 +1,5 @@
 import styles from "./PurchaseEmailListItem.module.css";
-import { PurchasedItem, useConvertedPrice } from "@/app/store";
+import { PurchasedItem, formatDisplayPrice, useAppStore, useUsdToCurrency } from "@/app/store";
 import EmailListItem from "../EmailListItem/EmailListItem";
 
 type Props = {
@@ -9,8 +9,9 @@ type Props = {
 
 export default function PurchaseEmailListItem({ item, index }: Props) {
   const { merchant, title, usdPrice, score, saved } = item;
-  const paid = useConvertedPrice(usdPrice, true);
-  const discount = useConvertedPrice(saved, true);
+  const localCurrency = useAppStore((state) => state.localCurrency);
+  const paid = useUsdToCurrency(usdPrice, localCurrency);
+  const discount = useUsdToCurrency(saved, localCurrency);
 
   return (
     <EmailListItem
@@ -21,8 +22,8 @@ export default function PurchaseEmailListItem({ item, index }: Props) {
       openSounds={item.score > 0 ? ["close", "gainShort"] : ["close"]}
     >
       <div className={styles.prices}>
-        <div className={styles.paid}>{paid}</div>
-        {score > 0 && <div className={styles.discount}>[{discount} saved]</div>}
+        <div className={styles.paid}>{formatDisplayPrice(paid, localCurrency)}</div>
+        {score > 0 && <div className={styles.discount}>[{formatDisplayPrice(discount, localCurrency)} saved]</div>}
       </div>
     </EmailListItem>
   );

@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { use, useState } from "react";
 import styles from "./Conversion.module.css";
 import Frame from "../Frame/Frame";
 import ConversionSlider from "../ConversionSlider/ConversionSlider";
-import { formatDisplayPrice, useAppStore, useCurrentCountry, useIsLightningRound } from "@/app/store";
+import { formatDisplayPrice, useAppStore, useCurrentCountry, useIsLightningRound, useUsdToCurrency } from "@/app/store";
 import useDeviceDetails from "@/app/hooks/useDeviceDetails";
 
 type ConversionWindowProps = {
@@ -13,8 +13,10 @@ type ConversionWindowProps = {
 export default function Conversion({ position, index = 0 }: ConversionWindowProps) {
   const { isMobile } = useDeviceDetails();
   const country = useCurrentCountry();
-  const currencies = useAppStore((state) => state.currencies);
-  const [localCurrency, setLocaleCurrency] = useState(1);
+  const localCurrency = useAppStore((state) => state.localCurrency);
+  const [usdValue, setUsdValue] = useState(1);
+  const fromValue = useUsdToCurrency(usdValue, country.currencyCode);
+  const toValue = useUsdToCurrency(usdValue, localCurrency);
   const isLightningRound = useIsLightningRound();
 
   return (
@@ -27,15 +29,15 @@ export default function Conversion({ position, index = 0 }: ConversionWindowProp
       ) : (
         <div className={styles.conversionContainer}>
           <div className={styles.conversionPrice}>
-            <div className={styles.left}>
-              {formatDisplayPrice((1 / country.conversionRateDefault) * localCurrency, country.currencyCode)}
-            </div>
+            <div className={styles.left}>{formatDisplayPrice(fromValue, country.currencyCode)}</div>
             <div className={styles.center}>=</div>
-            <div className={styles.right}>{formatDisplayPrice(localCurrency, currencies?.toCurrency || "usd")}</div>
+            <div className={styles.right}>{formatDisplayPrice(toValue, localCurrency)}</div>
           </div>
-          <ConversionSlider onChange={(v) => setLocaleCurrency(v)} />
+          <ConversionSlider onChange={(v) => setUsdValue(v)} />
           <div className={styles.conversionPriceHorizontal}>
-            <div className={styles.rightHorizontal}>{formatDisplayPrice(localCurrency, currencies?.toCurrency || "usd")}</div>
+            <div className={styles.rightHorizontal}>
+              {formatDisplayPrice(toValue, localCurrency)}
+            </div>
           </div>
         </div>
       )}

@@ -3,13 +3,14 @@ import { animate, motion, useMotionValue, useTransform } from "framer-motion";
 import { RefObject, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
-import { ActiveItem, useAppStore, useConvertedPrice } from "@/app/store";
+import { ActiveItem, formatDisplayPrice, useAppStore, useCurrentCountry, useUsdToCurrency } from "@/app/store";
 import { useAudio } from "@/app/hooks/useAudio";
 import { stepEase } from "@/app/util/stepEase";
 import { usePixelSize } from "@/app/hooks/usePixelSize";
 import useDeviceDetails from "@/app/hooks/useDeviceDetails";
 import Frame from "../Frame/Frame";
 import Button from "../Button/Button";
+import { format } from "path";
 
 type ItemDisplayFrameProps = {
   item: ActiveItem;
@@ -21,13 +22,17 @@ export default function ItemDisplayFrame({ item, index }: ItemDisplayFrameProps)
   const tutorialStep = useAppStore((state) => state.tutorialStep);
   const buyingEnabled = useAppStore((state) => state.buyingEnabled);
   const currentItems = useAppStore((state) => state.currentItems);
+  const localCurrency = useAppStore((state) => state.localCurrency);
+  const currentCountry = useCurrentCountry();
   const isBestDeal = currentItems.every((i) => i.usdPrice >= item.usdPrice);
   const evaluate = useAppStore((state) => state.evaluate);
   const ref = useRef<HTMLDivElement>(null);
   const audio = useAudio();
 
   const motionValue = useMotionValue(-3);
-  const displayPrice = useConvertedPrice(item.usdPrice, item.converted);
+  const currency = item.converted ? localCurrency : currentCountry.currencyCode; 
+  const convertedPrice = useUsdToCurrency(item.usdPrice, currency);
+  const displayPrice = formatDisplayPrice(convertedPrice, currency);
   const slots = displayPrice.length;
   const range = 3;
   const string = useTransform(motionValue, (v) => {

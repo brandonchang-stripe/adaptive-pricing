@@ -26,10 +26,11 @@ import PreviewMainMenu from "./screens/PreviewMainMenu";
 type AppProps = {
   nonce: string;
   currencies: Currencies | null;
+  localCurrency: string;
   isPreview?: boolean;
 };
 
-export default function App({ nonce, currencies, isPreview = false}: AppProps) {
+export default function App({ nonce, currencies, localCurrency, isPreview = false}: AppProps) {
   const setCurrencies = useAppStore((state) => state.setCurrencies);
   const state = useAppStore((state) => state.state);
   const ref = useRef<HTMLDivElement>(null);
@@ -40,8 +41,8 @@ export default function App({ nonce, currencies, isPreview = false}: AppProps) {
   };
 
   useEffect(() => {
-    setCurrencies(currencies);
-  }, [currencies, setCurrencies]);
+    setCurrencies(currencies, localCurrency);
+  }, [currencies, setCurrencies, localCurrency]);
 
   return (
     <MotionConfig nonce={nonce}>

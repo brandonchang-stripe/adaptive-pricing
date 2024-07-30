@@ -1,4 +1,4 @@
-import { useAppStore, useConvertedPrice, useIsLightningRound } from "../store";
+import { formatDisplayPrice, useAppStore, useUsdToCurrency } from "../store";
 import ItemDisplay from "@/app/components/ItemDisplay/ItemDisplay";
 import Conversion from "@/app/components/Conversion/Conversion";
 import Timer from "@/app/components/Timer/Timer";
@@ -13,8 +13,10 @@ export default function InGame() {
   const endTutorial = useAppStore((state) => state.endTutorial);
   const tutorialStep = useAppStore((state) => state.tutorialStep);
   const nextTutorialStep = useAppStore((state) => state.nextTutorialStep);
+  const localCurrency = useAppStore((state) => state.localCurrency);
+  const sliderMax = useUsdToCurrency(100, localCurrency);
+
   const tutorialActive = tutorialStep !== -1;
-  const sliderMax = useConvertedPrice(100, true);
 
   const handleStart = () => {
     endTutorial();
@@ -41,7 +43,7 @@ export default function InGame() {
       {tutorialStep === 2 && (
         <TutorialFrame tutorialStep={2} onNext={nextTutorialStep} index={1}>
           <p>
-            Use the currency conversion slider to compare prices and select the best deal. The slider maxes out at {sliderMax}.
+            Use the currency conversion slider to compare prices and select the best deal. The slider maxes out at {formatDisplayPrice(sliderMax, localCurrency)}.
             For anything more expensive, use your math skills!
           </p>
         </TutorialFrame>

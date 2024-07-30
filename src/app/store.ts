@@ -4,7 +4,6 @@ import { randiRange, relativeRound } from "./util/math";
 import { SoundName, playMusic, playSound, stopMusic } from "./hooks/useAudio";
 import { replaceAt } from "./util/array";
 import { Currencies } from "./providers/stripe";
-import ItemDisplayFrame from "./components/ItemDisplay/ItemDisplay";
 
 type GameState =
   | "SLEEP"
@@ -33,8 +32,9 @@ export type ActiveItem = {
 };
 
 interface AppState {
-  currencies: Currencies | null;
-  setCurrencies: (currencies: Currencies | null) => void;
+  currencies: Currencies;
+  localCurrency: string;
+  setCurrencies: (currencies: Currencies | null, localCurrency: string) => void;
 
   // Game state machine
   state: GameState;
@@ -165,9 +165,16 @@ export const useAppStore = create<AppState>((set, get) => ({
   },
 
   // Country state
-  currencies: null,
-  setCurrencies: (currencies) => {
-    set({ currencies });
+  currencies: countryData.reduce((acc, country) => {
+    if (country.conversionRateDefault === null) return acc;
+    return { ...acc, [country.currencyCode]: country.conversionRateDefault };
+  }, {} as Currencies),
+
+  localCurrency: "usd",
+
+  setCurrencies: (currencies, localCurrency) => {
+    if (currencies === null) return;
+    set({ currencies, localCurrency });
   },
 
   countryIndex: 0,
@@ -348,31 +355,10 @@ export function useCurrentCountry(): CountryData {
   return countryData[countryIndex];
 }
 
-export function useConvertedPrice(usdPrice: number, converted: boolean = false): string {
-  const currentCountry = useCurrentCountry();
+export function useUsdToCurrency(usdPrice: number, currency: string = "usd"): number {
   const currencies = useAppStore((state) => state.currencies);
-
-  if (currencies === null) {
-    // No currencies loaded, assume player is in the US
-    if (converted) {
-      return formatDisplayPrice((1 / currentCountry.conversionRateDefault) * usdPrice, currentCountry.currencyCode);
-    } else {
-      return formatDisplayPrice(usdPrice, "usd");
-    }
-  } else {
-    if (!converted) {
-      return formatDisplayPrice(
-        (1 / currencies.rates[currentCountry.currencyCode]) * usdPrice,
-        currentCountry.currencyCode
-      );
-    } else {
-      if (currencies.toCurrency === "usd") {
-        return formatDisplayPrice(usdPrice, "usd");
-      } else {
-        return formatDisplayPrice((1 / currencies.rates["usd"]) * usdPrice, currencies.toCurrency);
-      }
-    }
-  }
+  if (currency === "usd") return usdPrice;
+  return (1 / currencies[currency]) * usdPrice;
 }
 
 // Convert the currency of the user's locale. relativeRound() lops off any relatively insignificant digits

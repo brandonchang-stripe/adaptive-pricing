@@ -17,8 +17,6 @@ export function middleware(request: NextRequest) {
     frame-ancestors 'none';
     upgrade-insecure-requests;
 `;
-  // I'm not sure what to do with this one yet
-  // script-src 'self' 'nonce-${nonce}' 'strict-dynamic';
 
   // Replace newline characters and spaces
   const contentSecurityPolicyHeaderValue = cspHeader.replace(/\s{2,}/g, " ").trim();
@@ -40,13 +38,6 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - api (API routes)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     */
     {
       source: "/((?!api|_next/static|_next/image|favicon.ico|sfx|sprites|audio).*)",
       missing: [

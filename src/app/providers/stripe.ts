@@ -26,17 +26,14 @@ type ExchangeRate = {
   };
 };
 
-export type Currencies = {
-  toCurrency: string;
-  rates: Record<string, number>;
-};
+export type Currencies = Record<string, number>;
 
-export async function getCurrencies(countryCode: string): Promise<Currencies> {
-  const currency = getCountryData(countryCode as TCountryCode).currency[0].toLowerCase();
+export async function getCurrencies(localCountryCode: string) {
+  const localCurrencyCode = getCountryData(localCountryCode as TCountryCode).currency[0].toLowerCase();
 
   const from_currencies = countryData.map((c) => c.currencyCode.toLowerCase());
-  if (currency !== "usd") {
-    from_currencies.push("usd");
+  if (from_currencies.indexOf(localCurrencyCode) === -1 && localCurrencyCode !== "usd") {
+    from_currencies.push(localCurrencyCode);
   }
 
   const res = await fetch("https://api.stripe.com/v1/fx_quotes", {
@@ -46,7 +43,7 @@ export async function getCurrencies(countryCode: string): Promise<Currencies> {
       "Content-Type": "application/x-www-form-urlencoded",
     },
     body: qs.stringify({
-      to_currency: currency,
+      to_currency: "usd",
       "from_currencies[]": from_currencies,
       lock_duration: "none",
     }),
@@ -58,14 +55,11 @@ export async function getCurrencies(countryCode: string): Promise<Currencies> {
     throw new Error(quotes.error.message);
   }
 
-  const currencies: Currencies = {
-    toCurrency: currency.toLowerCase(),
-    rates: {},
-  };
+  const currencies: Currencies = {};
 
   for (const [currencyCode, rate] of Object.entries(quotes.rates)) {
-    currencies.rates[currencyCode] = rate.exchange_rate;
+    currencies[currencyCode] = rate.exchange_rate;
   }
 
-  return currencies;
+  return { currencies, localCurrencyCode };
 }
