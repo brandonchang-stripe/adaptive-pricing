@@ -4,7 +4,7 @@ import Frame from "../Frame/Frame";
 import { useAppStore } from "@/app/store";
 
 type Props = {
-  onNext: () => void;
+  onNext?: () => void;
   tutorialStep: number;
   index?: number;
   children?: React.ReactNode;
@@ -18,10 +18,14 @@ export default function TutorialFrame({ children, onNext, tutorialStep, index = 
       <Frame position={`tutorial-${tutorialStep}`} type="tutorial" index={index} allowDrag>
         <div className={style.container}>
           {children}
-          <div className="spacer"></div>
-          <div className={style.footer}>
-            <Button onClick={onNext}>NEXT</Button>
-          </div>
+          {onNext && (
+            <>
+              <div className="spacer"></div>
+              <div className={style.footer}>
+                <Button onClick={onNext}>NEXT</Button>
+              </div>
+            </>
+          )}
         </div>
       </Frame>
     )

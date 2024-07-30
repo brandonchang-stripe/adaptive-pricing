@@ -14,9 +14,16 @@ export default function InGame() {
   const tutorialStep = useAppStore((state) => state.tutorialStep);
   const nextTutorialStep = useAppStore((state) => state.nextTutorialStep);
   const localCurrency = useAppStore((state) => state.localCurrency);
+  const rightItemPrice = useUsdToCurrency(currentItems[1].usdPrice, localCurrency);
   const sliderMax = useUsdToCurrency(100, localCurrency);
 
   const tutorialActive = tutorialStep !== -1;
+
+  const handleSliderChange = (value: number) => {
+    if (tutorialStep === 2 && value === rightItemPrice) {
+      nextTutorialStep();
+    }
+  }
 
   const handleStart = () => {
     endTutorial();
@@ -38,20 +45,31 @@ export default function InGame() {
         <p>At this shop, the price is automatically converted to your local currency.</p>
       </TutorialFrame>
 
-      {(!tutorialActive || tutorialStep >= 2) && <Conversion position="slider" index={2} />}
+      {(!tutorialActive || tutorialStep >= 2) && <Conversion position="slider" index={2} onChange={handleSliderChange} />}
 
       {tutorialStep === 2 && (
-        <TutorialFrame tutorialStep={2} onNext={nextTutorialStep} index={1}>
+        <TutorialFrame tutorialStep={2} index={1}>
           <p>
-            Use the currency conversion slider to compare prices and select the best deal. The slider maxes out at {formatDisplayPrice(sliderMax, localCurrency)}.
+            Use the currency conversion slider to compare prices.
+            <br/><br/>
+            Try sliding it so the right value shows the adapted price of <b>{formatDisplayPrice(rightItemPrice, localCurrency)}</b>
+          </p>
+        </TutorialFrame>
+      )}
+
+      {tutorialStep === 3 && (
+        <TutorialFrame tutorialStep={3} onNext={nextTutorialStep} index={1}>
+          <p>
+            Great! Now you can compare the prices of the two items.
+            The slider maxes out at {formatDisplayPrice(sliderMax, localCurrency)}.
             For anything more expensive, use your math skills!
           </p>
         </TutorialFrame>
       )}
 
-      {(!tutorialActive || tutorialStep >= 3) && <Timer onTimeout={() => evaluate(false)} index={2} />}
+      {(!tutorialActive || tutorialStep >= 4) && <Timer onTimeout={() => evaluate(false)} index={2} />}
 
-      <TutorialFrame tutorialStep={3} onNext={handleStart} index={1}>
+      <TutorialFrame tutorialStep={4} onNext={handleStart} index={1}>
         <p>You have limited time. Choose quickly!</p>
       </TutorialFrame>
 

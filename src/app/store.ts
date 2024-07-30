@@ -345,7 +345,7 @@ export const useAppStore = create<AppState>((set, get) => ({
 
   initTimerDuration: () => {
     const isLastRound = get().countryIndex === countryData.length - 1;
-    const duration = isLastRound ? 5000 : Math.max(15000 - get().combo * 1000, 5000);
+    const duration = isLastRound ? 7000 : Math.max(18000 - get().combo * 1000, 5000);
     set({ timerDuration: duration });
   },
 }));

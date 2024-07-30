@@ -1,4 +1,4 @@
-import { use, useState } from "react";
+import { use, useCallback, useState } from "react";
 import styles from "./Conversion.module.css";
 import Frame from "../Frame/Frame";
 import ConversionSlider from "../ConversionSlider/ConversionSlider";
@@ -8,9 +8,10 @@ import useDeviceDetails from "@/app/hooks/useDeviceDetails";
 type ConversionWindowProps = {
   position: string;
   index?: number;
+  onChange?: (value: number) => void;
 };
 
-export default function Conversion({ position, index = 0 }: ConversionWindowProps) {
+export default function Conversion({ position, index = 0, onChange }: ConversionWindowProps) {
   const { isMobile } = useDeviceDetails();
   const country = useCurrentCountry();
   const localCurrency = useAppStore((state) => state.localCurrency);
@@ -18,6 +19,13 @@ export default function Conversion({ position, index = 0 }: ConversionWindowProp
   const fromValue = useUsdToCurrency(usdValue, country.currencyCode);
   const toValue = useUsdToCurrency(usdValue, localCurrency);
   const isLightningRound = useIsLightningRound();
+
+  const handleChange = useCallback((value: number) => {
+    setUsdValue(value);
+    if (onChange) {
+      onChange(value);
+    }
+   }, [onChange]);
 
   return (
     <Frame label="Currency Converter" position={position} index={index} type={isMobile ? "simple" : "regular"}>
@@ -33,7 +41,7 @@ export default function Conversion({ position, index = 0 }: ConversionWindowProp
             <div className={styles.center}>=</div>
             <div className={styles.right}>{formatDisplayPrice(toValue, localCurrency)}</div>
           </div>
-          <ConversionSlider onChange={(v) => setUsdValue(v)} />
+          <ConversionSlider onChange={handleChange} />
           <div className={styles.conversionPriceHorizontal}>
             <div className={styles.rightHorizontal}>
               {formatDisplayPrice(toValue, localCurrency)}
