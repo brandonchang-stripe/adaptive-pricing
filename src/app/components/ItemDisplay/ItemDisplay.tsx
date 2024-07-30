@@ -68,7 +68,7 @@ export default function ItemDisplayFrame({ item, index }: ItemDisplayFrameProps)
   }, [slots, motionValue, item]);
 
   const handlePurchase = async () => {
-    if (!buyingEnabled) return;
+    if (!buyingEnabled || purchased) return;
     setPurchased(true);
     evaluate(item.merchant);
   };

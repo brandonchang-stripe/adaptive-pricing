@@ -296,7 +296,7 @@ export const useAppStore = create<AppState>((set, get) => ({
       }
     }
 
-    set({ buyingEnabled: false });
+    set({ buyingEnabled: false, isTimerRunning: false });
     await new Promise((r) => setTimeout(r, 800));
     set({ buyingEnabled: true });
 

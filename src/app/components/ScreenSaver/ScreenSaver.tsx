@@ -4,11 +4,13 @@ import { type Vector2 } from "@/types/Vector2";
 import { useAppStore } from "@/app/store";
 import { cancelFrame, frame } from "framer-motion";
 import { usePixelSize } from "@/app/hooks/usePixelSize";
+import useDeviceDetails from "@/app/hooks/useDeviceDetails";
 
 export default function ScreenSaver() {
   const pixelSize = usePixelSize();
   const containerRef = useRef<HTMLDivElement>(null);
   const bouncerRef = useRef<HTMLDivElement>(null);
+  const {isMobile} = useDeviceDetails();
   const [containerRect, setContainerRect] = useState<DOMRect | null>(null);
   const [bouncerRect, setBouncerRect] = useState<DOMRect | null>(null);
   const transitionState = useAppStore((state) => state.transitionState);
@@ -80,9 +82,8 @@ export default function ScreenSaver() {
 
   return (
     <div className={styles.container} ref={containerRef} onClick={handleClick}>
-      <div className={styles.bouncer} ref={bouncerRef}>
-      </div>
-      <div className={styles.text}> &gt; CLICK TO WAKE <span className={styles.blinker}></span></div>
+      <div className={styles.bouncer} ref={bouncerRef} />
+      <div className={styles.text}> &gt; {isMobile ? "TAP" : "CLICK"} TO WAKE <span className={styles.blinker}></span></div>
     </div>
   );
 }
