@@ -23,6 +23,9 @@ export default function MainMenu() {
           <b key={name}>{index === countryData.length - 1 ? ` and ${name}. ` : ` ${name},`}</b>
         ))}
         Make sure you have everything you need before you go.
+        <br/>
+        <br/>
+        <b>Get points by choosing the cheapest items. </b>
       </p>
       <div className="spacer"></div>
       <div className="notes-footer">
