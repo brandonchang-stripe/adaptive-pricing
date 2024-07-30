@@ -95,7 +95,7 @@ export default function ItemDisplayFrame({ item, index }: ItemDisplayFrameProps)
                 </motion.div>
               </div>
             </div>
-            <Button onClick={handlePurchase} disabled={tutorialStep >= 0}>
+            <Button onClick={handlePurchase} disabled={tutorialStep <= 4}>
               Buy
             </Button>
 
@@ -238,7 +238,7 @@ function PurchasePopover({ targetRef, isBestDeal }: PurchasePopoverProps) {
       animate={targetPos.x !== 0 && pixelSize !== 0 ? "visible" : "hidden"}
       className={`${styles.purchasePopover} ${styles.popover} ${isBestDeal ? styles.bestDeal : styles.badDeal}`}
     >
-      {isBestDeal ? `+100` : "Bad deal"}
+      {isBestDeal ? `Great deal!` : "Bad deal"}
     </motion.div>
   );
 }

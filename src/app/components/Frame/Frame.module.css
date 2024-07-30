@@ -167,6 +167,11 @@
   margin-top: calc(var(--pixel-size) * 4);
 }
 
+.frame:global(.tutorial-5) {
+  grid-column: 4 / span 6;
+  grid-row: 5 / span 3;
+}
+
 .frame:global(.next-stop-notes) {
   grid-column: 5 / span 4;
   grid-row: 4 / span 3;

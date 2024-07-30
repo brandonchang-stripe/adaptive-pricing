@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { CountryData, emailSubjects, countryData } from "./components/gameData";
-import { randiRange, relativeRound } from "./util/math";
+import { randiRange } from "./util/math";
 import { SoundName, playMusic, playSound, stopMusic } from "./hooks/useAudio";
 import { replaceAt } from "./util/array";
 import { Currencies } from "./providers/stripe";
@@ -50,6 +50,7 @@ interface AppState {
   purchaseItem: (item: ActiveItem, score: number, saved: number) => void;
   buyingEnabled: boolean;
 
+  tutorialActive: boolean;
   tutorialStep: number;
   nextTutorialStep: () => void;
   endTutorial: () => void;
@@ -94,9 +95,8 @@ export const useAppStore = create<AppState>((set, get) => ({
 
       case "GAME_START":
         switch (currentState) {
-          // End the tutorial on game start
           case "TUTORIAL":
-            set({ state: newState, tutorialStep: -1 });
+            set({ state: newState });
             break;
 
           // Start new game without tutorial (Play again)
@@ -123,7 +123,11 @@ export const useAppStore = create<AppState>((set, get) => ({
       case "ROUND_FINISH":
         set({ state: newState, isTimerRunning: false });
         await new Promise((r) => setTimeout(r, 3000));
-        if (get().countryIndex === countryData.length - 1) {
+        if (get().countryIndex === countryData.length - 2) {
+          get().transitionState("TUTORIAL");
+          get().nextCountry();
+          get().initRound();
+        } else if (get().countryIndex === countryData.length - 1) {
           get().transitionState("SCORE_SCREEN");
         } else {
           get().transitionState("GAME_START");
@@ -189,15 +193,14 @@ export const useAppStore = create<AppState>((set, get) => ({
   },
 
   // Tutorial state
-  tutorialStep: 0, // -1 for no tutorial
+  tutorialActive: true,
+  tutorialStep: 0,
   nextTutorialStep: () => {
-    set((state) => {
-      if (state.tutorialStep === -1) return state;
-      return { tutorialStep: state.tutorialStep + 1 };
-    });
+    if (!get().tutorialActive) return;
+    set((state) => ({ tutorialStep: state.tutorialStep + 1 }));
   },
   endTutorial: () => {
-    set({ tutorialStep: -1 });
+    set({ tutorialActive: false });
   },
 
   // Game meta state

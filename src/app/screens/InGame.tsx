@@ -18,7 +18,6 @@ export default function InGame() {
   const rightItemPrice = useUsdToCurrency(currentItems[1].usdPrice, localCurrency);
   const sliderMax = useUsdToCurrency(100, localCurrency);
 
-  const tutorialActive = tutorialStep !== -1;
 
   // Handle advancing tutorial step when slider is in correct position,
   // ignoring if the user slides past the correct position
@@ -35,16 +34,21 @@ export default function InGame() {
   }
 
   const handleStart = () => {
+    transitionState("GAME_START");
+    nextTutorialStep();
+  };
+
+  const handleFinalTutorial = () => {
     endTutorial();
     transitionState("GAME_START");
-  };
+  }
 
   return (
     <>
       {state !== "GAME_START" && <ItemDisplay item={currentItems[0]} index={1} />}
 
       <TutorialFrame tutorialStep={0} onNext={nextTutorialStep} index={2} key={currentItems[0].merchant}>
-        <p>Save money by comparing prices between two shops, side by side</p>
+        <p>Save money by comparing prices between two shops.</p>
       </TutorialFrame>
 
       {tutorialStep !== 0 && state !== "GAME_START" && (
@@ -54,14 +58,14 @@ export default function InGame() {
         <p>This is the second shop, the price is automatically converted to your local currency.</p>
       </TutorialFrame>
 
-      {(!tutorialActive || tutorialStep >= 2) && <Conversion position="slider" index={2} onChange={handleSliderChange} />}
+      {(tutorialStep >= 2) && <Conversion position="slider" index={2} onChange={handleSliderChange} />}
 
       {tutorialStep === 2 && (
         <TutorialFrame tutorialStep={2} index={1}>
           <p>
             Use the currency conversion slider to compare prices.
             <br/><br/>
-            <b>Try sliding it so the right side matches the adapted price of {formatDisplayPrice(rightItemPrice, localCurrency)}</b>
+            <b>Move the slider to match the {formatDisplayPrice(rightItemPrice, localCurrency)} price on the right.</b>
           </p>
         </TutorialFrame>
       )}
@@ -76,13 +80,20 @@ export default function InGame() {
         </TutorialFrame>
       )}
 
-      {(!tutorialActive || tutorialStep >= 4) && <Timer onTimeout={() => evaluate(false)} index={2} />}
+      {(tutorialStep >= 4) && <Timer onTimeout={() => evaluate(false)} index={2} />}
 
       <TutorialFrame tutorialStep={4} onNext={handleStart} index={1}>
         <p>You have limited time. Choose quickly!</p>
       </TutorialFrame>
 
-      {!tutorialActive && <ProgressBar />}
+      <TutorialFrame tutorialStep={5} onNext={handleFinalTutorial} index={1}>
+        <p>
+          The final trip is the <b>Lightning Round</b>! All prices have been converted.
+          No need to use the slider, just pick the smaller number!
+        </p>
+      </TutorialFrame>
+
+      {tutorialStep >= 5 && <ProgressBar />}
     </>
   );
 }

@@ -12,9 +12,11 @@ type Props = {
 
 export default function TutorialFrame({ children, onNext, tutorialStep, index = 0 }: Props) {
   const currentStep = useAppStore((state) => state.tutorialStep);
+  const tutorialActive = useAppStore((state) => state.tutorialActive);
+  const gameState = useAppStore((state) => state.state);
 
   return (
-    currentStep == tutorialStep && (
+    currentStep == tutorialStep && tutorialActive && gameState === "TUTORIAL" && (
       <Frame position={`tutorial-${tutorialStep}`} type="tutorial" index={index} allowDrag>
         <div className={style.container}>
           {children}
