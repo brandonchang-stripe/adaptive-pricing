@@ -44,14 +44,14 @@ export default function InGame() {
       {state !== "GAME_START" && <ItemDisplay item={currentItems[0]} index={1} />}
 
       <TutorialFrame tutorialStep={0} onNext={nextTutorialStep} index={2} key={currentItems[0].merchant}>
-        <p>Save money by comparing prices between two shops.</p>
+        <p>Save money by comparing prices between two shops, side by side</p>
       </TutorialFrame>
 
       {tutorialStep !== 0 && state !== "GAME_START" && (
         <ItemDisplay item={currentItems[1]} index={2} key={currentItems[1].merchant} />
       )}
       <TutorialFrame tutorialStep={1} onNext={nextTutorialStep} index={6}>
-        <p>At this shop, the price is automatically converted to your local currency.</p>
+        <p>This is the second shop, the price is automatically converted to your local currency.</p>
       </TutorialFrame>
 
       {(!tutorialActive || tutorialStep >= 2) && <Conversion position="slider" index={2} onChange={handleSliderChange} />}
@@ -69,7 +69,7 @@ export default function InGame() {
       {tutorialStep === 3 && (
         <TutorialFrame tutorialStep={3} onNext={nextTutorialStep} index={1}>
           <p>
-            Great! Now you can compare the prices the two items.
+            Great! Now you can compare and find the better deal.
             The slider maxes out at {formatDisplayPrice(sliderMax, localCurrency)}.
             For anything more expensive, use your math skills!
           </p>

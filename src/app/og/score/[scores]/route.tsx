@@ -2,6 +2,13 @@ import { redirect } from "next/navigation";
 import { ImageResponse } from "next/og";
 
 export async function GET(_: Request, { params }: { params: { scores: string } }) {
+
+  // const url = new URL('../../../../../public/fonts/dogica/dogicapixelbold.ttf', import.meta.url)
+  // if (process.env.NEXT_PUBLIC_URL) {
+  //   url.hostname = new URL(process.env.NEXT_PUBLIC_URL).hostname
+  // }
+  // const font = await fetch(url).then((res) => res.arrayBuffer())
+
   try {
     const scores = JSON.parse(atob(params.scores));
     if (!scores || !Array.isArray(scores)) {
@@ -38,7 +45,7 @@ export async function GET(_: Request, { params }: { params: { scores: string } }
               fontWeight: "bold",
               width: "100px",
               justifyContent: "center",
-              fontFamily: "courier monospace",
+              fontFamily: "dogica courier monospace",
               transform: "translate(260px, 275px) rotate(-35deg) skew(13deg)",
             }}
           >
@@ -53,7 +60,7 @@ export async function GET(_: Request, { params }: { params: { scores: string } }
               fontWeight: "bold",
               width: "100px",
               justifyContent: "center",
-              fontFamily: "courier monospace",
+              fontFamily: "dogica courier monospace",
               transform: "translate(473px, 318px) rotate(-4deg)",
               textAlign: "center",
             }}
@@ -69,7 +76,7 @@ export async function GET(_: Request, { params }: { params: { scores: string } }
               fontWeight: "bold",
               width: "100px",
               justifyContent: "center",
-              fontFamily: "courier monospace",
+              fontFamily: "dogica courier monospace",
               transform: "translate(720px, 450px) rotate(-3deg)",
             }}
           >
@@ -84,7 +91,7 @@ export async function GET(_: Request, { params }: { params: { scores: string } }
               width: "100px",
               justifyContent: "center",
               fontWeight: "bold",
-              fontFamily: "courier monospace",
+              fontFamily: "dogica courier monospace",
               transform: "translate(933px, 265px) rotate(6deg)",
             }}
           >
@@ -97,7 +104,7 @@ export async function GET(_: Request, { params }: { params: { scores: string } }
               color: "white",
               fontSize: "48px",
               fontWeight: "bold",
-              fontFamily: "courier monospace",
+              fontFamily: "dogica courier monospace",
               width: "200px",
               justifyContent: "center",
               transform: "translate(405px, 486px) rotate(1deg)",
@@ -111,10 +118,10 @@ export async function GET(_: Request, { params }: { params: { scores: string } }
         width: 1200,
         height: 630,
         // fonts: [{
-        //   name: "DotGothic",
-        //   data: DotGothic16,
-        //   weight: number,
-        //   style: 'normal' | 'italic'
+        //   name: "dogica",
+        //   data: font,
+        //   weight: 800,
+        //   style: 'normal'
         // }]
       }
     );
