@@ -14,13 +14,13 @@ export async function generateMetadata({ searchParams }: MetaProps): Promise<Met
 
   return {
     title: "Price Adapter",
-    description: "Plan your world tour with Stripe's Price Adapter game. Shops that enable Adaptive Pricing display prices in local currencies to buyers all over the world, improving buyer conversion.",
+    description: "Play Stripe's Price Adapter game.",
     icons: [{ url: "/favicon.png" }],
     openGraph: {
       type: "website",
       url: "https://priceadapter.com",
       title: "Price Adapter",
-      description: "Plan your world tour with Stripe's Price Adapter game. Shops that enable Adaptive Pricing display prices in local currencies to buyers all over the world, improving buyer conversion.",
+      description: "Play Stripe's Price Adapter game.",
       images: [
         {
           url: scores ? `https://priceadapter.com/og/score/${scores}` : "/share-image.png",

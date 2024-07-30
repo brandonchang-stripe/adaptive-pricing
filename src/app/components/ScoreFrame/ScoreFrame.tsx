@@ -45,10 +45,10 @@ export default function ScoreFrame() {
     const url = new URL("https://www.priceadapter.com");
     const encoded = btoa(JSON.stringify( scores ));
     url.searchParams.append("scores", encoded);
-    const message = `I scored ${totalScore} points planning my world tour on Price Adapter.`;
+    const message = `I scored ${totalScore} points planning my trip playing ${url.toString()}, Stripe's Adaptive Pricing game.`;
 
     // share to twitter with a custom open graph image
-    window.open(`https://twitter.com/intent/tweet?text=${encodeURI(message)}&url=${url.toString()}`, "_blank");
+    window.open(`https://twitter.com/intent/tweet?text=${encodeURI(message)}`, "_blank");
   }
 
   return (
