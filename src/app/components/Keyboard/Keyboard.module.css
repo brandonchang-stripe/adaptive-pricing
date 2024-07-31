@@ -1,0 +1,111 @@
+.board {
+  --width: calc(var(--pixel-size) * 503);
+  position: absolute;
+  top: calc(50% + var(--pixel-size) * 211);
+  left: calc(50% - var(--width) / 2 - 1px);
+  width: var(--width);
+  height: calc(var(--pixel-size) * 92);
+  background: url("/sprites/keyboard-board.png");
+  background-size: cover;
+}
+
+.keyContainer {
+  position: absolute;
+  top: calc(var(--pixel-size) * 6);
+  left: calc(var(--pixel-size) * 20);
+  width: calc(100% - var(--pixel-size) * 40);
+  height: calc(100% - var(--pixel-size) * 36);
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.key2 {
+  border-image: url("/sprites/key-2.png");
+}
+
+.key4 {
+  border-image: url("/sprites/key-4.png");
+}
+
+.keyTab {
+  border-image: url("/sprites/key-tab.png");
+}
+
+.keyMed,
+.keySpace,
+.keyBlank {
+  border-image: url("/sprites/key-blank.png");
+}
+
+.keyNub {
+  border-image: url("/sprites/key-nub.png")
+}
+
+.keyReturn {
+  border-image: url("/sprites/key-return.png")
+}
+
+.keyLShift {
+  border-image: url("/sprites/key-lshift.png")
+}
+
+.keyRShift {
+  border-image: url("/sprites/key-rshift.png")
+}
+
+.key2,
+.key4,
+.keyMed,
+.keyTab,
+.keyNub,
+.keyReturn,
+.keyRShift,
+.keyLShift,
+.keySpace,
+.keyBlank {
+  border-image-slice: 0 4 fill;
+  border-image-width: 0 calc(var(--pixel-size) * 4);
+  width: calc(var(--pixel-size) * 22);
+  height: calc(var(--pixel-size) * 11);
+  margin-right: calc(var(--pixel-size) * -1);
+  cursor: pointer;
+}
+
+.keyReturn,
+.keyTab {
+  width: calc(var(--pixel-size) * 37);
+}
+
+.keyMed {
+  width: calc(var(--pixel-size) * 32);
+}
+
+.keyLShift {
+  width: calc(var(--pixel-size) * 53);
+}
+
+.keyRShift {
+  width: calc(var(--pixel-size) * 43);
+}
+
+.keySpace{
+  width: calc(var(--pixel-size) * 148);
+}
+
+.key2:active,
+.key4:active,
+.keyMed:active,
+.keyTab:active,
+.keyNub:active,
+.keyReturn:active,
+.keyLShift:active,
+.keyRShift:active,
+.keySpace:active,
+.keyBlank:active {
+  transform: translateY(var(--pixel-size));
+}

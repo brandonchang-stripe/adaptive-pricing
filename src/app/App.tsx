@@ -22,6 +22,7 @@ import StartFrame from "./components/StartFrame/StartFrame";
 import Mute from "./components/Mute/Mute";
 import ViewControl from "./components/ViewControl/ViewControl";
 import PreviewMainMenu from "./screens/PreviewMainMenu";
+import Keyboard from "./components/Keyboard/Keyboard";
 
 type AppProps = {
   nonce: string;
@@ -67,6 +68,7 @@ export default function App({ nonce, currencies, localCurrency, isPreview = fals
               <Mute />
             </div>
           </Monitor>
+          <Keyboard />
         </motion.main>
         <ViewControl onUpdate={handlePan} />
       </ScreenRefContext>

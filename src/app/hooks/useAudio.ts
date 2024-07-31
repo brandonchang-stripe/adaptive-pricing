@@ -29,6 +29,8 @@ export const soundBoard = {
   beepNote: new Howl({ src: "./sfx/beep_06.mp3", volume: 0.3 }),
   splash: new Howl({ src: "./sfx/startup_02.mp3", volume: 0.05 }),
   ping: new Howl({ src: "./sfx/confirm_05.mp3", volume: 0.2 }),
+  key1: new Howl({ src: "./sfx/key_1.mp3", volume: 0.6 }),
+  key2: new Howl({ src: "./sfx/key_2.mp3", volume: 0.6 }),
 } as const;
 
 export type SoundName = keyof typeof soundBoard;
