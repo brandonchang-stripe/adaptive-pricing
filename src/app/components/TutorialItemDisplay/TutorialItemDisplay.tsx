@@ -1,4 +1,4 @@
-import styles from "./ItemDisplay.module.css";
+import styles from "./TutorialItemDisplay.module.css";
 import { animate, motion, useMotionValue, useTransform } from "framer-motion";
 import { RefObject, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
@@ -16,14 +16,14 @@ type ItemDisplayFrameProps = {
   index: number;
 };
 
-export default function ItemDisplayFrame({ item, index }: ItemDisplayFrameProps) {
+export default function TutorialItemDisplayFrame({ item, index }: ItemDisplayFrameProps) {
   const [purchased, setPurchased] = useState(false);
-  const buyingEnabled = useAppStore((state) => state.buyingEnabled);
+  const tutorialStep = useAppStore((state) => state.tutorialStep);
   const currentItems = useAppStore((state) => state.currentItems);
   const localCurrency = useAppStore((state) => state.localCurrency);
   const currentCountry = useCurrentCountry();
+  const nextTutorialStep = useAppStore((state) => state.nextTutorialStep);
   const isBestDeal = currentItems.every((i) => i.usdPrice >= item.usdPrice);
-  const evaluate = useAppStore((state) => state.evaluate);
   const ref = useRef<HTMLDivElement>(null);
   const audio = useAudio();
 
@@ -66,9 +66,10 @@ export default function ItemDisplayFrame({ item, index }: ItemDisplayFrameProps)
   }, [slots, motionValue, item]);
 
   const handlePurchase = async () => {
-    if (!buyingEnabled || purchased) return;
+    if (purchased) return;
+    audio("point1");
     setPurchased(true);
-    evaluate(item.merchant);
+    nextTutorialStep();
   };
 
   return (
@@ -93,7 +94,7 @@ export default function ItemDisplayFrame({ item, index }: ItemDisplayFrameProps)
                 </motion.div>
               </div>
             </div>
-            <Button onClick={handlePurchase}>
+            <Button onClick={handlePurchase} disabled={tutorialStep !== 3 || !item.converted}>
               Buy
             </Button>
 

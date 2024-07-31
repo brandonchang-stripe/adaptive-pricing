@@ -1,0 +1,85 @@
+.itemDisplayOuter {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: stretch;
+}
+
+.itemDisplay {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--pixel-size) * 3);
+  padding: calc(var(--pixel-size) * 3);
+}
+
+.itemDisplayContainer {
+  display: flex;
+  flex-direction: row;
+  gap: calc(var(--pixel-size) * 4);
+}
+
+.itemDisplayImage {
+  border-image-source: url("/sprites/simple-frame.png");
+  border-image-slice: 1;
+  border-image-width: calc(var(--pixel-size) * 1);
+  border-image-repeat: round;
+  background-color: var(--color-100);
+  aspect-ratio: 1/1;
+  height: calc(var(--pixel-size) * 42);
+}
+
+.itemDisplayData {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: stretch;
+  flex-grow: 1;
+  gap: calc(var(--pixel-size) * 6);
+  padding-top: calc(var(--pixel-size) * 4);
+}
+
+.itemDisplayData:global(.button) {
+  margin-top: 100px;
+}
+
+.itemDisplayPrice {
+  font-size: calc(var(--pixel-size) * 16);
+}
+
+.itemDisplayButton {
+  flex-grow: 1;
+}
+
+.popover {
+  text-align: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  line-height: 1.2;
+  background: var(--color-300);
+  border: var(--pixel-size) solid var(--color-100);
+  color: var(--color-200);
+  padding: calc(var(--pixel-size) * 4);
+  z-index: 1;
+
+  border-image-source: url("/sprites/border.png");
+  border-image-slice: 1;
+  border-image-width: calc(var(--pixel-size) * 1);
+  border-image-outset: calc(var(--pixel-size) * 1);
+  border-image-repeat: repeat;
+}
+
+.purchasePopover {
+  background: var(--color-200);
+  color: var(--color-100);
+  padding: calc(var(--pixel-size) * 4);
+  font-size: calc(var(--pixel-size) * 8);
+  letter-spacing: calc(var(--pixel-size) * -.5);
+}
+
+.bestDeal {
+  color: var(--color-300);
+}

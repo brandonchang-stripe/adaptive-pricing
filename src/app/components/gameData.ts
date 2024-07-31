@@ -1,3 +1,5 @@
+import { ActiveItem } from "../store";
+
 export type ItemData = {
   type: string;
   merchants: string[];
@@ -17,6 +19,23 @@ export type CountryData = {
   items: ItemData[];
 };
 
+export const tutorialItems: ActiveItem[] = [
+  {
+    type: "Digital pet",
+    merchant: "tama-gotcha.jp",
+    converted: false,
+    usdPrice: 12,
+    icon: "pet",
+  },
+  {
+    type: "Digital pet",
+    merchant: "pet-pet.jp",
+    converted: true,
+    usdPrice: 10,
+    icon: "pet",
+  },
+];
+
 export const countryData: CountryData[] = [
   {
     name: "Japan",
@@ -27,12 +46,12 @@ export const countryData: CountryData[] = [
     currentConversionRate: null,
     items: [
       {
-        type: "Digital pet",
-        merchants: ["tama-gotcha.jp", "pet-pet.jp"],
-        baseUsdPrice: 10,
+        type: "Karaoke Microphone",
+        merchants: ["mic-drop.jp", "sing-big.jp"],
+        baseUsdPrice: 15,
         priceIncrements: [2, 5],
         quantity: "1x",
-        icon: "pet",
+        icon: "microphone",
       },
       {
         type: "Tabi socks",

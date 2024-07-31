@@ -34,8 +34,8 @@ export default function ScreenSaver() {
   }, [containerRef, bouncerRef]);
 
   useEffect(() => {
-    let velocity: Vector2 = { x: 0.1, y: 0.1 };
-    let position: Vector2 = { x: 10, y: 20 };
+    let velocity: Vector2 = { x: 0.12, y: 0.1 };
+    let position: Vector2 = { x: 20, y: 20 };
 
     const update = (data: any) => {
       if (!containerRect || !bouncerRect) return;
