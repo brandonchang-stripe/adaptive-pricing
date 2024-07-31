@@ -10,7 +10,6 @@ import { usePixelSize } from "@/app/hooks/usePixelSize";
 import useDeviceDetails from "@/app/hooks/useDeviceDetails";
 import Frame from "../Frame/Frame";
 import Button from "../Button/Button";
-import { format } from "path";
 
 type ItemDisplayFrameProps = {
   item: ActiveItem;

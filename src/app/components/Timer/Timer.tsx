@@ -44,6 +44,7 @@ export default function TimerFrame({ onTimeout, index }: TimerProps) {
       }
     }
 
+    setSeconds(seconds);
     rafRef.current = requestAnimationFrame(tick);
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);

@@ -5,13 +5,13 @@ import { countryData } from "../components/gameData";
 
 export default function MainMenu() {
   const setState = useAppStore((state) => state.transitionState);
-  const tutorialStep = useAppStore((state) => state.tutorialStep);
+  const tutorialActive = useAppStore((state) => state.tutorialActive);
 
   function handleStart() {
-    if (tutorialStep === -1) {
-      setState("GAME_START");
-    } else {
+    if (tutorialActive) {
       setState("TUTORIAL");
+    } else {
+      setState("GAME_START");
     }
   }
 
@@ -20,12 +20,12 @@ export default function MainMenu() {
       <p>
         Get ready for your world tour! You&apos;re headed to
         {countryData.map(({ name }, index) => (
-          <b key={name}>{index === countryData.length - 1 ? ` and ${name}. ` : ` ${name},`}</b>
+          <span key={name}>{index === countryData.length - 1 ? ` and ${name}. ` : ` ${name},`}</span>
         ))}
         Make sure you have everything you need before you go.
         <br/>
         <br/>
-        <b>Get points by choosing the cheapest items. </b>
+        <b>Get points by choosing the cheapest items.</b>
       </p>
       <div className="spacer"></div>
       <div className="notes-footer">

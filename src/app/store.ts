@@ -79,6 +79,7 @@ export const useAppStore = create<AppState>((set, get) => ({
     switch (newState) {
       case "BOOT":
       case "SPLASH":
+      case "TUTORIAL":
         set({ state: newState });
         break;
 
@@ -89,17 +90,9 @@ export const useAppStore = create<AppState>((set, get) => ({
         set({ state: newState });
         break;
 
-      case "TUTORIAL":
-        set({ state: newState });
-        break;
-
       case "GAME_START":
         switch (currentState) {
           case "TUTORIAL":
-            set({ state: newState });
-            break;
-
-          // Start new game without tutorial (Play again)
           case "MAIN_MENU":
             set({ state: newState });
             break;
@@ -123,7 +116,7 @@ export const useAppStore = create<AppState>((set, get) => ({
       case "ROUND_FINISH":
         set({ state: newState, isTimerRunning: false });
         await new Promise((r) => setTimeout(r, 3000));
-        if (get().countryIndex === countryData.length - 2) {
+        if (get().countryIndex === countryData.length - 2 && get().tutorialActive) {
           get().transitionState("TUTORIAL");
           get().nextCountry();
           get().initRound();
@@ -348,7 +341,7 @@ export const useAppStore = create<AppState>((set, get) => ({
 
   initTimerDuration: () => {
     const isLastRound = get().countryIndex === countryData.length - 1;
-    const duration = isLastRound ? 7000 : Math.max(18000 - get().combo * 1000, 5000);
+    const duration = isLastRound ? 5000 : Math.max(18000 - get().combo * 1000, 5000);
     set({ timerDuration: duration });
   },
 }));
