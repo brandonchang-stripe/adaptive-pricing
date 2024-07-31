@@ -171,12 +171,11 @@
 .frame:global(.tutorial-5) {
   grid-column: 5 / span 4;
   grid-row: 7 / span 3;
-  margin-top: calc(var(--pixel-size) * 4);
 }
 
 .frame:global(.tutorial-6) {
   grid-column: 4 / span 6;
-  grid-row: 5 / span 3;
+  grid-row: 4 / span 3;
 }
 
 .frame:global(.next-stop-notes) {
@@ -187,7 +186,7 @@
 @media (max-height: 720px) or (max-width: 810px) {
   .frame:global(.starting-notes) {
     grid-column: 2 / span 10;
-    grid-row: 5 / span 5;
+    grid-row: 4 / span 6;
   }
 
   .frame:global(.map) {
@@ -247,7 +246,7 @@
 
   .frame:global(.tutorial-0) {
     grid-column: 1 / span 12;
-    grid-row: 6 / span 4;
+    grid-row: 5 / span 3;
   }
 
   .frame:global(.tutorial-1) {
@@ -262,11 +261,26 @@
 
   .frame:global(.tutorial-3) {
     grid-column: 1 / span 12;
+    grid-row: 1 / span 2;
+  }
+  
+  .frame:global(.tutorial-4) {
+    grid-column: 1 / span 12;
+    grid-row: 9 / span 3;
+  }
+
+  .frame:global(.tutorial-5) {
+    grid-column: 1 / span 12;
+    grid-row: 9 / span 3;
+  }
+
+  .frame:global(.tutorial-6) {
+    grid-column: 1 / span 12;
     grid-row: 9 / span 3;
   }
 
   .frame:global(.next-stop-notes) {
-    grid-column: 5 / span 4;
+    grid-column: 5 / span 6;
     grid-row: 4 / span 3;
   }
 }

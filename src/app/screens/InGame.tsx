@@ -7,9 +7,11 @@ import { tutorialItems } from "../components/gameData";
 import ProgressBar from "../components/ProgressBar/ProgressBar";
 import TutorialFrame from "../components/TutorialFrame/TutorialFrame";
 import TutorialItemDisplayFrame from "../components/TutorialItemDisplay/TutorialItemDisplay";
+import useDeviceDetails from "../hooks/useDeviceDetails";
 
 export default function InGame() {
   const state = useAppStore((state) => state.state);
+  const {isMobile} = useDeviceDetails();
   const currentItems = useAppStore((state) => state.currentItems);
   const evaluate = useAppStore((state) => state.evaluate);
   const transitionState = useAppStore((state) => state.transitionState);
@@ -78,7 +80,7 @@ export default function InGame() {
             Use the currency conversion slider to compare prices.
             <br />
             <br />
-            Move the slider to <b>match the {formatDisplayPrice(rightItemPrice, localCurrency)} price on the right.</b>
+            Move the slider to <b>match the {formatDisplayPrice(rightItemPrice, localCurrency)} price on the {isMobile ? "bottom" : "right"}.</b>
           </p>
         </TutorialFrame>
       )}
