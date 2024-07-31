@@ -79,13 +79,17 @@ body {
   background-color: var(--color-100);
 }
 
-p {
-  line-height: 1.5;
+p, b {
+  line-height: 1.6;
 }
 
 .notes-footer {
   display: flex;
   flex-direction: column;
+  border-top: var(--pixel-size) dotted var(--color-100);
+  padding-top: calc(var(--pixel-size) * 8);
+  margin-top: calc(var(--pixel-size) * 8);
+  gap: calc(var(--pixel-size) * 12);
 }
 
 .spacer {

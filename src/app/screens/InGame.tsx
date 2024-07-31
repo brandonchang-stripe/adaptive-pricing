@@ -97,7 +97,7 @@ export default function InGame() {
       {tutorialStep === 4 && (
         <TutorialFrame tutorialStep={4} onNext={nextTutorialStep} index={1}>
           <p>
-            The slider maxes out at{" "}{formatDisplayPrice(sliderMax, localCurrency)}. For anything more expensive, use your math skills!
+            The slider <b>maxes out at{" "}{formatDisplayPrice(sliderMax, localCurrency)}</b>. For anything more expensive, use your math skills!
           </p>
         </TutorialFrame>
       )}

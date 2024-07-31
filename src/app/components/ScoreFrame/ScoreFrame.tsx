@@ -43,7 +43,7 @@ export default function ScoreFrame() {
 
   function handleShare() {
     const url = new URL("https://www.priceadapter.com");
-    const encoded = btoa(JSON.stringify( scores ));
+    const encoded = btoa(JSON.stringify(scores));
     url.searchParams.append("scores", encoded);
     const message = `I scored ${totalScore} points planning my trip playing ${url.toString()}, Stripe's Adaptive Pricing game.`;
 
@@ -100,12 +100,17 @@ export default function ScoreFrame() {
           <div className={styles.blurb}>
             <p>Let Stripe handle currency conversion for you.</p>
             <p>
-              Improve conversion with <b>Adaptive Pricing</b>. Stripe automatically converts prices into buyer&apos;s
-              local currency and businesses see revenue increase by 17.8%.
+              With <b>Adaptive Pricing</b>, Stripe automatically converts prices into your buyer&apos;s local currency, increasing
+              revenue by an average of 17.8%.
             </p>
             <p>
-              <a href=" https://docs.stripe.com/payments/checkout/adaptive-pricing?utm_medium=pr/comms&utm_source=d819&utm_campaign=GLOBAL_40d1&utm_content=8afb&utm_term=762d2b62986b" target="_blank">Get started</a> with Adaptive Pricing
-              on Checkout or Payment Links.
+              <a
+                href=" https://docs.stripe.com/payments/checkout/adaptive-pricing?utm_medium=pr/comms&utm_source=d819&utm_campaign=GLOBAL_40d1&utm_content=8afb&utm_term=762d2b62986b"
+                target="_blank"
+              >
+                Get started
+              </a>{" "}
+              with Adaptive Pricing on Checkout or Payment Links.
             </p>
             <div className="spacer"></div>
             <div className={styles.shareButton}>

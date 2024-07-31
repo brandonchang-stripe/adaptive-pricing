@@ -7,6 +7,7 @@ export async function GET(_: Request, { params }: { params: { scores: string } }
   // if (process.env.NEXT_PUBLIC_URL) {
   //   url.hostname = new URL(process.env.NEXT_PUBLIC_URL).hostname
   // }
+
   // const font = await fetch(url).then((res) => res.arrayBuffer())
 
   try {

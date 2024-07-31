@@ -18,17 +18,19 @@ export default function MainMenu() {
   return (
     <Frame allowDrag position="starting-notes" type="note" index={2}>
       <p>
-        Get ready for your world tour! You&apos;re headed to
+        Get ready for your trip around the world! You&apos;re headed to
         {countryData.map(({ name }, index) => (
           <span key={name}>{index === countryData.length - 1 ? ` and ${name}. ` : ` ${name},`}</span>
         ))}
         Make sure you have everything you need before you go.
-        <br/>
-        <br/>
-        <b>Get points by choosing the cheapest items.</b>
+      </p>
+      <p>
+        Some shops don&apos;t display prices in your local currency, so you&apos;ll have to convert the prices yourself.
       </p>
       <div className="spacer"></div>
+      GOAL:
       <div className="notes-footer">
+        <b>Get points by choosing the cheapest items!</b>
         <Button onClick={handleStart}>Start shopping</Button>
       </div>
     </Frame>
