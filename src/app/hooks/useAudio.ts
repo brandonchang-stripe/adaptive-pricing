@@ -40,6 +40,7 @@ export function useAudio() {
   const sounds = useRef(soundBoard).current;
   const playSound = useCallback(
     (id: SoundName, rate = 1) => {
+      if (Howler.ctx.state !== "running") return;
       const sound = sounds[id].play();
       sounds[id].rate(rate, sound);
     },
