@@ -21,11 +21,11 @@
   left: 0;
   font-weight: 800;
 
-  --width: calc(var(--pixel-size) * 1650);
-  --height: calc(var(--pixel-size) * 67);
+  --saverwidth: calc(var(--pixel-size) * 1650);
+  --saverheight: calc(var(--pixel-size) * 67);
   background: url('/sprites/stripe-logo-2.png');
-  background-size: calc(var(--pixel-size) * 1650) var(--height);
-  height: var(--height);
+  background-size: calc(var(--pixel-size) * 1650) var(--saverheight);
+  height: var(--saverheight);
   width:  calc(var(--pixel-size) * 150);
   background-repeat: no-repeat;
   animation: spritesheet 3s steps(11) infinite forwards;

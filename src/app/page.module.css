@@ -2,12 +2,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
   position: relative;
   opacity: 0;
-
   height: 100dvh;
   width: 100dvw;
+  overflow: visible;
+}
+
+.viewport {
+  height: 100dvh;
+  width: 100dvw;
+  overflow: hidden;
 }
 
 .grid {

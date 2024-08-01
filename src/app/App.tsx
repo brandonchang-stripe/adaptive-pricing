@@ -34,7 +34,7 @@ type AppProps = {
   isPreview?: boolean;
 };
 
-export default function App({ nonce, currencies, localCurrency, countryData, isPreview = false}: AppProps) {
+export default function App({ nonce, currencies, localCurrency, countryData, isPreview = false }: AppProps) {
   const state = useAppStore((state) => state.state);
   const setCurrencies = useAppStore((state) => state.setCurrencies);
   const setCountryData = useAppStore((state) => state.setCountryData);
@@ -53,32 +53,38 @@ export default function App({ nonce, currencies, localCurrency, countryData, isP
   return (
     <MotionConfig nonce={nonce}>
       <ScreenRefContext>
-        <motion.main id="main" className={styles.main} ref={ref} style={{ x: pan }}
-          initial={{ opacity: 0}}
-          animate={{ opacity: 1, transition: { duration: 0.5, delay: 0.5 } }}
-        >
-          <Background />
-          <Monitor>
-            <div className={styles.grid}>
-              {state === "SLEEP" && <SleepScreen key="sleep" />}
-              {state === "BOOT" && <Boot key="boot" />}
-              {state === "SPLASH" && <Splash key="splash" />}
-              {state === "MAIN_MENU" && !isPreview && <MainMenu key="main-menu" />}
-              {state === "MAIN_MENU" && isPreview && <PreviewMainMenu key="preview-menu" />}
-              {(state === "GAME_PLAY" ||
-                state === "GAME_FINISH" ||
-                state === "TUTORIAL" ||
-                state === "GAME_START" ||
-                state === "ROUND_FINISH") && <InGame key="in-game" />}
-              {state === "GAME_START" && <StartFrame key="start" />}
-              {state === "ROUND_FINISH" && <RoundEndFrame key="round" />}
-              {state === "SCORE_SCREEN" && <ScoreScreen key="score-screen" />}
-              <Mute />
-            </div>
-          </Monitor>
-          <Keyboard />
-          <Books />
-        </motion.main>
+        <motion.div className={styles.viewport}>
+          <motion.main
+            id="main"
+            className={styles.main}
+            ref={ref}
+            style={{ x: pan }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1, transition: { duration: 0.5, delay: 0.6, ease: "easeOut" } }}
+          >
+            <Background />
+            <Monitor>
+              <div className={styles.grid}>
+                {state === "SLEEP" && <SleepScreen key="sleep" />}
+                {state === "BOOT" && <Boot key="boot" />}
+                {state === "SPLASH" && <Splash key="splash" />}
+                {state === "MAIN_MENU" && !isPreview && <MainMenu key="main-menu" />}
+                {state === "MAIN_MENU" && isPreview && <PreviewMainMenu key="preview-menu" />}
+                {(state === "GAME_PLAY" ||
+                  state === "GAME_FINISH" ||
+                  state === "TUTORIAL" ||
+                  state === "GAME_START" ||
+                  state === "ROUND_FINISH") && <InGame key="in-game" />}
+                {state === "GAME_START" && <StartFrame key="start" />}
+                {state === "ROUND_FINISH" && <RoundEndFrame key="round" />}
+                {state === "SCORE_SCREEN" && <ScoreScreen key="score-screen" />}
+                <Mute />
+              </div>
+            </Monitor>
+            <Keyboard />
+            <Books />
+          </motion.main>
+        </motion.div>
         <ViewControl onUpdate={handlePan} />
       </ScreenRefContext>
     </MotionConfig>

@@ -11,7 +11,7 @@ import useDeviceDetails from "../hooks/useDeviceDetails";
 
 export default function InGame() {
   const state = useAppStore((state) => state.state);
-  const {isMobile} = useDeviceDetails();
+  const { isMobile } = useDeviceDetails();
   const currentItems = useAppStore((state) => state.currentItems);
   const evaluate = useAppStore((state) => state.evaluate);
   const transitionState = useAppStore((state) => state.transitionState);
@@ -49,10 +49,10 @@ export default function InGame() {
   return (
     <>
       {/* Tutorial item displays */}
-      {state === "TUTORIAL"  && tutorialStep < 6 && (
+      {state === "TUTORIAL" && tutorialStep < 6 && (
         <>
           <TutorialItemDisplayFrame item={tutorialItems[0]} index={1} />
-          {tutorialStep >= 1 && ( <TutorialItemDisplayFrame item={tutorialItems[1]} index={2} />)}
+          {tutorialStep >= 1 && <TutorialItemDisplayFrame item={tutorialItems[1]} index={2} />}
         </>
       )}
 
@@ -80,7 +80,11 @@ export default function InGame() {
             Use the currency conversion slider to compare prices.
             <br />
             <br />
-            Move the slider to <b>match the {formatDisplayPrice(rightItemPrice, localCurrency)} price on the {isMobile ? "bottom" : "right"}.</b>
+            Move the slider to{" "}
+            <b>
+              match the {formatDisplayPrice(rightItemPrice, localCurrency)} price on the {isMobile ? "bottom" : "right"}
+              .
+            </b>
           </p>
         </TutorialFrame>
       )}
@@ -88,8 +92,8 @@ export default function InGame() {
       {tutorialStep === 3 && (
         <TutorialFrame tutorialStep={3} index={1}>
           <p>
-            Great! Now you can <b>compare the two prices</b>.
-            The shop on the {isMobile ? "bottom" : "right"} has a better deal, so buy it!
+            Great! Now you can <b>compare the two prices</b>. The shop on the {isMobile ? "bottom" : "right"} has a
+            better deal, so buy it!
           </p>
         </TutorialFrame>
       )}
@@ -97,7 +101,8 @@ export default function InGame() {
       {tutorialStep === 4 && (
         <TutorialFrame tutorialStep={4} onNext={nextTutorialStep} index={1}>
           <p>
-            The slider <b>maxes out at{" "}{formatDisplayPrice(sliderMax, localCurrency)}</b>. For anything more expensive, use your math skills!
+            The slider <b>maxes out at {formatDisplayPrice(sliderMax, localCurrency)}</b>. For anything more expensive,
+            use your math skills!
           </p>
         </TutorialFrame>
       )}
@@ -110,8 +115,8 @@ export default function InGame() {
 
       <TutorialFrame tutorialStep={6} onNext={handleFinalTutorial} index={1}>
         <p>
-          The final trip is the <b>Lightning Round</b>! All prices have been converted. No need to use the slider, just
-          pick the smaller number!
+          The final trip is the <b>Lightning Round</b>. All prices have been converted to your local currency. No need
+          to use the slider, just pick the smaller number!
         </p>
       </TutorialFrame>
 

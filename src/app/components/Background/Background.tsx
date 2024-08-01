@@ -1,5 +1,5 @@
 import styles from "./Background.module.css";
 
 export default function Background() {
-  return <div className={styles.background} />
+  return <img className={styles.background} src="/sprites/background.png" draggable={false} />
 }

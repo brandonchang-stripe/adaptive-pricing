@@ -1,9 +1,9 @@
 .board {
-  --width: calc(var(--pixel-size) * 503);
+  --boardwidth: calc(var(--pixel-size) * 503);
   position: absolute;
   top: calc(50% + var(--pixel-size) * 211);
-  left: calc(50% - var(--width) / 2 - 1px);
-  width: var(--width);
+  left: calc(50% - var(--boardwidth) / 2 - 1px);
+  width: var(--boardwidth);
   height: calc(var(--pixel-size) * 92);
   background: url("/sprites/keyboard-board.png");
   background-size: cover;
