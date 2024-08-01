@@ -177,7 +177,7 @@ function AdaptivePricingPopover({ targetRef }: AdaptivePricingPopoverRef) {
     >
       Price
       <br />
-      adapted!
+      adapted
     </motion.div>
   );
 }
