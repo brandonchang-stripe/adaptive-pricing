@@ -77,6 +77,11 @@ export const useAppStore = create<AppState>((set, get) => ({
   transitionState: async (newState: GameState) => {
     const currentState = get().state;
     switch (newState) {
+      case "SLEEP":
+        set({ state: newState });
+        stopMusic();
+        break;
+
       case "BOOT":
       case "SPLASH":
       case "TUTORIAL":
@@ -146,6 +151,8 @@ export const useAppStore = create<AppState>((set, get) => ({
       countryIndex: 0,
       itemIndex: 0,
       isTimerRunning: false,
+      tutorialActive: true,
+      tutorialStep: 0,
       score: Array(countryData.length).fill(-1),
     });
   },

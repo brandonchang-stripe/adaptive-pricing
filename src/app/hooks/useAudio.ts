@@ -31,6 +31,7 @@ export const soundBoard = {
   ping: new Howl({ src: "./sfx/confirm_05.mp3", volume: 0.2 }),
   key1: new Howl({ src: "./sfx/key_1.mp3", volume: 0.6 }),
   key2: new Howl({ src: "./sfx/key_2.mp3", volume: 0.6 }),
+  shutdown: new Howl({ src: "./sfx/close_05.mp3", volume: 0.6 }),
 } as const;
 
 export type SoundName = keyof typeof soundBoard;
@@ -89,4 +90,8 @@ export function stopMusic() {
       musicId = undefined;
     });
   }
+}
+
+export function stopAll() {
+  Howler.stop();
 }
