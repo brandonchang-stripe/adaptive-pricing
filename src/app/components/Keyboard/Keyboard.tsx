@@ -46,6 +46,7 @@ export default function Keyboard() {
     if (
       typed.slice(-4) === "4242" ||
       typed.slice(-4) === "1337" ||
+      typed.slice(-4) === "0451" ||
       typed.slice(-10) === "uuddlrlrba" ||
       typed.slice(-3) === "420"
     ) {
@@ -77,9 +78,9 @@ export default function Keyboard() {
           <div className={styles.keyBlank} onPointerDown={() => handleKeyDown()} />
           <div className={styles.keyBlank} onPointerDown={() => handleKeyDown()} />
           <div className="spacer" />
-          <div className={styles.keyBlank} onPointerDown={() => handleKeyDown("9")} />
-          <div className={styles.keyBlank} onPointerDown={() => handleKeyDown("8")} />
-          <div className={styles.keyBlank} onPointerDown={() => handleKeyDown("7")} />
+          <div className={styles.keyBlank} onPointerDown={() => handleKeyDown()} />
+          <div className={styles.keyBlank} onPointerDown={() => handleKeyDown("/")} />
+          <div className={styles.keyBlank} onPointerDown={() => handleKeyDown("*")} />
         </div>
 
         <div className={styles.row}>
@@ -98,13 +99,13 @@ export default function Keyboard() {
           <div className={styles.keyBlank} onPointerDown={() => handleKeyDown("]")} />
           <div className={styles.keyBlank} onPointerDown={() => handleKeyDown("\\")} />
           <div className="spacer" />
-          <div className={styles.keyBlank} onPointerDown={() => handleKeyDown("4")} />
-          <div className={styles.keyBlank} onPointerDown={() => handleKeyDown("5")} />
-          <div className={styles.keyBlank} onPointerDown={() => handleKeyDown("6")} />
+          <div className={styles.keyBlank} onPointerDown={() => handleKeyDown()} />
+          <div className={styles.keyBlank} onPointerDown={() => handleKeyDown()} />
+          <div className={styles.keyBlank} onPointerDown={() => handleKeyDown()} />
           <div className="spacer" />
-          <div className={styles.keyBlank} onPointerDown={() => handleKeyDown()} />
-          <div className={styles.keyBlank} onPointerDown={() => handleKeyDown()} />
-          <div className={styles.keyBlank} onPointerDown={() => handleKeyDown()} />
+          <div className={styles.keyBlank} onPointerDown={() => handleKeyDown("7")} />
+          <div className={styles.keyBlank} onPointerDown={() => handleKeyDown("8")} />
+          <div className={styles.keyBlank} onPointerDown={() => handleKeyDown("9")} />
         </div>
 
         <div className={styles.row}>
@@ -122,9 +123,9 @@ export default function Keyboard() {
           <div className={styles.keyBlank} onPointerDown={() => handleKeyDown(";")} />
           <div className={styles.keyReturn} onPointerDown={handleReturnDown} />
           <div className="spacer" />
-          <div className={styles.keyBlank} onPointerDown={() => handleKeyDown("1")} />
-          <div className={styles.keyBlank} onPointerDown={() => handleKeyDown("2")} />
-          <div className={styles.keyBlank} onPointerDown={() => handleKeyDown("3")} />
+          <div className={styles.keyBlank} onPointerDown={() => handleKeyDown("4")} />
+          <div className={styles.keyBlank} onPointerDown={() => handleKeyDown("5")} />
+          <div className={styles.keyBlank} onPointerDown={() => handleKeyDown("6")} />
         </div>
 
         <div className={styles.row}>
@@ -143,9 +144,9 @@ export default function Keyboard() {
           <div className="spacer" />
           <div className={styles.keyBlank} onPointerDown={() => handleKeyDown()} />
           <div className="spacer" />
-          <div className={styles.keyBlank} onPointerDown={() => handleKeyDown()} />
-          <div className={styles.keyBlank} onPointerDown={() => handleKeyDown()} />
-          <div className={styles.keyBlank} onPointerDown={() => handleKeyDown()} />
+          <div className={styles.keyBlank} onPointerDown={() => handleKeyDown("1")} />
+          <div className={styles.keyBlank} onPointerDown={() => handleKeyDown("2")} />
+          <div className={styles.keyBlank} onPointerDown={() => handleKeyDown("3")} />
         </div>
 
         <div className={styles.row}>
@@ -161,7 +162,7 @@ export default function Keyboard() {
           <div className={styles.keyBlank} onPointerDown={() => handleKeyDown()} />
           <div className={styles.keyBlank} onPointerDown={() => handleKeyDown()} />
           <div className="spacer" />
-          <div className={styles.keyBlank} onPointerDown={() => handleKeyDown()} />
+          <div className={styles.keyBlank} onPointerDown={() => handleKeyDown("0")} />
           <div className={styles.keyBlank} onPointerDown={() => handleKeyDown()} />
           <div className={styles.keyBlank} onPointerDown={() => handleKeyDown()} />
         </div>
