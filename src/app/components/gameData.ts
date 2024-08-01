@@ -179,14 +179,14 @@ export const countryData: CountryData[] = [
         quantity: "1x",
         icon: "swim-trunks",
       },
-      {
-        type: "Plane ticket",
-        merchants: ["airkiwi.com", "nz-air.nz"],
-        baseUsdPrice: 1210.0,
-        priceIncrements: [5.0],
-        quantity: "1x",
-        icon: "ticket",
-      },
+      // {
+      //   type: "Plane ticket",
+      //   merchants: ["airkiwi.com", "nz-air.nz"],
+      //   baseUsdPrice: 1210.0,
+      //   priceIncrements: [5.0],
+      //   quantity: "1x",
+      //   icon: "ticket",
+      // },
     ],
   },
 ];
