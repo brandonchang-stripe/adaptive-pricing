@@ -15,9 +15,14 @@ export default function Button({ children, onClick, disabled, href, as = "button
   const audio = useAudio();
 
   function handleClick(e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) {
-    e.preventDefault();
-    e.stopPropagation();
-    if (onClick) onClick();
+    if (!href) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    if (onClick) {
+      onClick();
+    }
   }
   
 
