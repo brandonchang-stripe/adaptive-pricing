@@ -18,6 +18,7 @@
   user-select: none;
   aspect-ratio: 1;
   height: calc(var(--pixel-size) * 16);
+  cursor: url("/sprites/cursor-pointer.png"), auto;
 }
 
 .scoreListButton:active {
@@ -26,6 +27,7 @@
 
 .scoreListDivider {
   height: calc(var(--pixel-size) * 14);
+  margin: 0 auto;
 }
 
 .scoreListContents {

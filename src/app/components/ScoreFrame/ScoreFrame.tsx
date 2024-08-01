@@ -21,6 +21,7 @@ export default function ScoreFrame() {
   const scoreDigits = totalScore.toString().split("");
 
   const [visible, setVisible] = useState(false);
+  const shareLink = handleShare();
 
   useEffect(() => {
     const vis = setTimeout(() => {
@@ -46,9 +47,8 @@ export default function ScoreFrame() {
     const encoded = btoa(JSON.stringify(scores));
     url.searchParams.append("scores", encoded);
     const message = `I scored ${totalScore} points planning my trip playing ${url.toString()}, Stripe's Adaptive Pricing game.`;
-
     // share to twitter with a custom open graph image
-    window.open(`https://twitter.com/intent/tweet?text=${encodeURI(message)}`, "_blank");
+    return `https://twitter.com/intent/tweet?text=${encodeURI(message)}`
   }
 
   return (
@@ -114,7 +114,7 @@ export default function ScoreFrame() {
             </p>
             <div className="spacer"></div>
             <div className={styles.shareButton}>
-              <Button onClick={handleShare}>Share</Button>
+              <Button href={shareLink} as="a">Share</Button>
             </div>
             <div className={styles.nextStopButton}>
               <Button onClick={handlePlayAgain}>PLAY AGAIN</Button>

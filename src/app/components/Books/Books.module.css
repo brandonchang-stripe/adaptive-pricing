@@ -1,0 +1,10 @@
+.books {
+  position: absolute;
+  display: block;
+  top: calc(50% + var(--pixel-size) * 101);
+  left: calc(50% + var(--pixel-size) * 292);
+  height: calc(var(--pixel-size) * 154);
+  width: calc(var(--pixel-size) * 248);
+  background: url("/sprites/books.png");
+  background-size: contain;
+}

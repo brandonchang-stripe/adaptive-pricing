@@ -61,7 +61,7 @@ export default function ScoreList({ index = 1, onListAnimationComplete }: Props)
               />
             ))}
           <img className={styles.scoreListDivider} src="/sprites/email-icon-divider.png" alt="" draggable={false} />
-          {Array(4)
+          {Array(5)
             .fill(0)
             .map((_, i) => (
               <img
