@@ -53,15 +53,16 @@
   flex-grow: 1;
 }
 
+.popoverLightning,
 .popover {
   text-align: center;
   position: absolute;
   top: 0;
   left: 0;
   line-height: 1.2;
-  background: var(--color-300);
+  background: var(--color-200);
   border: var(--pixel-size) solid var(--color-100);
-  color: var(--color-200);
+  color: var(--color-100);
   padding: calc(var(--pixel-size) * 4);
   z-index: 1;
 
@@ -70,6 +71,12 @@
   border-image-width: calc(var(--pixel-size) * 1);
   border-image-outset: calc(var(--pixel-size) * 1);
   border-image-repeat: repeat;
+}
+
+.popoverLightning {
+  background: var(--color-300);
+  border: var(--pixel-size) solid var(--color-100);
+  color: var(--color-200);
 }
 
 .purchasePopover {

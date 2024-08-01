@@ -53,7 +53,10 @@ export default function App({ nonce, currencies, localCurrency, countryData, isP
   return (
     <MotionConfig nonce={nonce}>
       <ScreenRefContext>
-        <motion.main id="main" className={styles.main} ref={ref} style={{ x: pan }}>
+        <motion.main id="main" className={styles.main} ref={ref} style={{ x: pan }}
+          initial={{ opacity: 0}}
+          animate={{ opacity: 1, transition: { duration: 0.5, delay: 0.5 } }}
+        >
           <Background />
           <Monitor>
             <div className={styles.grid}>
