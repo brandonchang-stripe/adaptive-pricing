@@ -89,7 +89,7 @@ export default function InGame() {
         <TutorialFrame tutorialStep={3} index={1}>
           <p>
             Great! Now you can <b>compare the two prices</b>.
-            The shop on the right has a better deal, so buy it!
+            The shop on the {isMobile ? "bottom" : "right"} has a better deal, so buy it!
           </p>
         </TutorialFrame>
       )}

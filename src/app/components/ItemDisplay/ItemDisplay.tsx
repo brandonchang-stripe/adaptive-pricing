@@ -3,7 +3,7 @@ import { animate, motion, useMotionValue, useTransform } from "framer-motion";
 import { RefObject, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
-import { ActiveItem, formatDisplayPrice, useAppStore, useCurrentCountry, useUsdToCurrency } from "@/app/store";
+import { ActiveItem, formatDisplayPrice, useAppStore, useCurrentCountry, useIsLightningRound, useUsdToCurrency } from "@/app/store";
 import { useAudio } from "@/app/hooks/useAudio";
 import { stepEase } from "@/app/util/stepEase";
 import { usePixelSize } from "@/app/hooks/usePixelSize";
@@ -119,6 +119,7 @@ type AdaptivePricingPopoverRef = {
 function AdaptivePricingPopover({ targetRef }: AdaptivePricingPopoverRef) {
   const [targetBounds, setTargetBounds] = useState<DOMRect | null>(null);
   const { isMobile } = useDeviceDetails();
+  const isLightningRound = useIsLightningRound();   
   const pixelSize = usePixelSize();
 
   useEffect(() => {
@@ -173,7 +174,7 @@ function AdaptivePricingPopover({ targetRef }: AdaptivePricingPopoverRef) {
       }}
       initial="hidden"
       animate={targetBounds && pixelSize !== 0 ? "visible" : "hidden"}
-      className={styles.popover}
+      className={isLightningRound ? styles.popoverLightning : styles.popover}
     >
       Price
       <br />
