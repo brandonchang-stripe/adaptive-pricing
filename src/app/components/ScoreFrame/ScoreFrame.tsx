@@ -105,7 +105,7 @@ export default function ScoreFrame() {
             </p>
             <p>
               <a
-                href=" https://docs.stripe.com/payments/checkout/adaptive-pricing?utm_medium=pr/comms&utm_source=d819&utm_campaign=GLOBAL_40d1&utm_content=8afb&utm_term=762d2b62986b"
+                href="https://docs.stripe.com/payments/checkout/adaptive-pricing?utm_source=d819&utm_campaign=GLOBAL_40d1&utm_content=8afb&utm_term=762d2b62986b#enable-adaptive-pricing"
                 target="_blank"
               >
                 Get started

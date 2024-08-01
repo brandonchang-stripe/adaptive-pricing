@@ -24,6 +24,22 @@
   flex-direction: row;
 }
 
+.row:nth-of-type(2) {
+  z-index: 1;
+}
+
+.row:nth-of-type(3) {
+  z-index: 2;
+}
+
+.row:nth-of-type(4) {
+  z-index: 3;
+}
+
+.row:nth-of-type(5) {
+  z-index: 4;
+}
+
 .key2 {
   border-image: url("/sprites/key-2.png");
 }
