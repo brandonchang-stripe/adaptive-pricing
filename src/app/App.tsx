@@ -24,17 +24,20 @@ import ViewControl from "./components/ViewControl/ViewControl";
 import PreviewMainMenu from "./screens/PreviewMainMenu";
 import Keyboard from "./components/Keyboard/Keyboard";
 import Books from "./components/Books/Books";
+import { CountryData } from "./components/gameData";
 
 type AppProps = {
   nonce: string;
   currencies: Currencies | null;
   localCurrency: string;
+  countryData: CountryData[];
   isPreview?: boolean;
 };
 
-export default function App({ nonce, currencies, localCurrency, isPreview = false}: AppProps) {
-  const setCurrencies = useAppStore((state) => state.setCurrencies);
+export default function App({ nonce, currencies, localCurrency, countryData, isPreview = false}: AppProps) {
   const state = useAppStore((state) => state.state);
+  const setCurrencies = useAppStore((state) => state.setCurrencies);
+  const setCountryData = useAppStore((state) => state.setCountryData);
   const ref = useRef<HTMLDivElement>(null);
   const pixelSize = usePixelSize();
   const pan = useMotionValue(0);
@@ -43,8 +46,9 @@ export default function App({ nonce, currencies, localCurrency, isPreview = fals
   };
 
   useEffect(() => {
+    setCountryData(countryData);
     setCurrencies(currencies, localCurrency);
-  }, [currencies, setCurrencies, localCurrency]);
+  }, [currencies, setCurrencies, localCurrency, countryData]);
 
   return (
     <MotionConfig nonce={nonce}>

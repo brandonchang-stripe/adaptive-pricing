@@ -12,9 +12,9 @@
 - [x] Domain purchasing
   - [x] Reach out to #edge on run
 - [x] Mobile
-- [ ] Music
+- [x] Music
   - [x] Pan desk
-- [ ] OG Share
+- [x] OG Share
 - [x] Live currencies
 - [x] Boot animation
   - [x] Rotating logo
@@ -29,7 +29,7 @@
 - [x] Scrollbar left line
 - [x] Share button "Share"
 - [x] Share button outline
-- [ ] Boot screen cursor
+- [x] Boot screen cursor
 
 # Juice
 - [x] Custom SFX

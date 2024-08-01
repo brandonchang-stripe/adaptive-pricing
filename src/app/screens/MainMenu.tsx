@@ -1,11 +1,11 @@
 import Frame from "@/app/components/Frame/Frame";
 import { useAppStore } from "../store";
 import Button from "../components/Button/Button";
-import { countryData } from "../components/gameData";
 
 export default function MainMenu() {
   const setState = useAppStore((state) => state.transitionState);
   const tutorialActive = useAppStore((state) => state.tutorialActive);
+  const countryData = useAppStore((state) => state.countryData);
 
   function handleStart() {
     if (tutorialActive) {

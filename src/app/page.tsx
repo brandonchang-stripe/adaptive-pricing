@@ -1,8 +1,8 @@
 import { headers } from "next/headers";
 import App from "./App";
 import { getCurrencies } from "./providers/stripe";
-
-import type { Metadata, ResolvingMetadata } from "next";
+import type { Metadata } from "next";
+import { countryData, subCountryData } from "./components/gameData";
 
 type MetaProps = {
   params: { id: string };
@@ -35,16 +35,23 @@ export async function generateMetadata({ searchParams }: MetaProps): Promise<Met
 
 export default async function PageLayout() {
   const nonce = headers().get("x-nonce")!;
-  const country = headers().get("X-Vercel-IP-Country") || "US";
+  const countryCode = headers().get("X-Vercel-IP-Country") || "US";
   let allCurrencies = null;
   let currencyCode = "usd";
+
+  const foundIndex = countryData.findIndex((country) => country.code.toLowerCase() === countryCode.toLowerCase());
+  const countries = (foundIndex === -1)
+    ? countryData
+    // @ts-ignore 'Array.with' is widely supported
+    : countryData.with(foundIndex, subCountryData);
+
   try {
-    const {currencies, localCurrencyCode} = await getCurrencies(country);
+    const { currencies, localCurrencyCode } = await getCurrencies(countryCode);
     allCurrencies = currencies;
     currencyCode = localCurrencyCode;
   } catch (e) {
     console.error(e);
   }
 
-  return <App nonce={nonce} currencies={allCurrencies} localCurrency={currencyCode} />;
+  return <App nonce={nonce} currencies={allCurrencies} localCurrency={currencyCode} countryData={countries} />;
 }

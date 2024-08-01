@@ -1,7 +1,8 @@
 import Frame from "@/app/components/Frame/Frame";
-import { countryData } from "../components/gameData";
+import { useAppStore } from "../store";
 
 export default function PreviewMainMenu() {
+  const countryData = useAppStore((state) => state.countryData);
   return (
     <Frame allowDrag position="starting-notes" type="note" index={2}>
       <p>

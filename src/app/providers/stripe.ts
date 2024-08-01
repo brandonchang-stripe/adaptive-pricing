@@ -1,5 +1,5 @@
 import qs from "querystring";
-import { countryData } from "../components/gameData";
+import { countryData, subCountryData } from "../components/gameData";
 import { type TCountryCode, getCountryData } from "countries-list";
 
 type QuoteResponse = {
@@ -32,6 +32,7 @@ export async function getCurrencies(localCountryCode: string) {
   const localCurrencyCode = getCountryData(localCountryCode as TCountryCode).currency[0].toLowerCase();
 
   const from_currencies = countryData.map((c) => c.currencyCode.toLowerCase());
+  from_currencies.push(subCountryData.currencyCode.toLowerCase());
   if (from_currencies.indexOf(localCurrencyCode) === -1 && localCurrencyCode !== "usd") {
     from_currencies.push(localCurrencyCode);
   }

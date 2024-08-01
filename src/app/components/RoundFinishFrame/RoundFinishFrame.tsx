@@ -1,13 +1,13 @@
 import styles from "./RoundFinishFrame.module.css";
 import Frame from "../Frame/Frame";
 import { useAppStore } from "@/app/store";
-import { countryData } from "../gameData";
 import { useEffect, useState } from "react";
 import { useAudio } from "@/app/hooks/useAudio";
 
 export default function RoundEndFrame() {
   const audio = useAudio();
   const countryIndex = useAppStore((state) => state.countryIndex);
+  const countryData = useAppStore((state) => state.countryData);
   const [offset, setOffset] = useState(-1);
   const score = useAppStore((state) => state.score);
 

@@ -15,7 +15,6 @@ export type CountryData = {
   currencySymbol: string;
   currencyCode: string;
   conversionRateDefault: number;
-  currentConversionRate: number | null;
   items: ItemData[];
 };
 
@@ -36,6 +35,32 @@ export const tutorialItems: ActiveItem[] = [
   },
 ];
 
+export const subCountryData: CountryData = {
+  name: "UAE",
+  code: "AE",
+  currencySymbol: "DH",
+  currencyCode: "aed",
+  conversionRateDefault: 0.027,
+  items: [
+    {
+      type: "Guidebook",
+      merchants: ["EmiratesExplorer.ae", "lovely-planet.ae"],
+      baseUsdPrice: 25,
+      priceIncrements: [2, 5],
+      quantity: "1x",
+      icon: "book",
+    },
+    {
+      type: "Train ticket",
+      merchants: ["DesertRailJourneys.ae", "4242tickets.com"],
+      baseUsdPrice: 90.0,
+      priceIncrements: [10, 5, 20],
+      quantity: "1x pass",
+      icon: "ticket",
+    },
+  ],
+};
+
 export const countryData: CountryData[] = [
   {
     name: "Japan",
@@ -43,7 +68,6 @@ export const countryData: CountryData[] = [
     currencySymbol: "¥",
     currencyCode: "jpy",
     conversionRateDefault: 0.00643388,
-    currentConversionRate: null,
     items: [
       {
         type: "Karaoke Microphone",
@@ -64,8 +88,8 @@ export const countryData: CountryData[] = [
       {
         type: "Train pass",
         merchants: ["sakurarail.com", "fujirail.jp"],
-        baseUsdPrice: 100.0,
-        priceIncrements: [10, 5, 20],
+        baseUsdPrice: 90.0,
+        priceIncrements: [10, 5],
         quantity: "1x pass",
         icon: "ticket",
       },
@@ -77,7 +101,6 @@ export const countryData: CountryData[] = [
     currencySymbol: "R$",
     currencyCode: "brl",
     conversionRateDefault: 0.175098,
-    currentConversionRate: null,
     items: [
       {
         type: "Futbol",
@@ -111,7 +134,6 @@ export const countryData: CountryData[] = [
     currencyCode: "mxn",
     currencySymbol: "$MX",
     conversionRateDefault: 0.0538664,
-    currentConversionRate: null,
     items: [
       {
         type: "Sunglasses",
@@ -145,7 +167,6 @@ export const countryData: CountryData[] = [
     currencySymbol: "NZ$",
     currencyCode: "nzd",
     conversionRateDefault: 0.586931,
-    currentConversionRate: null,
     items: [
       {
         type: "Fanny pack",

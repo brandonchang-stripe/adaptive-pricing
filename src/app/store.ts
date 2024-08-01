@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { CountryData, emailSubjects, countryData } from "./components/gameData";
+import { CountryData, emailSubjects } from "./components/gameData";
 import { randiRange } from "./util/math";
 import { SoundName, playMusic, playSound, stopMusic } from "./hooks/useAudio";
 import { replaceAt } from "./util/array";
@@ -40,6 +40,9 @@ interface AppState {
   state: GameState;
   // All state transition logic is handled here
   transitionState: (newState: GameState) => void;
+
+  countryData: CountryData[];
+  setCountryData: (countries: CountryData[]) => void;
 
   countryIndex: number;
   nextCountry: () => void;
@@ -119,6 +122,7 @@ export const useAppStore = create<AppState>((set, get) => ({
         break;
 
       case "ROUND_FINISH":
+        const countryData = get().countryData;
         set({ state: newState, isTimerRunning: false });
         await new Promise((r) => setTimeout(r, 3000));
         if (get().countryIndex === countryData.length - 2 && get().tutorialActive) {
@@ -153,7 +157,7 @@ export const useAppStore = create<AppState>((set, get) => ({
       isTimerRunning: false,
       tutorialActive: true,
       tutorialStep: 0,
-      score: Array(countryData.length).fill(-1),
+      score: Array(get().countryData.length).fill(-1),
     });
   },
 
@@ -169,27 +173,39 @@ export const useAppStore = create<AppState>((set, get) => ({
   },
 
   // Country state
-  currencies: countryData.reduce((acc, country) => {
-    if (country.conversionRateDefault === null) return acc;
-    return { ...acc, [country.currencyCode]: country.conversionRateDefault };
-  }, {} as Currencies),
-
-  localCurrency: "usd",
-
-  setCurrencies: (currencies, localCurrency) => {
-    if (currencies === null) return;
-    set({ currencies, localCurrency });
+  countryData: [],
+  setCountryData: (countryData) => {
+    set({ countryData });
   },
 
   countryIndex: 0,
   nextCountry: () => {
     set((state) => {
       const nextIndex = state.countryIndex + 1;
-      if (nextIndex >= countryData.length) {
+      if (nextIndex >= state.countryData.length) {
         return state;
       }
       return { countryIndex: nextIndex };
     });
+  },
+
+  localCurrency: "usd",
+  // currencies: get().countryData.reduce((acc, country) => {
+  //   if (country.conversionRateDefault === null) return acc;
+  //   return { ...acc, [country.currencyCode]: country.conversionRateDefault };
+  // }, {} as Currencies),
+  currencies: {},
+  setCurrencies: (currencies, localCurrency) => {
+    if (currencies !== null) {
+      set({ currencies, localCurrency });
+    } else {
+      const defaultCurrencies = get().countryData.reduce((acc, country) => {
+        if (country.conversionRateDefault === null) return acc;
+        return { ...acc, [country.currencyCode]: country.conversionRateDefault };
+      }, {} as Currencies);
+
+      set({ currencies: defaultCurrencies, localCurrency });
+    }
   },
 
   // Tutorial state
@@ -204,13 +220,14 @@ export const useAppStore = create<AppState>((set, get) => ({
   },
 
   // Game meta state
-  score: Array(countryData.length).fill(0),
+  score: [],
   combo: 0,
 
   // Item State
   currentItems: [],
   itemIndex: 0,
   chooseRandomMerchants: (itemIndex, count = 2) => {
+    const countryData = get().countryData;
     const countryIndex = get().countryIndex;
     const country = countryData[countryIndex];
     const currentItemData = country.items[itemIndex];
@@ -303,7 +320,7 @@ export const useAppStore = create<AppState>((set, get) => ({
     await new Promise((r) => setTimeout(r, 800));
     set({ buyingEnabled: true });
 
-    const allItems = countryData[get().countryIndex].items;
+    const allItems = get().countryData[get().countryIndex].items;
     const itemIndex = get().itemIndex;
     if (itemIndex < allItems.length - 1) {
       const nextItemIndex = itemIndex + 1;
@@ -347,7 +364,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   isTimerRunning: false,
 
   initTimerDuration: () => {
-    const isLastRound = get().countryIndex === countryData.length - 1;
+    const isLastRound = get().countryIndex === get().countryData.length - 1;
     const duration = isLastRound ? 5000 : Math.max(18000 - get().combo * 1000, 5000);
     set({ timerDuration: duration });
   },
@@ -355,6 +372,7 @@ export const useAppStore = create<AppState>((set, get) => ({
 
 export function useCurrentCountry(): CountryData {
   const countryIndex = useAppStore((state) => state.countryIndex);
+  const countryData = useAppStore((state) => state.countryData);
   return countryData[countryIndex];
 }
 
@@ -375,5 +393,6 @@ export function formatDisplayPrice(price: number, currency: string): string {
 
 export function useIsLightningRound(): boolean {
   const countryIndex = useAppStore((state) => state.countryIndex);
+  const countryData = useAppStore((state) => state.countryData);
   return countryIndex === countryData.length - 1;
 }

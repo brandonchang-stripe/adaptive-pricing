@@ -5,16 +5,14 @@ import { useAudio } from "@/app/hooks/useAudio";
 import { useAppStore, useCurrentCountry, useIsLightningRound } from "@/app/store";
 import { usePixelSize } from "@/app/hooks/usePixelSize";
 import { animate, motion, useMotionValue, useTransform } from "framer-motion";
-import { countryData } from "../gameData";
-import { stepEase } from "@/app/util/stepEase";
 import useDeviceDetails from "@/app/hooks/useDeviceDetails";
 
 export default function StartFrame() {
   const audio = useAudio();
   const country = useCurrentCountry();
   const countryIndex = useAppStore((state) => state.countryIndex);
+  const countryData = useAppStore((state) => state.countryData);
   const { isMobile, height } = useDeviceDetails();
-  const isLightningRound = useIsLightningRound();
   const mapRef = useRef<HTMLImageElement>(null);
   const [mapSize, setMapSize] = useState({ x: 0, y: 0 });
   const pixelSize = usePixelSize();
