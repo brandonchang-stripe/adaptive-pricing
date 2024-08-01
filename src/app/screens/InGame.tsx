@@ -27,7 +27,7 @@ export default function InGame() {
   const tutorial2Ref = useRef<any>(null);
   const handleSliderChange = (value: number) => {
     if (tutorialStep !== 2) return;
-    if (value === rightItemPrice) {
+    if (value === tutorialItems[1].usdPrice) {
       tutorial2Ref.current = setTimeout(() => {
         nextTutorialStep();
       }, 500);

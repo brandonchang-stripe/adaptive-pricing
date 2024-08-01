@@ -15,13 +15,17 @@
   padding: calc(var(--pixel-size) * 3) calc(var(--pixel-size) * 10);
   font-family: var(--font-dogica);
   background: var(--button-background, var(--color-300));
-  color: var(--button-color, var(--color-200)) !important;
+  color: var(--button-color, var(--color-200));
   font-weight: 600;
   text-transform: uppercase;
   cursor: url("/sprites/cursor-pointer.png"), auto;
 
   width: 100%;
   height: auto;
+}
+
+.button:global(a) {
+  color: var(--button-color, var(--color-200)) !important;
 }
 
 .button:active {
