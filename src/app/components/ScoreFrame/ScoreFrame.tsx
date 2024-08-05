@@ -73,7 +73,7 @@ export default function ScoreFrame() {
               <tbody>
                 <tr>
                   <td>Your trip spend:</td>
-                  <td>[{totalSpend}]</td>
+                  <td>{totalSpend}</td>
                 </tr>
                 <tr>
                   <td></td>
@@ -117,7 +117,7 @@ export default function ScoreFrame() {
               <Button href={shareLink} as="a">Share</Button>
             </div>
             <div className={styles.nextStopButton}>
-              <Button onClick={handlePlayAgain}>PLAY AGAIN</Button>
+              <Button onClick={handlePlayAgain}>Play again</Button>
             </div>
           </div>
         </div>

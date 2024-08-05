@@ -1,6 +1,6 @@
-import { motion, useDragControls } from "framer-motion";
 import styles from "./ViewControl.module.css";
 import { useCallback, useRef } from "react";
+import { motion } from "framer-motion";
 import { useAudio } from "@/app/hooks/useAudio";
 
 type ViewControlProps = {
@@ -19,10 +19,12 @@ export default function ViewControl({ onUpdate }: ViewControlProps) {
   );
 
   function handleDragStart() {
+    if (Howler.ctx.state !== "running") return;
     audio("dragStart");
   }
 
   function handleDragEnd() {
+    if (Howler.ctx.state !== "running") return;
     audio("dragEnd");
   }
 

@@ -15,6 +15,7 @@ export const soundBoard = {
   clickDown: new Howl({ src: "./sfx/click_02.mp3", volume: 0.8 }),
   clickUp: new Howl({ src: "./sfx/click_01.mp3", volume: 0.8 }),
   clickDisabled: new Howl({ src: "./sfx/tock_01.mp3", volume: 0.5 }),
+  line: new Howl({ src: "./sfx/click_06.mp3", volume: 0.5 }),
   check: new Howl({ src: "./sfx/confirm_06.mp3", volume: 0.5 }),
   tock: new Howl({ src: "./sfx/tock_02.mp3", volume: 0.5 }),
   error: new Howl({ src: "./sfx/error.mp3", volume: 0.2 }),
@@ -40,7 +41,6 @@ export function useAudio() {
   const sounds = useRef(soundBoard).current;
   const playSound = useCallback(
     (id: SoundName, rate = 1) => {
-      if (Howler.ctx.state !== "running") return;
       const sound = sounds[id].play();
       sounds[id].rate(rate, sound);
     },

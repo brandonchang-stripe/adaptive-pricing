@@ -61,7 +61,9 @@ export default function Startup() {
 
   useTransform(index, (latest) => {
     const val = Math.ceil(latest);
-    if (val !== cutoff) setCutoff(val);
+    if (val !== cutoff) {
+      setCutoff(val);
+    }
   });
 
   useEffect(() => {
