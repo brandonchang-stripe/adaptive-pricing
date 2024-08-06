@@ -46,9 +46,9 @@ export default function ScoreFrame() {
     const url = new URL("https://www.priceadapter.com");
     const encoded = btoa(JSON.stringify(scores));
     url.searchParams.append("scores", encoded);
-    const message = `I scored ${totalScore} points planning my trip playing ${url.toString()}, Stripe's Adaptive Pricing game.`;
+    const message = `I scored ${totalScore} points playing Stripe's Adaptive Pricing game.`
     // share to twitter with a custom open graph image
-    return `https://twitter.com/intent/tweet?text=${encodeURI(message)}`
+    return `https://twitter.com/intent/tweet?text=${encodeURI(message)}&url=${encodeURI(url.toString())}`;
   }
 
   return (
