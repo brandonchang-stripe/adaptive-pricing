@@ -36,7 +36,7 @@ export const tutorialItems: ActiveItem[] = [
 ];
 
 export const subCountryData: CountryData = {
-  name: "UAE",
+  name: "United Arab Emirates",
   code: "AE",
   currencySymbol: "DH",
   currencyCode: "aed",

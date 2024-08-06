@@ -15,6 +15,7 @@ export default function InGame() {
   const currentItems = useAppStore((state) => state.currentItems);
   const evaluate = useAppStore((state) => state.evaluate);
   const transitionState = useAppStore((state) => state.transitionState);
+  const tutorialActive = useAppStore((state) => state.tutorialActive);
   const endTutorial = useAppStore((state) => state.endTutorial);
   const tutorialStep = useAppStore((state) => state.tutorialStep);
   const nextTutorialStep = useAppStore((state) => state.nextTutorialStep);
@@ -61,7 +62,7 @@ export default function InGame() {
       </TutorialFrame>
 
       {/* In game item displays */}
-      {tutorialStep >= 4 && state === "GAME_PLAY" && (
+      {((!tutorialActive || tutorialStep >= 4) && state === "GAME_PLAY") && (
         <>
           <ItemDisplay item={currentItems[0]} index={1} key={currentItems[0].merchant} />
           <ItemDisplay item={currentItems[1]} index={2} key={currentItems[1].merchant} />
@@ -72,42 +73,37 @@ export default function InGame() {
         <p>This is the second shop; the price is automatically converted to your local currency.</p>
       </TutorialFrame>
 
-      {tutorialStep >= 2 && <Conversion position="slider" index={2} onChange={handleSliderChange} />}
-
-      {tutorialStep === 2 && (
-        <TutorialFrame tutorialStep={2} index={5}>
-          <p>
-            Use the currency conversion slider to compare prices.
-            <br />
-            <br />
-            Move the slider to{" "}
-            <b>
-              match the {formatDisplayPrice(rightItemPrice, localCurrency)} price on the {isMobile ? "bottom" : "right"}
-              .
-            </b>
-          </p>
-        </TutorialFrame>
+      {(!tutorialActive || tutorialStep >= 2) && (
+        <Conversion position="slider" index={2} onChange={handleSliderChange} />
       )}
 
-      {tutorialStep === 3 && (
-        <TutorialFrame tutorialStep={3} index={1}>
-          <p>
-            Great! Now you can <b>compare the two prices</b>. The shop on the {isMobile ? "bottom" : "right"} has a
-            better deal, so buy it!
-          </p>
-        </TutorialFrame>
-      )}
+      <TutorialFrame tutorialStep={2} index={5}>
+        <p>
+          Use the currency conversion slider to compare prices.
+          <br />
+          <br />
+          Move the slider to{" "}
+          <b>
+            match the {formatDisplayPrice(rightItemPrice, localCurrency)} price on the {isMobile ? "bottom" : "right"}.
+          </b>
+        </p>
+      </TutorialFrame>
 
-      {tutorialStep === 4 && (
-        <TutorialFrame tutorialStep={4} onNext={nextTutorialStep} index={1}>
-          <p>
-            The slider <b>maxes out at {formatDisplayPrice(sliderMax, localCurrency)}</b>. For anything more expensive,
-            use your math skills!
-          </p>
-        </TutorialFrame>
-      )}
+      <TutorialFrame tutorialStep={3} index={1}>
+        <p>
+          Great! Now you can <b>compare the two prices</b>. The shop on the {isMobile ? "bottom" : "right"} has a better
+          deal, so buy it!
+        </p>
+      </TutorialFrame>
 
-      {tutorialStep >= 5 && <Timer onTimeout={() => evaluate(false)} index={2} />}
+      <TutorialFrame tutorialStep={4} onNext={nextTutorialStep} index={1}>
+        <p>
+          The slider <b>maxes out at {formatDisplayPrice(sliderMax, localCurrency)}</b>. For anything more expensive,
+          use your math skills!
+        </p>
+      </TutorialFrame>
+
+      {(!tutorialActive || tutorialStep >= 5) && <Timer onTimeout={() => evaluate(false)} index={2} />}
 
       <TutorialFrame tutorialStep={5} onNext={handleStart} index={1}>
         <p>You have limited time. Choose quickly!</p>
@@ -120,7 +116,7 @@ export default function InGame() {
         </p>
       </TutorialFrame>
 
-      {tutorialStep >= 5 && <ProgressBar />}
+      {(!tutorialActive || tutorialStep >= 5) && <ProgressBar />}
     </>
   );
 }

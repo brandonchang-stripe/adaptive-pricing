@@ -100,8 +100,8 @@ export const useAppStore = create<AppState>((set, get) => ({
 
       case "GAME_START":
         switch (currentState) {
-          case "TUTORIAL":
           case "MAIN_MENU":
+          case "TUTORIAL":
             set({ state: newState });
             break;
 
@@ -155,8 +155,6 @@ export const useAppStore = create<AppState>((set, get) => ({
       countryIndex: 0,
       itemIndex: 0,
       isTimerRunning: false,
-      tutorialActive: true,
-      tutorialStep: 0,
       score: Array(get().countryData.length).fill(-1),
     });
   },
