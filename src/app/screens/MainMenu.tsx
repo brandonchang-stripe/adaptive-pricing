@@ -28,7 +28,6 @@ export default function MainMenu() {
         Some shops don&apos;t display prices in your local currency, so you&apos;ll have to convert the prices yourself.
       </p>
       <div className="spacer"></div>
-      GOAL:
       <div className="notes-footer">
         <b>Get points by choosing the cheapest items!</b>
         <Button onClick={handleStart}>Start shopping</Button>
