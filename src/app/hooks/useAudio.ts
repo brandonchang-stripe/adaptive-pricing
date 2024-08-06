@@ -15,7 +15,6 @@ export const soundBoard = {
   clickDown: new Howl({ src: "./sfx/click_02.mp3", volume: 0.8 }),
   clickUp: new Howl({ src: "./sfx/click_01.mp3", volume: 0.8 }),
   clickDisabled: new Howl({ src: "./sfx/tock_01.mp3", volume: 0.5 }),
-  line: new Howl({ src: "./sfx/click_06.mp3", volume: 0.5 }),
   check: new Howl({ src: "./sfx/confirm_06.mp3", volume: 0.5 }),
   tock: new Howl({ src: "./sfx/tock_02.mp3", volume: 0.5 }),
   error: new Howl({ src: "./sfx/error.mp3", volume: 0.2 }),
@@ -78,7 +77,8 @@ const music = new Howl({
 let musicId: number | undefined;
 
 export function playMusic() {
-  if (!musicId) {
+  const skipMusic = window ? new URLSearchParams(window.location.search).has("nomusic") : false;
+  if (!musicId && !skipMusic) {
     musicId = music.play();
   }
 }
