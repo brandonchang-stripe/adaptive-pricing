@@ -70,7 +70,7 @@ export const countryData: CountryData[] = [
     conversionRateDefault: 0.00643388,
     items: [
       {
-        type: "Karaoke Microphone",
+        type: "Karaoke microphone",
         merchants: ["mic-drop.jp", "sing-big.jp"],
         baseUsdPrice: 15,
         priceIncrements: [2, 5],

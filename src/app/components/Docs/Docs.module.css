@@ -1,0 +1,16 @@
+.link {
+  position: absolute;
+  height: calc(var(--pixel-size) * 49);
+  width: calc(var(--pixel-size) * 49);
+  display: block;
+  appearance: none;
+  top: calc(50% - var(--pixel-size) * 31);
+  left: calc(50% + var(--pixel-size) * 320);
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}

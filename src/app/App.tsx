@@ -25,6 +25,7 @@ import PreviewMainMenu from "./screens/PreviewMainMenu";
 import Keyboard from "./components/Keyboard/Keyboard";
 import Books from "./components/Books/Books";
 import { CountryData } from "./components/gameData";
+import Docs from "./components/Docs/Docs";
 
 type AppProps = {
   nonce: string;
@@ -83,6 +84,7 @@ export default function App({ nonce, currencies, localCurrency, countryData, isP
             </Monitor>
             <Keyboard />
             <Books />
+            <Docs />
           </motion.main>
         </motion.div>
         <ViewControl onUpdate={handlePan} />
