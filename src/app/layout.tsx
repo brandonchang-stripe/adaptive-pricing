@@ -42,7 +42,7 @@ export default function RootLayout({
 }>) {
   return (
     <html className={dogica.className} lang="en">
-      <Script data-domain="priceadapter.com" src="https://plausible.io/js/script.js" />
+      <Script data-domain="priceadapter.com" src="https://plausible.io/js/script.tagged-events.js" />
       <body>{children}</body>
     </html>
   );

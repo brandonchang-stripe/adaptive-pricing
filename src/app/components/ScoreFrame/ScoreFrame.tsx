@@ -21,7 +21,13 @@ export default function ScoreFrame() {
   const scoreDigits = totalScore.toString().split("");
 
   const [visible, setVisible] = useState(false);
-  const shareLink = handleShare();
+
+  const url = new URL("https://www.priceadapter.com");
+  const encoded = btoa(JSON.stringify(scores));
+  url.searchParams.append("scores", encoded);
+  const message = `I scored ${totalScore} points playing Stripe's Adaptive Pricing game.`;
+  // share to twitter with a custom open graph image
+  const shareLink = `https://twitter.com/intent/tweet?text=${encodeURI(message)}&url=${encodeURI(url.toString())}`;
 
   useEffect(() => {
     const vis = setTimeout(() => {
@@ -40,15 +46,6 @@ export default function ScoreFrame() {
 
   function handlePlayAgain() {
     transitionState("MAIN_MENU");
-  }
-
-  function handleShare() {
-    const url = new URL("https://www.priceadapter.com");
-    const encoded = btoa(JSON.stringify(scores));
-    url.searchParams.append("scores", encoded);
-    const message = `I scored ${totalScore} points playing Stripe's Adaptive Pricing game.`
-    // share to twitter with a custom open graph image
-    return `https://twitter.com/intent/tweet?text=${encodeURI(message)}&url=${encodeURI(url.toString())}`;
   }
 
   return (
@@ -100,11 +97,12 @@ export default function ScoreFrame() {
           <div className={styles.blurb}>
             <p>Let Stripe handle currency conversion for you.</p>
             <p>
-              With <b>Adaptive Pricing</b>, Stripe automatically converts prices into your buyer&apos;s local currency, increasing
-              revenue by an average of 17.8%.
+              With <b>Adaptive Pricing</b>, Stripe automatically converts prices into your buyer&apos;s local currency,
+              increasing revenue by an average of 17.8%.
             </p>
             <p>
               <a
+                className="plausible-event-name=Docs"
                 href="https://docs.stripe.com/payments/checkout/adaptive-pricing?utm_source=d819&utm_campaign=GLOBAL_40d1&utm_content=8afb&utm_term=762d2b62986b#enable-adaptive-pricing"
                 target="_blank"
               >
@@ -114,7 +112,9 @@ export default function ScoreFrame() {
             </p>
             <div className="spacer"></div>
             <div className={styles.shareButton}>
-              <Button href={shareLink} as="a">Share</Button>
+              <Button className="plausible-event-name=Play+Again" href={shareLink} as="a">
+                Share
+              </Button>
             </div>
             <div className={styles.nextStopButton}>
               <Button onClick={handlePlayAgain}>Play again</Button>
