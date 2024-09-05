@@ -67,7 +67,7 @@ export function playSound(id: SoundName, rate = 1) {
 }
 
 const music = new Howl({
-  src: "./audio/bossa_adapter.mp3",
+  src: ["./audio/bossa_adapter.mp3", "./audio/bossa_adapter.ogg", "./audio/bossa_adapter.webm"],
   html5: true,
   loop: true,
   volume: 0.7,
